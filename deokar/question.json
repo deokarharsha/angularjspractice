@@ -1,0 +1,28 @@
+{
+  "questions":[
+    {
+      "id" : 1,
+      "question" :"Which team won the Cricket World Cup in 2011?",
+      "options" :["India","South Africa","West Indies","Australia"],
+      "answer" : "India",
+    },
+    {
+      "id" : 2,
+      "question" :"Which batsman has the highest individual score in One-Day International cricket?",
+      "options" : ["Sachin Tendulkar","AB de Villiers","Joe Root","Rohit Sharma"],
+      "answer" : "Rohit Sharma",
+    },
+    {
+      "id" :   3,
+      "question" :"Who is the captain of Indian Cricket Team?",
+      "options" :  ["M S Dhoni","Virat Kohli","Sachin Tendulkar","Yuvraj Sing"],
+      "answer" : "M S Dhoni",
+    },
+    {
+      "id" :   "4",
+      "question" :"Which team won the maximum number of Cricket World Cups?",
+      "options" :  ["West Indies","Srilanka","Australia","India"],
+      "answer" : "West Indies",
+    }
+  ]
+}
