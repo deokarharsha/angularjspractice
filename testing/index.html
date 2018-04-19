@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <script src="Scripts/angular.js"></script>
+          <!--angular.js file located in Scripts folder-->
+          <style>
+               table, th, td
+               {
+                    border: 1px solid grey;
+                    border-collapse: collapse;
+                    padding: 5px;
+               }
+               table tr:nth-child(odd)
+               {
+                    background-color: #ffe6e6;
+               }
+               table tr:nth-child(even)
+               {
+                    background-color: #ccffcc;
+               }
+          </style>
+     </head>
+     <body style="font-family:Arial; font-size:medium; color:darkblue">
+          <h2> Form validation in AngularJS</h2>
+          <form ng-app="myApp" ng-controller="myCtrl" name="myForm" ng-submit="submitForm(myForm.$valid)" novalidate>
+               <table>
+                    <tr>
+                         <td>EmpName</td>
+                         <td>
+                         <input type="text" name="user" ng-model="user" required>
+                         <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                         <span ng-show="myForm.user.$error.required">Username is required.
+                         </span>
+                         </span>
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>EmailID</td>
+                         <td>
+                         <input type="email" name="email" ng-model="email" required>
+                         <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                         <span ng-show="myForm.email.$error.required">Email is required.
+                         </span>
+                         <span ng-show="myForm.email.$error.email">Invalid email address.
+                         </span>
+                         </span>
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>Company</td>
+                         <td>
+                         <input type="text" name="txtCompany" ng-model="Company" required>
+                         <span style="color:red"ng-show="myForm.txtCompany.$dirty && myForm.txtCompany.$invalid">
+                         <span ng-show="myForm.txtCompany.$error.required">Company name is required.</span>
+                         </span>
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>Address</td>
+                         <td>
+                         <input type="text" name="txtAddress" ng-model="Address"required>
+                         <span style="color:red" ng-show="myForm.txtAddress.$dirty && myForm.txtAddress.$invalid">
+                         <span ng-show="myForm.txtAddress.$error.required">Address is required.</span>
+                         </span>
+                         </td>
+                    </tr>
+                    <tr>
+                         <td>Salary</td>
+                         <td>
+                              <input type="text" name="txtSalary" ng-model="Salary" placeholder="Not Compulsory">
+                         </td>
+                    </tr>
+               </table>
+               <p>
+                    <input type="submit" ng-disabled=" myForm.$invalid" ng-click="submitForm()">
+               </p>
+          </form>
+        <script>
+          var app = angular.module('myApp', []);
+          app.controller('myCtrl', function ($scope)
+          {
+               $scope.submitForm = function (isValid)
+               {
+                    // It will check thet form is completely valid
+                    if (isValid)
+                    {
+                         alert('Data submit successfully');
+                    }
+               }
+          });
+        </script>
+     </body>
+</html>
