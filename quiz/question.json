@@ -23,6 +23,5 @@
       "question" :"Which team won the maximum number of Cricket World Cups?",
       "options" :  ["West Indies","Srilanka","Australia","India"],
       "answer" : "Australia"
-    }
-  ]
+    }]
 }

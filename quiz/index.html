@@ -5,27 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cricket Quiz</title>
-
+    <script src = "main.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
   </head>
   <body ng-controller="questionsController">
-    <form name="form1" ng-submit="submit()">
-        <div ng-repeat="question in questions">
+    <form name="form1">
+
+      <div="data" ng-repeat="question in questions">
           <p>{{ question.question }}</p>
-          <select name="menu" required>
-            <option>Choose Here</option>
-            <option  value = "4" ng-repeat="option in question.options">{{ option }}</option>
+          <select ng-model="selectedAnswer" ng-change="isSelected(selectedAnswer, question.id)" ng-options="option for option in question.options" required>
+            <option value="">Choose Here</option>
           </select>
        </div>
        </br>
-       <input type="submit" value="Submit"/></t></t>
-    <!-- <span style="color:red">{{msg}}</span><br /> -->
+       <input type="submit" value="Submit" ng-click="onSubmit()" /></t></t>
        <input type="reset" value="Reset" />
+       <ul>
+         <li>correct: {{ correct }}</li>
+         <li>incorrect: {{ incorrect }}</li>
+       </ul>
    </form>
   <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
   <!-- Include main.JS -->
-  <script src = "main.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<!-- <style>
+  .fieldset
+  {
+    height: 50%;
+    width: 10%;
+    background: #9932CC.;
+  }
+</style> -->
+</head>
+<body>
+  <form>
+   <center>
+   <!-- <fieldset>
+    <legend>Pig Latin</legend> -->
+      <h1><font color="red">Pig Latin</font></h1>
+    <center>Enter a string : <input type="text" id="text" /></center><br /><br />
+    <center>Latin string : <input type="text" id="text1" /></center><br /><br />
+    <input type="button" value="submit" onclick="showInput();"/><br /><br />
+    <!-- <label>Your String is : </label> -->
+   <!-- </fieldset> -->
+   <p id="demo"></p>
+
+ </form>
+  <script>
+    function showInput()
+    {
+        var text = document.getElementById("text").value;
+        if ((text.charAt(0) == 'a') || (text.charAt(0) == 'e')
+        || (text.charAt(0) == 'i') || (text.charAt(0) == 'o') || (text.charAt(0) == 'u'))
+         {
+            var pigLatin = text + "way";
+         }
+         else
+         {
+           var regex = /[aeiou]/gi;
+           var vowelIndice = text.indexOf(text.match(regex)[0]);
+           pigLatin = text.substr(vowelIndice) + text.substr(0, vowelIndice) + 'ay';
+         }
+
+                    //document.getElementById("demo").innerHTML = pigLatin;
+                    var text1 = document.getElementById("text1");
+                    text1.value = pigLatin;
+   }
+  </script>
+  </center>
+</body>
+</html>

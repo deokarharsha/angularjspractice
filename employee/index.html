@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  </head>
+  <body ng-controller="empController">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src = "emp.js"></script>
+    <div class="container" ng-init="total= {}">
+        <label>Search: <input ng-model="searchText"></label>
+        <table id="searchTextResults" class="table table-bordered " style="text-align:center">
+        <tr>
+            <th rowspan="2">ID</th>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Dept</th>
+            <th colspan="3">GrossSalary</th>
+        </tr>
+          <tr>
+          <th>BasicSalary</th>
+          <th>Deduction</th>
+          <th>NetSalary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in employees track by $index | filter:searchText ">
+            <td>{{x.ID}}</td>
+            <td>{{x.Name}}</td>
+            <td>{{x.Dept}}</td>
+
+            <td>{{x.GrossSalary}}</td>
+            <td ng-init="$parent.total.Deduct = $parent.total.Deduct + Deduction(x.GrossSalary)">{{ Deduction(x.GrossSalary)}}</td>
+            <td ng-init="$parent.total.NetSal = $parent.total.NetSal + (x.GrossSalary -  Deduction(x.GrossSalary))">{{x.GrossSalary -  Deduction(x.GrossSalary) }}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Total</td>
+            <td>{{ GrossTotal() }}</td>
+            <td>{{ total.Deduct }}</td>
+            <td>{{ total.NetSal }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <button type="button" class="btn btn-primary" value="search">search</button><br />
+      Enter your id : <input type="text" /> -->
+    </div>
+
+  </body>
+</html>
