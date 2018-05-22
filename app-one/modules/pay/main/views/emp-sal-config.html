@@ -1,0 +1,100 @@
+<div ng-controller="EmpSalConfigCtrl">
+  <div class="container-fluid" style="margin-top:15px;">
+    <div class="row" ng-show="salaries.length">
+      <legend>View Employee Salary Config</legend>
+      <table class="table table-responsive table-striped table-bordered">
+        <tr>
+          <th colspan="2"></th>
+          <th colspan="8" style="padding-left:175px; border-right:6px solid #888888;">Additions</th>
+          <th colspan="4" style="padding-left:120px">Deductions</th>
+          <th colspan="1"></th>
+          <th style="width:30px"></th>
+        </tr>
+        <tr>
+          <th>EmpName</th>
+          <th>Basic</th>
+          <th>DA</th>
+          <th>HRA</th>
+          <th>CA</th>
+          <th>MA</th>
+          <th>CCA</th>
+          <th>LE</th>
+          <th>Add1</th>
+          <th style="border-right:6px solid #888888;">Add2</th>
+          <th>IT</th>
+          <th>Deduct1</th>
+          <th>Deduct2</th>
+          <th>PayMode</th>
+          <th>IsLP</th>
+          <th>Action</th>
+        </tr>
+        <tr ng-repeat="salary in salaries track by $index" ng-class="{selectedRow:edit[$index] == true}">
+          <td>
+            <span ng-hide="edit[$index]">{{salary.empName}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="empID" ng-model="salary.empName">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.basic}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="basic" ng-model="salary.basic">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.da}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="da" ng-model="salary.da">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.hra}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="hra" ng-model="salary.hra">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.ca}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="ca" ng-model="salary.ca">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.ma}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="ma" ng-model="salary.ma">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.cca}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="cca" ng-model="salary.cca">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.le}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="le" ng-model="salary.le">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.add1}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="add1" ng-model="salary.add1">
+          </td>
+          <td style="border-right:6px solid #888888;">
+            <span ng-hide="edit[$index]">{{salary.add2}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="add2" ng-model="salary.add2">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.it}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="it" ng-model="salary.it">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.deduct1}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="deduct1" ng-model="salary.deduct1">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.deduct2}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="deduct2" ng-model="salary.deduct2">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.payMode}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="payMode" ng-model="salary.payMode">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{salary.isLP}}</span>
+            <input type="checkbox" ng-show="edit[$index]" name="isLP" ng-model="salary.isLP">
+          </td>
+          <td>
+            <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+            <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(salary); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

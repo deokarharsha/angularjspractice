@@ -1,28 +1,46 @@
 {
-  "employees" : [
-    {
-      "ID" :"101",
-      "Name" : "Mohan Roy",
-      "Dept" : "IT",
-      "GrossSalary" : "20000"
-    },
-    {
-      "ID" :"102",
-      "Name" : "Asha Kale",
-      "Dept" : "HR",
-      "GrossSalary" : "15000"
-    },
-    {
-      "ID" :"103",
-      "Name" : "Meera Bachhan",
-      "Dept" : "Admin",
-      "GrossSalary" : "25000"
-    },
-    {
-      "ID" :"104",
-      "Name" : "Rutvik Pise",
-      "Dept" : "Production",
-      "GrossSalary" : "30000"
-    }
-  ]
+   "employees":[
+      {
+         "ID":"101",
+         "Name":"Mohan Roy",
+         "Dept":"IT",
+         "GrossSalary":"20000"
+      },
+      {
+         "ID":"102",
+         "Name":"Asha Kale",
+         "Dept":"HR",
+         "GrossSalary":"15000"
+      },
+      {
+         "ID":"103",
+         "Name":"Meera Bachhan",
+         "Dept":"Admin",
+         "GrossSalary":"25000"
+      },
+      {
+         "ID":"104",
+         "Name":"Rutvik Pise",
+         "Dept":"Production",
+         "GrossSalary":"30000"
+      }
+   ],
+   "Departments":[
+      {
+         "id":1,
+         "Name":"IT"
+      },
+      {
+         "id":2,
+         "Name":"HR"
+      },
+      {
+         "id":3,
+         "Name":"Admin"
+      },
+      {
+         "id":4,
+         "Name":"Production"
+      }
+   ]
 }

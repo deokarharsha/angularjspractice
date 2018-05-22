@@ -1,0 +1,102 @@
+@media print {
+  .content-wrap section {
+    display: none;
+  }
+
+  .content-wrap section.active {
+    display: block;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: .25in .25in .25in .75in;
+  }
+
+  .content {
+    display: table;
+  }
+
+  .pageHeader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin: .25in 0;
+  }
+
+  .pageFooter {
+    position: fixed;
+    display: table-footer-group;
+    bottom: 0;
+    margin: .25in 0;
+    border-top: .5pt solid #333;
+    width: 100%;
+    text-align: : right;
+  }
+
+  /*.pageFooter:before {
+    counter-increment: page;
+    content: counter(page);
+  }*/
+
+  .pageFooter:after {
+    counter-increment: page;
+    content: counter(page);
+  }
+
+  table {
+    font-family: 'Arial' !important;
+    font-size: 12px;
+    border: 0.5pt solid #000 !important;
+    margin: 0.25in 0 !important;
+  }
+
+  .no-border {
+    border: none !important;
+  }
+
+  thead > tr > th, tfoot > tr {
+    font-weight: bold !important;
+    text-align: center !important;
+    border: 0.5pt solid #000 !important;
+  }
+
+  tbody > tr > td {
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: 0.5pt solid #000 !important;
+    border-right: 0.5pt solid #000 !important;
+    padding: 5px !important;
+    white-space: pre !important;
+  }
+
+  tbody > tr {
+    height: 20px !important;
+  }
+
+  td.SrNo, td.Date, td.Qty, td.Rate, td.Amount, td.LastBillAmt,
+  td.DebitAmt, td.CreditAmt, td.BalanceAmt {
+    text-align: right !important;
+  }
+
+  .companyName {
+    float: left;
+    font-size: 14pt;
+    vertical-align: top;
+    width: 25%;
+  }
+
+  .reportTitle {
+    display: inline-block;
+    font-size: 12pt;
+    font-weight: bold;
+    vertical-align: top;
+    width: 65%;
+  }
+
+  .date {
+    float: right;
+    font-size: 10pt;
+    font-weight: bold;
+    width: 10%;
+  }
+}

@@ -1,0 +1,67 @@
+<div ng-controller="ModulesCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="modulesForm" ng-submit="submit()">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} Module</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Select App</label>
+              <select class="form-control"  ng-model="selectedApp" ng-options="app.name for app in apps" ng-change="selectApp(selectedApp)"></select>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Select Parent Module</label>
+              <select class="form-control" ng-model="selectedParent" ng-options="parent.name for parent in parents" ng-change="selectParent(selectedParent)"></select>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">Name</label>
+              <input type="text" name="name" class="form-control" ng-model="data.name" title="Name is required." required>
+              <label ng-hide="data.name.length">Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.action.length">Action Path</label>
+              <input type="text" name="action" class="form-control" ng-model="data.action" title="action is required." required>
+              <label ng-hide="data.action.length">Action Path</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.icon.length">Icon</label>
+              <input type="text" name="icon" class="form-control" ng-model="data.icon" title="icon is required."/>
+              <label ng-hide="data.icon.length">Icon</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="modulesForm.sortID.$valid">Sort Order</label>
+              <input type="number" name="sortID" class="form-control" ng-model="data.sortID" title="sortID is required." required>
+              <label ng-hide="modulesForm.sortID.$valid">Sort Order</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.tblName.length">Table Name</label>
+              <input type="text" name="tblName" class="form-control" ng-model="data.tblName">
+              <label ng-hide="data.tblName.length">Table Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.para.length">Para</label>
+              <input type="text" name="para" class="form-control" ng-model="data.para">
+              <label ng-hide="data.para.length">Para</label>
+            </div>
+            <br>
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.name}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset()" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br> {{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Modules</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

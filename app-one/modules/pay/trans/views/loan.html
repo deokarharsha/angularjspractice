@@ -1,0 +1,139 @@
+<div ng-controller="LoanCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="loanForm" ng-submit="submit();">
+      <fieldset>
+        <!-- <legend>{{data.ID === 0 ? 'New' : 'Update'}} Loan</legend> -->
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} {{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.loanID.length">Loan ID</label>
+              <input type="text" name="loanID" class="form-control" ng-model="data.loanID">
+              <label ng-hide="data.loanID.length">Loan ID</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Emp Name</label>
+              <div angucomplete-alt id="Employee"
+                  placeholder="Employee Name"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedEmp"
+                  local-data="employees"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  match-class="highlight"
+                  field-required="true"
+                  input-name="Emps">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="loanForm.loanAmt.$valid">Loan Amount</label>
+              <input type="number" name="loanAmt" class="form-control" ng-model="data.loanAmt" step="0.01">
+              <label ng-hide="loanForm.loanAmt.$valid">Loan Amount</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="loanForm.totAmt.$valid">Total Amount</label>
+              <input type="number" name="totAmt" class="form-control" ng-model="data.totAmt" step="0.01">
+              <label ng-hide="loanForm.totAmt.$valid">Total Amount</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="loanForm.deduct.$valid">Deduction Amount</label>
+              <input type="text" name="deduct" class="form-control" ng-model="data.deduct" >
+              <label ng-hide="loanForm.deduct.$valid">Deduction Amount</label>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.loanDt.length">Loan Dt</label>
+              <input type="text" name="loanDt" class="form-control" ng-model="data.loanDt" maxlength="10" title="loan Dt is required" required>
+              <label ng-hide="data.loanDt.length">Loan Dt</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.method.length">Method</label>
+              <input type="text" name="method" class="form-control" ng-model="data.method" maxlength="2">
+              <label ng-hide="data.method.length">Method</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="loanForm.loanInt.$valid">Loan Intrest</label>
+              <input type="number" name="loanInt" class="form-control" ng-model="data.loanInt" step="0.01">
+              <label ng-hide="loanForm.loanInt.$valid">Loan Intrest</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="loanForm.totMonth.$valid">Total Month</label>
+              <input type="number" name="totMonth" class="form-control" ng-model="data.totMonth">
+              <label ng-hide="loanForm.totMonth.$valid">Total Month</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="loanForm.balAmt.$valid">Balance Amount</label>
+              <input type="number" name="balAmt" class="form-control" ng-model="balAmt" disabled>
+              <label ng-hide="loanForm.balAmt.$valid">Balance Amount</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend>Loan Trans</legend>
+          <table class="table table-responsive table-striped table-bordered">
+            <tr>
+              <th>Deduct Dt</th>
+              <th>Add Amt</th>
+              <th>less Amt</th>
+              <th>Outside Paid</th>
+              <th>Loan Adv</th>
+              <th></th>
+            </tr>
+            <tr ng-hide="addMode">
+              <td>
+                <input type="text" name="deductDt" class="form-control" ng-model="txtgrid.deductDt" maxlength="10">
+              </td>
+              <td>
+                <input type="number" name="addAmt" class="form-control" ng-model="txtgrid.addAmt">
+              </td>
+              <td>
+                <input type="number" name="lessAmt" class="form-control" ng-model="txtgrid.lessAmt">
+              </td>
+              <td>
+                <input type="number" name="outSidePaid" class="form-control" ng-model="txtgrid.outSidePaid">
+              </td>
+              <td>
+                <input type="text" name="loanAdv" class="form-control" ng-model="txtgrid.loanAdv" maxlength="1">
+              </td>
+              <td>
+                <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="Add" ng-click="addToGrid(txtgrid);">
+              </td>
+            </tr>
+            <tr ng-repeat="loan in loans">
+              <td>{{loan.deductDt}}</td>
+              <td>{{loan.addAmt}}</td>
+              <td>{{loan.lessAmt}}</td>
+              <td>{{loan.outSidePaid}}</td>
+              <td>{{loan.loanAdv}}</td>
+              <td><a href="/"  class="btn btn-md btn-link" ng-hide="editMode" ng-click="remove($index);" style="padding-left: 5px; padding-right: 5px"><i class="fa fa-trash"></i></a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+              <br>
+              <div ng-show="result.success" class="alert alert-info"><b>{{selectedEmpName}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+              <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+            </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Loans</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div ng-controller="HomeController">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="margin-bottom: 0" ng-controller="NavController">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <img src="images/logo.png" alt="V8Trade">
+    </div>
+    <!-- /.navbar-header -->
+
+    <tabs></tabs>
+    <!-- /.tabs -->
+
+    <!-- /.navbar-top-links -->
+
+    <side-nav></side-nav>
+    <!-- /.navbar-static-side -->
+  </nav>
+  <div style="min-height: 442px;" id="page-wrapper">
+    <ieButton></ieButton>
+    <contents></contents>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div ng-controller="SubFoldersCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="subFoldersForms" ng-submit="selectedFolder.id != 0 ? submit() : result.error = 'Select a Folder.'">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} {{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Heads</label>
+              <select id="SubFolder" ng-model="selectedFolder" ng-options="folder.name for folder in folders" class="form-control" ng-change="selectFolder(selectedFolder)" ng-disabled="data.ID != 0">
+              </select>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">Name</label>
+              <input type="text" name="name" id="Name" class="form-control" ng-model="data.name" title="Name is required." required>
+              <label ng-hide="data.name.length">Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.desc.length">Description</label>
+              <textarea name="desc" class="form-control" ng-model="data.desc" rows="3"></textarea>
+              <label ng-hide="data.desc.length">Description</label>
+            </div>
+            <br>
+            <!-- dynamically fields -->
+            <div ng-repeat="fieldList in fieldListJson" ng-show="data.parentID != 0">
+              <div class="styled-input" >
+                <label class="floatLabel" ng-show="fieldList.fieldValue.length">{{ fieldList.fieldName }}</label>
+                <input type="text" name="fieldValue" id="fieldValue" class="form-control" ng-model="fieldList.fieldValue" title="Field is required." required>
+                <label ng-hide="fieldList.fieldValue.length">{{ fieldList.fieldName }}</label>
+              </div>
+              <br>
+            </div>
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.notify" class="notify"><i class="fa fa-circle-o-notch fa-pulse fa-fw"></i> {{result.notify}}</div>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.name}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Sub-Folders</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

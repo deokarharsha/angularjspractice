@@ -1,0 +1,44 @@
+<div ng-controller="AuthDocsCtrl" class="odms-font-style">
+  <div class="container-fluid">
+    <form name="authDocsForm" ng-submit="submit()">
+      <fieldset>
+        <legend>{{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-xs-12 col-md-12">
+            <table class="table table-responsive table-striped table-bordered">
+              <tr>
+                <th>Doc ID</th>
+                <th>Name</th>
+                <th>Tags</th>
+                <th>Location</th>
+                <th>Authorise</th>
+                <th>View</th>
+                <th>Move</th>
+                <th>Delete</th>
+              </tr>
+              <tr ng-repeat="doc in docs track by $index" ng-style="doc.fileID.length < 28 ? {'background-color':'#f2dede'}:{}">
+                <td>{{doc.docID}}</td>
+                <td>{{doc.name}}</td>
+                <td>{{doc.tags}}</td>
+                <td>
+                  <span ng-hide="edit[$index]">{{doc.location}}</span>
+                  <select ng-show="edit[$index]" id="SubFolder" class="form-control" ng-model="selectedSubFolder" ng-options="subFolder.name for subFolder in subFolders" ng-change="selectSubFolder(selectedSubFolder)"></select>
+                </td>
+                <td class="text-center"><input type="checkbox" ng-model="doc.isAuth" ng-click="checked(doc)" ng-disabled="doc.fileID.length < 28"></td>
+                <td class="text-center"><a ng-href="https://drive.google.com/open?id={{doc.fileID}}" target="_blank" ng-style="doc.fileID.length < 28 ? {cursor:'not-allowed'}:{}"><i class="fa fa-file-pdf-o"></i></a></td>
+                <td class="text-center">
+                  <a ng-hide="edit[$index]" ng-click="edit[$index] = true" ng-style="doc.fileID.length < 28 ? {cursor:'not-allowed'}:{}"><i class="fa fa-pencil"></i></a>
+                  <a href="#/" ng-show="edit[$index]" ng-click="selectedSubFolder.id != 0 ? move(doc) : ''; edit[$index] = false;"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
+                  <a href="#/" ng-show="edit[$index]" ng-click="edit[$index] = false"><i class="fa fa-times"></i></a>
+                </td>
+                <td class="text-center">
+                  <a href="#/" ng-click="delete(doc)"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

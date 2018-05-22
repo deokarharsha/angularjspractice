@@ -1,0 +1,538 @@
+<div ng-controller="EmployeesCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="employeesForm" ng-submit="submit()">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} {{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.empID.length">Emp Code</label>
+              <input type="text" name="empID" class="form-control" ng-model="data.empID">
+              <label ng-hide="data.empID.length">Emp Code</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.cardID.length">Card ID</label>
+              <input type="text" name="cardID" class="form-control" ng-model="data.cardID">
+              <label ng-hide="data.cardID.length">Card ID</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.firstName.length">First Name</label>
+              <input type="text" name="firstName" class="form-control" ng-model="data.firstName" title="First Name is required." required>
+              <label ng-hide="data.firstName.length">First Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.middleName.length">Middle Name</label>
+              <input type="text" name="middleName" class="form-control" ng-model="data.middleName" title="Middle Name is required." required>
+              <label ng-hide="data.middleName.length">Middle Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.lastName.length">Last Name</label>
+              <input type="text" name="lastName" class="form-control" ng-model="data.lastName" title="Last Name is required." required>
+              <label ng-hide="data.lastName.length">Last Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.gender.length">Gender(M/F)</label>
+              <input type="text" name="gender" class="form-control" ng-model="data.gender" title="gender is required." maxlength="1" required>
+              <label ng-hide="data.gender.length">Gender(M/F)</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.dob.length">DOB</label>
+              <input type="text" name="dob" class="form-control" ng-model="data.dob" title="dob is required." maxlength="10" required>
+              <label ng-hide="data.dob.length">DOB</label>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Blood Group</label>
+              <select class="form-control" ng-model="selectedBG" ng-options="BG.name for BG in BGs" ng-change="selectBG(selectedBG)" title="Select bloodGroup" required></select>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.resTel.length">Res. no</label>
+              <input type="text" name="resTel" class="form-control" ng-model="data.resTel" maxlength="15">
+              <label ng-hide="data.resTel.length">Res. no</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.emgTel.length">Emergency Tel no.</label>
+              <input type="text" name="emgTel" class="form-control" ng-model="data.emgTel" maxlength="15" >
+              <label ng-hide="data.emgTel.length">Emergency Tel no.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.mobile.length">Mobile no.</label>
+              <input type="text" name="mobile" class="form-control" ng-model="data.mobile" maxlength="15" >
+              <label ng-hide="data.mobile.length">Mobile no.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.email.length">Email</label>
+              <input type="email" name="email" class="form-control" ng-model="data.email">
+              <label ng-hide="data.email.length">Email</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <div class="styled-input">
+                <label class="floatLabel">Marital Status</label>
+                <select class="form-control" ng-model="selectedMS" ng-options="MS.name for MS in MSs" ng-change="selectMS(selectedMS)"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <legend>Residential Address</legend>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.roomNo.length">Room no.</label>
+              <input type="text" name="roomNo" class="form-control" ng-model="data.roomNo" title="Room no. is required." required>
+              <label ng-hide="data.roomNo.length">Room no.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.location.length">Premises</label>
+              <input type="text" name="location" class="form-control" ng-model="data.location" title="Location is required." required>
+              <label ng-hide="data.location.length">Premises</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.street.length">Street</label>
+              <input type="text" name="street" class="form-control" ng-model="data.street" title="street is required." required>
+              <label ng-hide="data.street.length">Street</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.area.length">Area/Town</label>
+              <input type="text" name="area" class="form-control" ng-model="data.area" title="area is required." required>
+              <label ng-hide="data.area.length">Area/Town</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">City</label>
+              <div angucomplete-alt id="Cities"
+                placeholder="City"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedCity"
+                local-data="cities"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                field-required="true"
+                match-class="highlight"
+                input-name="Cities">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">State</label>
+              <div angucomplete-alt id="States"
+                placeholder="State"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedState"
+                local-data="states"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                field-required="true"
+                match-class="highlight"
+                input-name="States">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.pinCode.length">PinCode</label>
+              <input type="text" name="pinCode" class="form-control" ng-model="data.pinCode" title="PinCode is required." maxlength="6" required>
+              <label ng-hide="data.pinCode.length">PinCode</label>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <legend>Native Address</legend>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.nRoomNo.length">Room no.</label>
+              <input type="text" name="nRoomNo" class="form-control" ng-model="data.nRoomNo">
+              <label ng-hide="data.nRoomNo.length">Room no.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.nLocation.length">Premises</label>
+              <input type="text" name="nLocation" class="form-control" ng-model="data.nLocation">
+              <label ng-hide="data.nLocation.length">Premises</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.nStreet.length">Street</label>
+              <input type="text" name="nStreet" class="form-control" ng-model="data.nStreet">
+              <label ng-hide="data.nStreet.length">Street</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.nArea.length">Area/Town</label>
+              <input type="text" name="nArea" class="form-control" ng-model="data.nArea">
+              <label ng-hide="data.nArea.length">Area/Town</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">City</label>
+              <div angucomplete-alt id="nCities"
+                placeholder="City"
+                maxlength="50"
+                pause="100"
+                selected-object="nselectedCity"
+                local-data="ncities"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                match-class="highlight"
+                input-name="nCities">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">State</label>
+              <div angucomplete-alt id="nStates"
+                placeholder="State"
+                maxlength="50"
+                pause="100"
+                selected-object="nselectedState"
+                local-data="nstates"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                match-class="highlight"
+                input-name="nStates">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.nPinCode.length">Pin Code</label>
+              <input type="text" name="nPinCode" class="form-control" ng-model="data.nPinCode" maxlength="6">
+              <label ng-hide="data.nPinCode.length">Pin Code</label>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+          <legend>Office Information</legend>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.doj.length">DOJ</label>
+              <input type="text" name="doj" class="form-control" ng-model="data.doj" title="DOJ is required." maxlength="10" required>
+              <label ng-hide="data.doj.length">DOJ</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Division</label>
+              <div angucomplete-alt id="Divisions"
+                placeholder="Division"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedDivision"
+                local-data="divisions"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                field-required="true"
+                match-class="highlight"
+                input-name="Divisions">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Departments</label>
+              <div angucomplete-alt id="Departments"
+                placeholder="Department"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedDepartment"
+                local-data="departments"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                field-required="true"
+                match-class="highlight"
+                input-name="Departments">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Designation</label>
+              <div angucomplete-alt id="Designations"
+                placeholder="Desgination"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedDesgination"
+                local-data="designations"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                field-required="true"
+                match-class="highlight"
+                input-name="Desginations">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Grade</label>
+              <select class="form-control"  ng-model="selectedGrade" ng-options="grade.name for grade in grades" ng-change="selectGrade(selectedGrade)"></select>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.pan.length">PAN No</label>
+              <input type="text" name="pan" class="form-control" ng-model="data.pan" maxlength="10">
+              <label ng-hide="data.pan.length">Pan No</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.aadharNo.length">Aadhar No</label>
+              <input type="text" name="aadharNo" class="form-control" ng-model="data.aadharNo" maxlength="16">
+              <label ng-hide="data.aadharNo.length">Aadhar No</label>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="row">
+              <div class="col-xs-3 col-sm-5">
+                <div class="styled-input">
+                  <input type="checkbox" ng-model="data.isPT"> PT
+                </div>
+                <br>
+                <div class="styled-input">
+                  <input type="checkbox" ng-model="data.isPF" style="margin-top:20px;"> PF
+                </div>
+                <br>
+                <div class="styled-input">
+                  <input type="checkbox" ng-model="data.isESIC" style="margin-top:15px;"> ESIC
+                </div>
+                <br>
+                <div class="styled-input">
+                  <input type="checkbox" ng-model="data.isLWF" style="margin-top:15px;"> LWF
+                </div>
+                <br>
+                <div class="styled-input">
+                  <input type="checkbox" ng-model="data.status" style="margin-top:15px;" ng-true-value="'L'" ng-false-value="'W'"> Left
+                </div>
+                <br>
+                <div class="styled-input">
+                  <label class="floatLabel" ng-show="data.licNo.length">LIC No</label>
+                  <input type="text" name="licNo" class="form-control" ng-model="data.licNo" style="width:360px; margin-top:12px;">
+                  <label ng-hide="data.licNo.length">LIC No</label>
+                </div>
+                <br>
+                <div class="styled-input">
+                  <label class="floatLabel" ng-show="data.uanNo.length">UAN No</label>
+                  <input type="text" name="uanNo" class="form-control" ng-model="data.uanNo" style="width:360px;">
+                  <label ng-hide="data.uanNo.length">UAN No</label>
+                </div>
+              </div>
+              <div class="col-xs-3 col-sm-5">
+                <div class="styled-input">
+                  <input type="checkbox" ng-model="data.isHandicapped"> Handicapped
+                </div>
+                <br>
+                <div class="styled-input">
+                  <label class="floatLabel" ng-show="data.pfNo.length">PF No.</label>
+                  <input type="text" name="pfNo" class="form-control" ng-model="data.pfNo" style="width:210px; margin-top:10px;" ng-disabled="!data.isPF">
+                  <label ng-hide="data.pfNo.length">PF No.</label>
+                </div>
+                <br>
+                <div class="styled-input">
+                  <label class="floatLabel" ng-show="data.esicNo.length">ESIC No.</label>
+                  <input type="text" name="esicNo" class="form-control" ng-model="data.esicNo" style="width:210px;" ng-disabled="!data.isESIC">
+                  <label ng-hide="data.esicNo.length">ESIC No.</label>
+                </div>
+                <br>
+                <div class="styled-input">
+                  <label class="floatLabel" ng-show="data.lwfNo.length">LWF</label>
+                  <input type="text" name="lwfNo" class="form-control" ng-model="data.lwfNo" style="width:210px;" ng-disabled="!data.isLWF">
+                  <label ng-hide="data.lwfNo.length">LWF</label>
+                </div>
+                <br>
+                <div class="styled-input">
+                  <label class="floatLabel" ng-show="data.dol.length">DOL</label>
+                  <input type="text" name="dol" class="form-control" ng-model="data.dol" style="width:210px;" ng-disabled="data.status =='W';" maxlength="10">
+                  <label ng-hide="data.dol.length">DOL</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+          <legend>Bank Information</legend>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.bAcNo.length">Account No.</label>
+              <input type="text" name="bAcNo" class="form-control" ng-model="data.bAcNo">
+              <label ng-hide="data.bAcNo.length">Account No.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.bank.length">Bank</label>
+              <input type="text" name="bank" class="form-control" ng-model="data.bank">
+              <label ng-hide="data.bank.length">Bank</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">City</label>
+              <div angucomplete-alt id="bCities"
+                placeholder="city"
+                maxlength="50"
+                pause="100"
+                selected-object="bselectedCity"
+                local-data="bcities"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                match-class="highlight"
+                input-name="bCities">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">State</label>
+              <div angucomplete-alt id="bStates"
+                placeholder="state"
+                maxlength="50"
+                pause="100"
+                selected-object="bselectedState"
+                local-data="bstates"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                match-class="highlight"
+                input-name="bStates">
+              </div>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.ifsc.length">IFSC</label>
+              <input type="text" name="ifsc" class="form-control" ng-model="data.ifsc">
+              <label ng-hide="data.ifsc.length">IFSC</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.branch.length">Branch</label>
+              <textarea name="branch" class="form-control" ng-model="data.branch" rows="3"> </textarea>
+              <label ng-hide="data.branch.length">Branch</label>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+          <legend>{{data.ID === 0 ? 'New' : 'Update'}} Nominees</legend>
+          <table class="table table-responsive table-striped table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Relation</th>
+              <th>DOB</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Pin</th>
+              <th>Ph.no</th>
+              <th></th>
+            </tr>
+            <tr ng-repeat="nominee in nominees track by $index">
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.name}}</span>
+                <input type="text" name="name" ng-show="edit[$index]" class="form-control" ng-model="nominee.name">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.relation}}</span>
+                <input type="text" name="relation"  ng-show="edit[$index]" class="form-control" ng-model="nominee.relation">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.nDob}}</span>
+                <input type="text" name="nDob"  ng-show="edit[$index]" class="form-control" ng-model="nominee.nDob" maxlength="10">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.nAddress}}</span>
+                <input type="text" name="nAddress"  ng-show="edit[$index]" class="form-control" ng-model="nominee.nAddress" rows="3">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.nCity}}</span>
+                <input type="text" name="nCity"  ng-show="edit[$index]" class="form-control" ng-model="nominee.nCity">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.nState}}</span>
+                <input type="text" name="nState"  ng-show="edit[$index]" class="form-control" ng-model="nominee.nState">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.nPinCode}}</span>
+                <input type="text" name="nPinCode"  ng-show="edit[$index]" class="form-control" ng-model="nominee.nPinCode" maxlength="6">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{nominee.nContactNo}}</span>
+                <input type="text" name="nContactNo" ng-show="edit[$index]" class="form-control" ng-model="nominee.nContactNo" maxlength="12">
+              </td>
+              <td>
+                  <a href="/"  class="btn btn-md btn-link" ng-click="remove(nominee);" style="padding:3px 6px;"><i class="fa fa-trash"></i></a>
+                  <button class="btn btn-md btn-link" type="button" ng-disabled="editMode; grid.ID == 0" style="padding:3px 6px;" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+                  <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" style="padding:3px 6px;" ng-click="saveRows(nominee); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" name="name" class="form-control" ng-disabled="editMode" ng-model="txtgrid.name">
+              </td>
+              <td>
+                <input type="text" name="relation" class="form-control" ng-disabled="editMode" ng-model="txtgrid.relation">
+              </td>
+              <td>
+                <input type="text" name="nDob" class="form-control" ng-disabled="editMode" ng-model="txtgrid.nDob" maxlength="10">
+              </td>
+              <td>
+                <input type="text" name="nAddress" class="form-control" ng-disabled="editMode" ng-model="txtgrid.nAddress" rows="3">
+              </td>
+              <td>
+                <input type="text" name="nCity" class="form-control" ng-disabled="editMode" ng-model="txtgrid.nCity">
+              </td>
+              <td>
+                <input type="text" name="nState" class="form-control" ng-disabled="editMode" ng-model="txtgrid.nState">
+              </td>
+              <td>
+                <input type="text" name="nPinCode" class="form-control" ng-disabled="editMode" ng-model="txtgrid.nPinCode" maxlength="6">
+              </td>
+              <td>
+                <input type="text" name="nContactNo" class="form-control" ng-disabled="editMode" ng-model="txtgrid.nContactNo" maxlength="12">
+              </td>
+              <td>
+                <!-- <input type="button" class="btn btn-sm btn-default-green btn-block {{loading}}" ng-disabled="editMode" value="ADD" ng-click="data.ID === 0 ? addToGrid(txtgrid) : saveNominees()"> -->
+                <input type="button" class="btn btn-sm btn-default-green btn-block {{loading}}" ng-disabled="editMode" value="ADD" ng-click="addToGrid(txtgrid)">
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.firstName}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Employees</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div ng-controller="HolidaysCtrl">
+  <div class="container-fluid">
+    <form name="holidayForm" ng-submit="save(data)">
+      <legend>Public Holidays {{editMode}}</legend>
+      <table class="table table-responsive table-striped table-bordered">
+        <tr style="background-color:#ececec">
+          <td>
+            <input type="text" class="form-control" name="date" ng-disabled="editMode" ng-model="data.date" maxlength="10" title="Date is required" required>
+          </td>
+          <td>
+            <input type="text" class="form-control" name="name" ng-disabled="editMode" ng-model="data.name" title="Name is required" required>
+          </td>
+          <td>
+            <button class="btn btn-md btn-link" type="submit" ng-disabled="editMode"><i class="fa fa-plus"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <th>Date(dd/MM/yyyy)</th>
+          <th>Name</th>
+          <th style="width:30px"></th>
+        </tr>
+        <tr ng-repeat="holiday in holidays track by $index">
+          <td>
+            <span ng-hide="edit[$index]">{{holiday.date}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="date" ng-model="holiday.date">
+          </td>
+          <td>
+            <span ng-hide="edit[$index]">{{holiday.name}}</span>
+            <input type="text" ng-show="edit[$index]" class="form-control" name="name" ng-model="holiday.name">
+          </td>
+          <td>
+            <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+            <a href="#/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(holiday); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>

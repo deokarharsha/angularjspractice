@@ -1,0 +1,30 @@
+
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+          <form>
+          <div class="form-group">
+            test
+          <label for="year">Enter Year :</label>
+          <input class="form-control" type="number" ng-model="year" ng-change="submit()" name="year" id="year" placeholder="Enter year" min="1000" max="9999" required>
+          </div>
+        </form>
+      </div>
+      </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+          <div class="card-columns card-horizontal" ng-repeat="d in bdate">
+          <div class="card text-white bg-secondary" style="max-width: 8rem;">
+            <div class="card-header">{{ d.Day }}</div>
+            <div class="card-body">
+              <div ng-repeat="n in d.NameInitials">
+                {{ n }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

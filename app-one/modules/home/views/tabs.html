@@ -1,0 +1,11 @@
+<div class="tabs">
+  <!-- Nav tabs -->
+  <nav>
+    <ul class="nav nav-tabs">
+     <li ng-repeat="tab in tabs" ng-class="{active: isSelected(tab)}">
+       <div class="close-button"><a ng-click="removeTab(tab); removeContent(tab)"><i class="fa fa-remove"></i></a></div>
+       <a ng-click="selectTab(tab); selectContent(tab)"><i class="fa {{tab.icon}} fa-fw"> </i> {{tab.name}}</a>
+     </li>
+   </ul>
+  </nav>
+</div>

@@ -1,0 +1,112 @@
+<div ng-controller="SalCtrl">
+  <div class="container-fluid">
+    <!-- <legend>Salary Information</legend> -->
+    <legend>{{currentModule}} Information</legend>
+    <div class="row">
+      <div class="col-xs-6 col-sm-2">
+        <div class="styled-input">
+          <label class="floatLabel">Divisions</label>
+          <div angucomplete-alt id="Divisions"
+              placeholder="Division"
+              maxlength="50"
+              pause="100"
+              selected-object="selectedDiv"
+              local-data="divisions"
+              search-fields="name"
+              title-field="name"
+              minlength="2"
+              input-class="form-control auto-complete"
+              match-class="highlight"
+              field-required="true"
+              disable-input="salaries.length"
+              input-name="Divisions">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <div class="styled-input">
+          <label class="floatLabel">Month</label>
+          <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled="salaries.length"></select>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <div class="styled-input">
+          <label class="floatLabel">Year</label>
+          <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)" ng-disabled="salaries.length"></select>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-2" ng-hide="viewMode">
+          <div class="styled-input">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}" ng-click="bindForm();">
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+      </div>
+    </div>
+    <br>
+    <div class="row" ng-show="salaries.length">
+        <table class="table table-responsive table-striped table-bordered">
+            <tr>
+                <th>EmpID </th>
+                <th>Name</th>
+                <th>Dept</th>
+                <th>Month</th>
+                <th>Work Days</th>
+                <th>Basic</th>
+                <th>DA</th>
+                <th>HRA</th>
+                <th>CA</th>
+                <th>MA</th>
+                <th>CCA</th>
+                <th>OT</th>
+                <th>LE</th>
+                <th>Add1</th>
+                <th>Add2</th>
+                <th>Gross</th>
+                <th>PT</th>
+                <th>LA</th>
+                <th>PF</th>
+                <th>ESIC</th>
+                <th>IT</th>
+                <th>MLWF</th>
+                <th>UC</th>
+                <th>OD</th>
+                <th>Deduct1</th>
+                <th>Deduct2</th>
+                <th>Net</th>
+            </tr>
+            <tr ng-repeat="salary in salaries">
+                <td>{{salary.empID}}</td>
+                <td>{{salary.empName}}</td>
+                <td>{{salary.deptName}}</td>
+                <td>{{salary.month}}</td>
+                <td>{{salary.workDays}}</td>
+                <td>{{salary.basic}}</td>
+                <td>{{salary.da}}</td>
+                <td>{{salary.hra}}</td>
+                <td>{{salary.ca}}</td>
+                <td>{{salary.ma}}</td>
+                <td>{{salary.cca}}</td>
+                <td>{{salary.ot}}</td>
+                <td>{{salary.le}}</td>
+                <td>{{salary.add1}}</td>
+                <td>{{salary.add2}}</td>
+                <td>{{salary.gross}}</td>
+                <td>{{salary.pt}}</td>
+                <td>{{salary.la}}  </td>
+                <td>{{salary.pf}}</td>
+                <td>{{salary.esic}}</td>
+                <td>{{salary.it}}</td>
+                <td>{{salary.mlwf}}</td>
+                <td>{{salary.uc}}</td>
+                <td>{{salary.od}}</td>
+                <td>{{salary.deduct1}}</td>
+                <td>{{salary.deduct2}}</td>
+                <td>{{salary.net}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="row" ng-show="salaries.length">
+      <input ng-click="deleteSal()" type="button" class="btn btn-primary" value="Delete" id="delete">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div ng-controller="SearchDocsCtrl">
+  <form name="searchDocsForm">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="styled-input input-group custom-search-form">
+          <label class="floatLabel" ng-show="searchStr.length">Search</label>
+          <input type="text" name="searchStr" class="form-control" placeholder="Search" ng-model="searchStr" title="Search is required." ng-keypress="viewOnEnter($event)" required>
+          <span class="input-group-btn">
+            <button class="btn btn-default" ng-click="searchStr.length ? view(searchStr) :''"><i class="fa fa-search"></i></button>
+          </span>
+          <label ng-hide="searchStr.length">Search</label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-12" id="doc-container" ng-show="data.length">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:15px"><input type="checkbox" ng-model="selectAll" ng-click="checkAll()"></th>
+            <th>DocID</th>
+            <th>File Name</th>
+            <th>Description</th>
+            <th>Tags</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th class="hidden-print">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="file in data">
+            <td style="width:15px"><input type="checkbox" ng-model="file.checked"></td>
+            <td>{{file.docID}}</td>
+            <td ng-bind-html="highlight(file.name, searchStr)"><a ng-href="https://drive.google.com/open?id={{file.fileID}}" target="_blank">{{file.name}}</a></td>
+            <td ng-bind-html="highlight(file.desc, searchStr)">{{file.desc}}</td>
+            <td ng-bind-html="highlight(file.tags, searchStr)">{{file.tags}}</td>
+            <td ng-bind-html="highlight(file.location, searchStr)">{{file.location}}</td>
+            <td>{{file.uploadDt}}</td>
+            <td class="hidden-print"><a href="https://drive.google.com/file/d/{{file.fileID + '/view'}}" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-sm-6 col-md-3">
+          <input type="button" class="btn btn-md btn-default-green btn-block" value="Download" ng-click="download()"><br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-show="!data.length && showNoFiles">
+    <div class="col-sm-12 col-md-12 div-no-files-container">
+      <div class="div-no-files">
+        <img src="images/no-files-found.png"><br>No Files Found.
+      </div>
+    </div>
+  </div>
+</div>

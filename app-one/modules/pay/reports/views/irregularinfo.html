@@ -1,0 +1,92 @@
+<style>@page{size:A4}</style>
+<div ng-controller="IrregularInfoCtrl">
+  <form name="rptIrregularInfo" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Department</label>
+          <div angucomplete-alt id="Departments"
+          placeholder="Department Name"
+          maxlength="50"
+          pause="100"
+          selected-object="selectedDept"
+          local-data="deptName"
+          search-fields="name"
+          title-field="name"
+          minlength="2"
+          input-class="form-control auto-complete"
+          match-class="highlight"
+          field-required="true"
+          input-name="Departments"
+          tabindex="1"
+          disable-input="disableDept">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="styled-input">
+        <input type="text" name="IrregularDays" ng-model="data.IrregularDays" class="form-control" placeholder="Irregular Days" ng-disabled="content.viewMode == true" required>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="styled-input">
+        <input type="text" name="SDate" ng-model="data.SDate" class="form-control" placeholder="Start Date" ng-disabled="content.viewMode == true" required>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="styled-input">
+        <input type="text" name="EDate" ng-model="data.EDate" class="form-control" placeholder="End Date" ng-disabled="content.viewMode == true" required>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <!-- <input type="submit" class="btn btn-md btn-default-green btn-block" value="View"> -->
+      <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+    </div>
+    <div class="col-md-1" ng-show="disableDept">
+      <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+    </div>
+  </div>
+</form>
+<br>
+<div class="row" ng-show="disableDept">
+  <div class="col-md-12">
+    <table class="table table-responsive table-striped table-bordered">
+      <thead>
+        <tr class="visible-print pageHeader">
+          <th colspan="6">
+            <div class="companyName">
+              {{globals.currentCompany.name}}<br><br>
+              <b>Department:</b> {{gridData.Dept}}<br>
+              <b>Name:</b> {{gridData.Name}}
+            </div>
+            <div class="reportTitle">
+              <span><b>Absentism Information from {{data.SDate}} to {{data.EDate}}</b></span>
+            </div>
+            <div class="date">
+              Dt: {{reportData.date}}
+            </div>
+          </th>
+            </tr>
+
+            <tr>
+              <th>Date</th>
+              <th>Shift</th>
+              <th>Status</th>
+            </tr>
+              </thead>
+            <tr ng-repeat="grid in collection">
+              <td>{{grid.Date}}</td>
+              <td>{{grid.ShiftId}}</td>
+              <td>{{grid.Status}}</td>
+            </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td>{{totalStatus}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>

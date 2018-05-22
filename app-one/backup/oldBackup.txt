@@ -1,0 +1,6 @@
+<!-- New custom side menu -->
+<li class="" ng-repeat="navItem in navItems | filter:{'parentID':5}:true">
+  <a href="#" style="background-color: #449d44; color:#fff;" ng-click="addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem)">Support <i class="fa fa-ticket fa-fw"></i></a>
+</li>
+
+$scope.navItems.push({id:0, parentID:5, name:'Support', action:'modules/home/views/ticket-support.html', icon:'fa-ticket', tblName:'NULL'});

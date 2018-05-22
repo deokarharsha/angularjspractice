@@ -1,0 +1,104 @@
+<div ng-controller="AttnTransCtrl">
+  <div class="container-fluid">
+        <legend>Shift and Attendance Information</legend>
+        <div class="row">
+          <div class="col-sm-6 col-md-3">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.empID.length">Employee</label>
+              <div angucomplete-alt id="Employee"
+                  placeholder="Employee Name"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedEmp"
+                  local-data="employees"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  field-required="true"
+                  match-class="highlight"
+                  input-name="Employee">
+              </div>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <div class="styled-input">
+              <label class="floatLabel">Shift</label>
+              <select class="form-control" ng-model="selectedShift" ng-options="shift.name for shift in shifts" ng-change="selectShift(selectedShift)"></select>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <div class="styled-input">
+              <label class="floatLabel">Month</label>
+              <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)"></select>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <div class="styled-input">
+              <label class="floatLabel">Year</label>
+              <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)"></select>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-1" ng-hide="viewMode">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" id="View" value="View" ng-click="view()">
+          </div>
+          <div class="col-sm-6 col-md-1" ng-show="viewMode">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" id="Present" value="P" ng-model="data.present" ng-click="setStatus(data.present)" ng-init="data.present='P'">
+          </div>
+          <div class="col-sm-6 col-md-1" ng-show="viewMode">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" id="Absent" value="A" ng-model="data.absent" ng-click="setStatus(data.absent)" ng-init="data.absent='A'">
+          </div>
+          <div class="col-sm-6 col-md-1" ng-show="viewMode">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" id="Schedule" value="S" ng-model="data.schedule" ng-click="setStatus(data.schedule)" ng-init="data.schedule='H'">
+          </div>
+        </div>
+        <div class="row" ng-show="attns.length">
+          <div class="col-xs-6 col-md-12">
+          <table class="table table-responsive table-striped table-bordered">
+            <tr>
+                <th>Date</th>
+                <th>Shift</th>
+                <th>In Time</th>
+                <th>Out Time</th>
+                <th>Status</th>
+                <th>OT</th>
+                <th>OTA</th>
+                <th>OD</th>
+                <th>PL</th>
+                <th>DP</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="attn in attns track by $index">
+                <td>{{attn.date}}</td>
+                <td>{{attn.shiftID}}</td>
+                <td>{{attn.inTime}}</td>
+                <td>{{attn.outTime}}</td>
+                <td>
+                  <span ng-hide="edit[$index]">{{attn.status}}</span>
+                  <input type="text" name="status" ng-show="edit[$index]" class="form-control" ng-model="attn.status">
+                </td>
+                <td>{{attn.ot}}</td>
+                <td>{{attn.ota}}</td>
+                <td>{{attn.od}}</td>
+                <td>{{attn.pl}}</td>
+                <td>{{attn.dp}}</td>
+                <td>
+                  <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+                  <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(attn); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+                </td>
+            </tr>
+          </table>
+        </div>
+        </div>
+        <div class="row" ng-show="attns.length">
+          <div class="col-xs-2 col-md-2">
+            <input ng-click="reset();" type="button" class="btn btn-primary" value="Reset">
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+  </div>
+</div>

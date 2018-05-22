@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   </head>
   <body ng-controller="empController">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -18,9 +17,49 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src = "emp.js"></script>
+
+    <div class="col-auto text-center" >
+      <legend >Employees Details</legend>
+    </div>
+
     <div class="container" ng-init="total= {}">
-        <label>Search: <input ng-model="searchText"></label>
-        <table id="searchTextResults" class="table table-bordered " style="text-align:center">
+    <hr>
+    <div class="active-cyan-3 active-cyan-4 mb-4">
+        <input class="form-control" type="text" ng-model="search" placeholder="Search" aria-label="Search">
+    </div>
+
+    <form class="form-inline" role="form">
+    <div class="form-group">
+      <label for="name">Name</label>
+	  <input type="name" class="form-control" ng-model="Name" id="name" placeholder="Enter name" required>
+  </div>&emsp;
+
+    <div class="form-group">
+      <label for="Dept">Dept</label>&nbsp;
+      <select ng-model="selectedDept" required>
+          <option value="">Select</option>
+          <option value="IT">IT</option>
+          <option value="HR">HR</option>
+          <option value="Admin">Admin</option>
+          <option value="Production">Production</option>
+      </select>
+    </div>&emsp;
+
+    <div class="form-group">
+       <label for="ba">BasicSalary</label>&nbsp;
+	     <input type="text" class="form-control" id="ba" ng-model="GrossSalary" placeholder="Enter Salary" required>
+     </div>&emsp;
+
+     <button type="submit" class="btn btn-default" ng-click="addRow()">Add Row</button>&emsp;
+     <button type="submit" class="btn btn-default" ng-click="submit()">Submit Data</button>&emsp;
+     <button type="submit" class="btn btn-default" ng-click="removeRow()">Remove Row</button>
+     </form><br>
+     <div class="alert alert-danger" ng-show="showError">
+       <strong> Please enter correct data.</strong>
+     </div>
+     <div class="row">
+     <div class="col-12">
+        <table class="table table-bordered table-responsive text-centered mx-auto" style="text-align:center">
         <tr>
             <th rowspan="2">ID</th>
             <th rowspan="2">Name</th>
@@ -34,14 +73,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="x in employees track by $index | filter:searchText ">
-            <td>{{x.ID}}</td>
+          <tr ng-repeat="x in employees | filter : search track by $index  ">
+            <td>{{$index + 101}}</td>
             <td>{{x.Name}}</td>
             <td>{{x.Dept}}</td>
 
             <td>{{x.GrossSalary}}</td>
             <td ng-init="$parent.total.Deduct = $parent.total.Deduct + Deduction(x.GrossSalary)">{{ Deduction(x.GrossSalary)}}</td>
             <td ng-init="$parent.total.NetSal = $parent.total.NetSal + (x.GrossSalary -  Deduction(x.GrossSalary))">{{x.GrossSalary -  Deduction(x.GrossSalary) }}</td>
+            <td><input type="checkbox" ng-model="x.Remove"/></td>
           </tr>
           <tr>
             <td colspan="3">Total</td>
@@ -51,9 +91,9 @@
           </tr>
         </tbody>
       </table>
-      <!-- <button type="button" class="btn btn-primary" value="search">search</button><br />
-      Enter your id : <input type="text" /> -->
     </div>
-
+    </div>
+    </div>
+  </fieldset>
   </body>
 </html>

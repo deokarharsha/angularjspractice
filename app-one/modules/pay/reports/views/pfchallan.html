@@ -1,0 +1,174 @@
+<style>@page{size:A4 landscape}</style>
+<div ng-controller="PfChallanCtrl">
+  <form name="rptPfChallan" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Month</label>
+          <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled="content.viewMode == true"></select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Year</label>
+          <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)" ng-disabled="content.viewMode == true"></select>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-2" ng-show="content.viewMode">
+          <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div ng-show="content.viewMode">
+    <div class="row">
+      <div class="col-md-12">
+        <table style="100%">
+          <tr>
+            <td style="float:left">
+              <span>COMBINED CHALLAN OF A/C NO. 1,2,10,21 &amp; 22</span><br>
+              <table class="table-bordered">
+                <tr><td>CODE NO. MH/VAS/117965</td></tr>
+                <tr><td>A/C GROUP</td></tr>
+                <tr><td>AT-</td></tr>
+              </table>
+            </td>
+            <td>
+              <center>
+                <span class="heading"><b>STATE BANK OF INDIA</b></span><br>
+                <span><b>EMPLOYEES PROVIDENT FUND</b></span><br>
+                <span>(USE SEPERATE CHALLAN FOR EACH MONTH)</span><br>
+                <span><b>DUES FOR THE MONTH OF <u>{{selectedMonth.id}}/{{selectedYear.name}}</u></b></span><br>
+              </center>
+            </td>
+            <td style="float:right">
+              <span style="border:1px solid black; text-align:center">For Company Use Only</span><br><br><br>
+              <span>PAID BY CHEQUE/CASH</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-responsive table-striped table-bordered">
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">A/C 1</td>
+            <td colspan="2">A/C 10</td>
+            <td colspan="2">A/C 21</td>
+          </tr>
+          <tr>
+            <td colspan="2">TOTAL NO. OF SUBSCRIBER</td>
+            <td colspan="2">{{gridData.PFTotEmp}}</td>
+            <td colspan="2">{{gridData.PFTotEmp}}</td>
+            <td colspan="2">{{gridData.PFTotEmp}}</td>
+          </tr>
+          <tr>
+            <td colspan="2">TOTAL WAGES DUES</td>
+            <td colspan="2">{{gridData.PFWages}}</td>
+            <td colspan="2">{{gridData.PFWages}}</td>
+            <td colspan="2">{{gridData.PFWages}}</td>
+          </tr>
+          <tr>
+            <th>S.NO.</th>
+            <th>PARTICULARS</th>
+            <th>A/C NO.1</th>
+            <th>A/C NO.2</th>
+            <th>A/C NO.10</th>
+            <th>A/C NO.21</th>
+            <th>A/C NO.22</th>
+            <th>TOTAL</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>PART-01</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>1.</td>
+            <td>EMPLOYER'S SHARE OF</td>
+            <td class="digits">{{gridData.AC1}}</td>
+            <td class="digits">{{gridData.AC2}}</td>
+            <td class="digits">{{gridData.AC10}}</td>
+            <td class="digits">{{gridData.AC21}}</td>
+            <td class="digits">{{gridData.AC22}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td>EMPLOYEES SHARE OF</td>
+            <td class="digits">{{gridData.PF}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="digits">{{gridData.PF}}</td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td>ADM. CHARGES</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4.</td>
+            <td>INSP. CHARGES</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5.</td>
+            <td>PENAL CHARGES</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>6.</td>
+            <td>MISC. PAYMENTS</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>7.</td>
+            <td>TOTAL</td>
+            <td class="digits">{{gridData.AC1 + gridData.PF}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="2">Amount in words Rs.{{gridData.Currency}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

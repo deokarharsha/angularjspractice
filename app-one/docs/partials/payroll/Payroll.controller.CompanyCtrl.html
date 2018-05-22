@@ -1,0 +1,53 @@
+<h1><code ng:non-bindable="">CompanyCtrl</code>
+<div><span class="hint">controller in module <code ng:non-bindable="">Payroll</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="payroll-controller-page payroll-controller-companyctrl-page"><p>A company controller is used to store and retrieve company details.
+A company controller is attached to the &#39;company.html&#39; page via the ng-controller directive, AngularJS will instantiate a new Controller object,
+using the specified Controller&#39;s constructor function. A new child scope will be created and made available as an injectable parameter to the
+companyCtrl constructor function as $scope.</p>
+<p>The fields of company page are stored under $scope.data json object. Due to which we can send collection of json to post service.
+Here in company page we had performed add &amp; edit operations using same view template. Means if $scope.data.ID = 0 then its an add mode and
+if it is not then it will be work in edit mode.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_selectdata">SelectData()</h3>
+<div class="selectdata"><div class="selectdata-page"><p>Description:This method is used to select cities from the select list. This is an auto complete for get cities where we have used &#39;angucomplete-alt&#39; custom directive.
+This method contain sub-method for selectedCity.</p>
+<p>Method Parameters: tablename(i.e. Cities) and columnname(i.e. name).</p>
+<p>Used Stored Procedure: getSelectData</p>
+</div></div>
+</li>
+<li><h3 id="methods_selectdata">SelectData()</h3>
+<div class="selectdata"><div class="selectdata-page"><p>Description: This is again the same method which we have discussed above but the difference is that it is an auotcomplete list for states.
+which contains sub-method for selectedState.</p>
+<p>Method Parameters: tablename(i.e. States) and columnname(i.e. name).</p>
+<p>Used Stored Procedure: getSelectData</p>
+</div></div>
+</li>
+<li><h3 id="methods_edit">edit()</h3>
+<div class="edit"><div class="edit-page"><p>Description: This method retrieves the record of the company of specified ID for the edit purpose.
+After retrieving specific record it rebinds that details on the company form. This method
+also contains two broadcast methods which are used to rebind the angucomplete-alt&#39;s record like here cities and states.</p>
+<p>*Note: An angucomplete-alt has one loophole that it does not support two way data binding thats why we need to use broadcast method.</p>
+<p>Method Parameters: tablename(i.e. Companies) and ID of the record which we want to retrieve(i.e. id).</p>
+<p>Used Stored Procedure: getEditData</p>
+</div></div>
+</li>
+<li><h3 id="methods_reset">reset()</h3>
+<div class="reset"><div class="reset-page"><p>Description: This method resets all form data. And broadcast method is used to clear the angucomplete-alt&#39;s data.
+After resettting data now ID will be 0 so now the company page will be in add mode.</p>
+</div></div>
+</li>
+<li><h3 id="methods_submit">submit()</h3>
+<div class="submit"><div class="submit-page"><p>Description: This method updates company details into the companies table, which uses stored procedure &#39;doCompanies&#39;
+with parameters in $scope.data. This method works in two ways like if the $scope.data.ID = 0 i.e. add mode then
+it saves data to the table but if $scope.data.ID != 0 then it updates the given record.</p>
+<p>Used Parameters: stored procedure name(i.e. doCompanies) and form data(i.e. $scope.data)</p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

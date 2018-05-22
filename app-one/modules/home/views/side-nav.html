@@ -1,0 +1,94 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse" ng-class="isCollapsed ? 'collapse' : 'in'" >
+        <ul class="nav" id="side-menu" style="overflow-y: scroll">
+          <li class="sidebar-conetnt" ng-show="!tabs.length && (!selectedDB.appName.length && !selectedDivision.name.length || selectedDB.hasDivisions == 0)">
+            <label ng-class="{bold: selectedDB.appName.length}">{{selectedDB.appName || 'Select Application'}}</label>
+            <select class="form-control" ng-model="selectedDB" ng-options="db.name group by db.appName for db in DBs" ng-change="selectDB(selectedDB)">
+              <option value="">(Select Application)</option>
+            </select>
+          </li>
+          <li class="sidebar-conetnt" ng-show="!tabs.length && (selectedDB.appName.length || selectedDivision.name.length) && selectedDB.hasDivisions != 0">
+            <label ng-class="{bold: true}">{{selectedDB.appName}}</label>
+            <label ng-show="selectedDivision.name.length">Div.</label>
+            <label ng-class="{bold: selectedDivision.name.length}">{{selectedDivision.name || ' - Select Division'}}</label>
+            <select class="form-control" ng-model="selectedDivision" ng-options="div.name for div in divisions" ng-change="selectDivision(selectedDivision)">
+              <option value="" ng-show="!selectedDivision.name.length">(Select Division)</option>
+            </select>
+          </li>
+          <li class="sidebar-conetnt" ng-show="tabs.length" >
+            <label ng-class="{bold: true}">{{selectedDB.appName}}</label>
+            <label ng-show="selectedDivision.name.length">Div.</label>
+            <label ng-class="{bold: selectedDivision.name.length}">{{selectedDivision.name}}</label>
+             <div class="input-group custom-search-form">
+               <input class="form-control" placeholder="Search {{currentModule}} ..." ng-model="data.searchStr" type="text">
+               <span class="input-group-btn">
+                 <button class="btn btn-default" type="button" ng-click="search(data.searchStr)">
+                     <i class="fa fa-search {{loading}}"></i>
+                 </button>
+               </span>
+             </div>
+          </li>
+          <li class="" ng-show="selectedDivision.name.length">
+            <a href="#/" ng-click="selectedDivision = {}; selectedDB = {}; navItems = [];"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i> Back</a>
+          </li>
+          <!-- <li>
+             <a class="active" href="#/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+          </li> -->
+          <li class="" ng-show="(navItems | filter:{'parentID':0}:true).length">
+              <a href="#"><i class="fa fa-gear fa-fw"></i> Admin<span class="fa arrow"></span></a>
+              <ul style="height: 0px;" aria-expanded="false" class="nav nav-second-level collapse">
+                  <li class="" ng-repeat="navItem in navItems | filter:{'parentID':0}:true">
+                    <a ng-class="{active: isSelected(navItem)}" ng-click="selectMenu(navItem); addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem); setViewMode(false)"><i class="fa {{navItem.icon}} fa-fw"></i> {{navItem.name}}</a>
+                  </li>
+              </ul>
+              <!-- /.nav-second-level -->
+          </li>
+          <li class="" ng-show="(navItems | filter:{'parentID':1}:true).length">
+            <a href="#"><i class="fa fa-edit fa-fw"></i> Main<span class="fa arrow"></span></a>
+            <ul style="height: 0px;" aria-expanded="false" class="nav nav-second-level collapse" >
+                <li ng-repeat="navItem in navItems | filter:{'parentID':1}:true">
+                    <a ng-class="{active: isSelected(navItem)}" ng-click="selectMenu(navItem); addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem); setViewMode(false)"><i class="fa {{navItem.icon}} fa-fw"></i> {{navItem.name}}</a>
+                </li>
+            </ul>
+            <!-- /.nav-second-level -->
+          </li>
+          <li class="" ng-show="(navItems | filter:{'parentID':2}:true).length">
+            <a href="#"><i class="fa fa-tasks fa-fw"></i> Transactions<span class="fa arrow"></span></a>
+            <ul style="height: 0px;" aria-expanded="false" class="nav nav-second-level collapse" style="overflow: scroll">
+                <li class="" ng-repeat="navItem in navItems | filter:{'parentID':2}:true">
+                  <a ng-class="{active: isSelected(navItem)}" ng-click="selectMenu(navItem); addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem); setViewMode(false)"><i class="fa {{navItem.icon}} fa-fw"></i> {{navItem.name}}</a>
+                </li>
+            </ul>
+            <!-- /.nav-second-level -->
+          </li>
+          <li class="" ng-show="(navItems | filter:{'parentID':3}:true).length" >
+            <a href="#"><i class="fa fa-book fa-fw"></i> Reports<span class="fa arrow"></span></a>
+            <ul style="height: 0px;" aria-expanded="false" class="nav nav-second-level collapse">
+                <li class="" ng-repeat="navItem in navItems | filter:{'parentID':3}:true" >
+                  <a ng-class="{active: isSelected(navItem)}" ng-click="selectMenu(navItem); addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem); setViewMode(false)"><i class="fa {{navItem.icon}} fa-fw"></i> {{navItem.name}}</a>
+                </li>
+              </ul>
+            <!-- /.nav-second-level -->
+          </li>
+          <li class="" ng-show="(navItems | filter:{'parentID':4}:true).length">
+              <a href="#"><i class="fa fa-gear fa-fw"></i> Utility<span class="fa arrow"></span></a>
+              <ul style="height: 0px;" aria-expanded="false" class="nav nav-second-level collapse">
+                  <li class="" ng-repeat="navItem in navItems | filter:{'parentID':4}:true">
+                    <a ng-class="{active: isSelected(navItem)}" ng-click="selectMenu(navItem); addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem); setViewMode(false)"><i class="fa {{navItem.icon}} fa-fw"></i> {{navItem.name}}</a>
+                  </li>
+              </ul>
+              <!-- /.nav-second-level -->
+          </li>
+          <li class="" ng-show="(navItems | filter:{'parentID':5}:true).length">
+              <a href="#"><i class="fa fa-gear fa-fw"></i> Settings<span class="fa arrow"></span></a>
+              <ul style="height: 0px;" aria-expanded="false" class="nav nav-second-level collapse">
+                  <li class="" ng-repeat="navItem in navItems | filter:{'parentID':4}:true">
+                    <a ng-class="{active: isSelected(navItem)}" ng-click="selectMenu(navItem); addTab(navItem); selectTab(navItem); addContent(navItem); selectContent(navItem); setViewMode(false)"><i class="fa {{navItem.icon}} fa-fw"></i> {{navItem.name}}</a>
+                  </li>
+              </ul>
+              <!-- /.nav-second-level -->
+          </li>
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

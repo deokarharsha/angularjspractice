@@ -1,0 +1,53 @@
+<h1><code ng:non-bindable="">controller:empController</code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="controller-page controller-empcontroller-page"><p><span style="color: violet">Employee payroll management system</span></p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_deduction">Deduction(sal)</h3>
+<div class="deduction"><h5 id="methods_deduction_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>sal</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="deduction-page"><p>Use <span class="label label-success"> Switch </span> case for salary</p>
+<p><strong>case :0 </strong>salary is<strong> sal&lt;= 15000 </strong> then move it into grosstotalthen return<strong>0</strong><br>
+<strong>case :1 </strong>salary is<strong> sal &gt; 15000 &amp;&amp; sal &lt;= 25000</strong> then deductSal <strong> (sal / 100) <em> 5</strong> and finally add totalDeduction and deductSal and move it into <strong>totalDeduction</strong> and return it.<br>
+<strong>case :2 </strong>salary is<strong> sal &gt; 15000 &amp;&amp; sal &lt;= 25000</strong> then deductSal<strong> (sal / 100 ) </em> 7</strong> and finally add totalDeduction and deductSal and move it into <strong>totalDeduction</strong> and return it.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_grosstotal">GrossTotal()</h3>
+<div class="grosstotal"><div class="grosstotal-page"><p>angular.<span class="label label-success">forEach</span>loop to get data from json</p>
+<p>add json values with <strong>grossTotal</strong> and move it into grosstotal</p>
+<p>Return: <span style="color: blue">GrossTotal</span></strong></p>
+</div></div>
+</li>
+<li><h3 id="methods_addrow">addRow()</h3>
+<div class="addrow"><div class="addrow-page"><p>Check <strong>$scope.Name ,</strong>  <strong>$scope.GrossSalary ,</strong>  <strong>$scope.selectedDept</strong> is 0 then<br>
+Also check <strong>$scope.GrossSalary</strong> and <strong>$scope.Name</strong> is <span style="color: red">!isNaN</span> Then do following<br>
+create <span style="color : red">employee</span> array then<br>
+Move the values from <strong>employee.Name = $scope.Name ,</strong><br>
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>employee.Dept = $scope.selectedDept ,</strong><br>
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>employee.GrossSalary = $scope.GrossSalary</strong> <br><br>
+Push the employee array into <strong>$scope.employees</strong><br>
+Finally all values are set to the NULL</p>
+</div></div>
+</li>
+<li><h3 id="methods_httpservice">httpservice(tableName, sortOrder, sortOrder, sortOrder, sortOrder, Get)</h3>
+<div class="httpservice"><div class="httpservice-page"><p>Creates <span class="label label-info">$scope.employees</span> object and
+bind to <span class="label label-success">angular</span> input text element for autosuggesting.</p>
+</div><h5 id="methods_httpservice_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableName</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="httpservice-page"><p>employees</p>
+</div></td></tr><tr><td>sortOrder</td><td><a href="" class="label type-hint type-hint-int">int</a></td><td><div class="httpservice-page"><p>id</p>
+</div></td></tr><tr><td>sortOrder</td><td><a href="" class="label type-hint type-hint-int">int</a></td><td><div class="httpservice-page"><p>Name</p>
+</div></td></tr><tr><td>sortOrder</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="httpservice-page"><p>Dept</p>
+</div></td></tr><tr><td>sortOrder</td><td><a href="" class="label type-hint type-hint-int">int</a></td><td><div class="httpservice-page"><p>Grosssalary</p>
+</div></td></tr><tr><td>Get</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="httpservice-page"><p>returns response object</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_removerow">removeRow()</h3>
+<div class="removerow"><div class="removerow-page"><p>Create array of employee <strong>arrEmp = []</strong>
+Using <span style="color : red">angular</span>.forEach loop get the all values of employees Then<br>
+Check <span style="color : red">(! value.Remove)</span> and push that values in array of employee i.e.<strong>arrEmp</strong> then<br>
+At the last push values from array to json employee so that row is deleted</p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

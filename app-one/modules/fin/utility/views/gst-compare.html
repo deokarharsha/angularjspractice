@@ -1,0 +1,26 @@
+<div ng-controller="GSTCompareCtrl">
+  <div class="container-fluid">
+    <div class="styled-input">
+      <div class="row" style="margin-top: 15px">
+        <div class="col-sm-6 col-md-4">
+          <div class="styled-input">
+            <input type="text" name="filename" id="filename" class="form-control" ng-model="filename" placeholder="Select file" disabled>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-2">
+          <input type="button" class="btn btn-md btn-default-green" value="Upload" ng-click="browse()">
+          <input type="file" id="uploadFile" accept="application/json" on-read-file="showContent($fileContent)" style="display:none;">
+          <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br> {{result.error}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" ng-repeat="data in b2bData track by $index">
+          {{data}}<br>
+          <!-- <ul>
+            <li ng-repeat="data in gstData | filter:{0:key}:true">{{data}}</li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

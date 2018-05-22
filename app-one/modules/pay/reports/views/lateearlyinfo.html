@@ -1,0 +1,77 @@
+<style>@page{size:A4}</style>
+<div ng-controller="LateEarlyInfoCtrl">
+  <form name="rptLateEarlyInfo" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="SDate" ng-model="data.SDate" class="form-control" placeholder="Start Date" ng-disabled="collection.length" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="EDate" ng-model="data.EDate" class="form-control" placeholder="End Date" ng-disabled="collection.length" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="LateMinutes" ng-model="data.LateMinutes" class="form-control" placeholder="Late Minutes" ng-disabled="collection.length" required>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-1" ng-show="collection.length">
+        <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div ng-show="collection.length">
+    <div class="row">
+      <div class="col-md-12">
+
+
+        <table class="table table-responsive table-striped table-bordered">
+          <thead>
+            <tr class="visible-print pageHeader">
+              <th colspan="9">
+                <div class="companyName">
+                  {{globals.currentCompany.name}}<br>
+                  Dept:{{gridData.Dept}}
+                </div>
+                <div class="reportTitle">
+                  <span><b>Employee's Late / Early going information from <br><center>{{data.SDate}} to {{data.EDate}}</center></b></span>
+                </div>
+                <div class="date">
+                  Dt: {{reportData.date}}
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <th>Emp Code</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Shift</th>
+            <th>In Time</th>
+            <th>Out Time</th>
+            <th>Mark*</th>
+            <th>Late(Minutes)</th>
+            <th>Early(Minutes)</th>
+          </tr>
+          <tr ng-repeat = "grid in collection">
+            <td>{{grid.EmpCode}}</td>
+            <td>{{grid.Name}}</td>
+            <td>{{grid.Dept}}</td>
+            <td>{{grid.ShiftID}}</td>
+            <td>{{grid.InTime}}</td>
+            <td>{{grid.OutTime}}</td>
+            <td>M</td>
+            <td>{{grid.Late}}</td>
+            <td>{{grid.Early}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<style>@page{size:A4 landscape}</style>
+<div ng-controller="AttnInfoShiftWiseCtrl">
+  <form name="rptAttnInfoShiftwiseDetails" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Department</label>
+          <div angucomplete-alt id="Departments"
+              placeholder="Department Name"
+              maxlength="50"
+              pause="100"
+              selected-object="selectedDept"
+              local-data="deptName"
+              search-fields="name"
+              title-field="name"
+              minlength="2"
+              input-class="form-control auto-complete"
+              match-class="highlight"
+              field-required="requireDept"
+              input-name="Departments"
+              tabindex="1"
+              disable-input="disableDept">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="SDate" ng-model="data.SDate" class="form-control" placeholder="Start Date" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="EDate" ng-model="data.EDate" class="form-control" placeholder="End Date" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-1">
+          <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-1" ng-show="content.viewMode">
+          <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+    <br>
+  <div class="content.viewMode">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-responsive table-striped Attendence">
+          <thead>
+            <tr class="visible-print table-bordered pageHeader">
+              <th colspan="38">
+          <div class="companyName">
+            {{globals.currentCompany.name}}<br>
+            <b>Department:</b> {{gridData.Dept}}
+          </div>
+          <div class="reportTitle">
+            <span><b>Attendance Informtion From {{data.SDate}} To {{data.EDate}}</b></span>
+          </div>
+          <div class="date">
+            Dt: {{reportData.date}}
+          </div>
+        </th>
+      </tr>
+
+          <tr class="table-bordered">
+            <td></td>
+            <td>P</td>
+            <td>A</td>
+            <td>L</td>
+            <td>H</td>
+            <td></td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>22</td>
+            <td>23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
+            <td>28</td>
+            <td>29</td>
+            <td>30</td>
+            <td>31</td>
+          </tr>
+        </thead>
+          <tr>
+            <td>{{gridData.Name}}</td>
+            <td>{{gridData.P}}</td>
+            <td>{{gridData.A}}</td>
+            <td>{{gridData.L}}</td>
+            <td>{{gridData.H}}</td>
+            <td>{{gridData.Shift}}</td>
+            <td ng-repeat="grid in collection">{{grid.Status}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

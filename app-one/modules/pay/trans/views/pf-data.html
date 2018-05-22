@@ -1,0 +1,100 @@
+<div ng-controller="PfDataCtrl">
+  <div class="container-fluid">
+    <form name="pftransForm" ng-submit="save(data);">
+    <legend>PF Information</legend>
+    <div class="row">
+      <div class="col-xs-6 col-sm-2">
+        <div class="styled-input">
+          <label class="floatLabel">Month</label>
+          <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-disabled="btnName == 'Reset'" ng-change="selectMonth(selectedMonth)"></select>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <div class="styled-input">
+          <label class="floatLabel">Year</label>
+          <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-disabled="btnName == 'Reset'" ng-change="selectYear(selectedYear)"></select>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-2">
+        <div class="styled-input">
+          <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}" ng-click="view();">
+          <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row" ng-show="btnName == 'Reset'">
+      <div class="col-md-12">
+        <legend>PF Information for {{selectedMonth.name}}, {{selectedYear.name}}</legend>
+        <table class="table table-responsive table-striped table-bordered">
+          <tr style="background-color:#ECECEC;">
+            <td>
+              <div angucomplete-alt id="Employees"
+                  placeholder="Employee Name"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedEmp"
+                  local-data="employees"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  match-class="highlight"
+                  field-required="true"
+                  input-name="Employees"
+                  disable-input="editMode">
+              </div>
+            </td>
+            <td>
+              <input type="number" class="form-control" name="gross" ng-model="data.gross" ng-disabled="editMode" step="0.01" placeholder="Gross" required>
+            </td>
+            <td>
+              <input type="number" class="form-control" name="pf" ng-model="data.pf" ng-disabled="editMode" step="0.01" placeholder="Pf" required>
+            </td>
+            <td>
+              <input type="number" class="form-control" name="epfDiff" ng-model="data.epfDiff" ng-disabled="editMode" placeholder="EPF Diff" step="0.01"  required>
+            </td>
+            <td>
+              <input type="number" class="form-control" name="pfContro" ng-model="data.pfContro" ng-disabled="editMode" placeholder="Pf Contro" step="0.01" required>
+            </td>
+            <td>
+              <span><button href="/" class="btn btn-md btn-link" ng-disabled="editMode" type="submit"><i class="fa fa-plus"></i></button></span>
+            </td>
+          </tr>
+          <tr ng-show="pftrans.length">
+            <th>Emp Name</th>
+            <th>Gross</th>
+            <th>PF</th>
+            <th>EPF Diff</th>
+            <th>PF Contro</th>
+            <th style="width:30px"></th>
+          </tr>
+          <tr ng-repeat="pf in pftrans track by $index" ng-class="{selectedRow:edit[$index] == true}" ng-show="pftrans.length">
+            <td>{{pf.empName}}</td>
+            <td>
+              <span ng-hide="edit[$index]">{{pf.gross | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="gross" step="0.01" ng-model="pf.gross">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{pf.pf | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="pf" step="0.01" ng-model="pf.pf">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{pf.epfDiff | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="epfDiff" step="0.01" ng-model="pf.epfDiff">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{pf.pfContro | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="pfContro" step="0.01" ng-model="pf.pfContro">
+            </td>
+            <td>
+              <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+              <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(pf); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+            </td>
+          </tr>
+        </table>
+     </div>
+    </div>
+  </form>
+  </div>
+</div>

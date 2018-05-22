@@ -1,0 +1,550 @@
+<div ng-controller="ItCtrl">
+  <div class="container-fluid">
+    <form name="Form16" ng-submit="submit();">
+      <fieldset>
+        <!-- <legend>Form16</legend> -->
+        <legend>{{currentModule}}</legend>
+            <div class="row" style="margin-top: 15px">
+              <div class="col-sm-6 col-md-3">
+                <div class="styled-input">
+                  <label class="floatLabel">Employee</label>
+                  <div angucomplete-alt id="Employee"
+                    placeholder="Employee Name"
+                    maxlength="50"
+                    pause="100"
+                    selected-object="selectedEmployee"
+                    local-data="employees"
+                    search-fields="name"
+                    title-field="name"
+                    minlength="2"
+                    input-class="form-control auto-complete"
+                    match-class="highlight"
+                    field-required="true"
+                    disable-input="btnName == 'Reset'"
+                    input-name="Employee">
+                  </div>
+                </div>
+                <br>
+              </div>
+              <div class="col-sm-6 col-md-2">
+                <div class="styled-input">
+                  <label class="floatLabel">From Year</label>
+                  <select class="form-control" ng-model="selectedFromYear" ng-options="year.name for year in years" ng-change="selectFromYear(selectedFromYear)" ng-disabled="btnName == 'Reset'"></select>
+                </div>
+                <br>
+              </div>
+              <div class="col-sm-6 col-md-2">
+                <div class="styled-input">
+                  <label class="floatLabel">End Year</label>
+                  <select class="form-control" ng-model="selectedToYear" ng-options="year.name for year in years" ng-change="selectToYear(selectedToYear)" ng-disabled="btnName == 'Reset'"></select>
+                </div>
+                <br>
+              </div>
+              <div class="col-sm-6 col-md-2">
+                <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}" ng-click="bindForm();">
+              </div>
+              <div class="col-sm-6 col-md-2">
+                <div ng-show="result.error1" class="alert alert-danger"><b>Oops error!</b><br>{{result.error1}}</div>
+              </div>
+            </div>
+          <div class="row" ng-show="viewForm">
+            <div class="col-sm-6 col-md-6">
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>1.Gross Salary</b>
+                    <br>
+                  </div>
+                  <div style="padding-left:10px">
+                    <div class="styled-input">
+                      Salary as per provision contained in section 17(1)
+                      <br>
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Additional Salary (Leave or bonus etc.)
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Value of perquisites under section 17(2)(as per Form 12BA wherever applicable)
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Profits in Lieu of salary under section 17(3)(as per Form 12BA wherever applicable)
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Total
+                    </div>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" step="0.01" name="sec17_1" class="form-control" ng-model="data.sec17_1" ng-change="calculateOnChange()" disabled>
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" step="0.01" name="sec17_Add"  class="form-control" ng-model="data.sec17_Add" ng-change="calculateOnChange()">
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" step="0.01" name="sec17_2"  class="form-control" ng-model="data.sec17_2" ng-change="calculateOnChange()">
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                  </div>
+                  <input type="number" name="sec17_3" step="0.01" class="form-control" ng-model="data.sec17_3" ng-change="calculateOnChange()">
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" name="sec17GrossTot"  class="form-control" ng-model="data.sec17GrossTot"  disabled>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-12">
+                  <div ="styled-input">
+                    <b>2.Less Allowance under section 10 </b>
+                    <br>
+                  </div>
+                  <div>
+                    <table class="table table-responsive table-striped table-bordered">
+                      <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th></th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" name="name" class="form-control" ng-model="allowanceData.name">
+                        </td>
+                        <td>
+                          <input type="number" step="0.01" name="amount" class="form-control" ng-model="allowanceData.amount">
+                        </td>
+                        <td>
+                          <a href="/"  class="btn btn-md btn-link" ng-click="addAllowance(allowanceData);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-plus"></i></a>
+                        </td>
+                      </tr>
+                      <tr ng-repeat="allowance in allowances">
+                        <td>
+                          <span>{{allowance.name}}</span>
+                        </td>
+                        <td>
+                          <span>{{allowance.amount  | number:2}}</span>
+                        </td>
+                        <td>
+                          <a href="/"  class="btn btn-md btn-link" ng-click="removeAllowance($index);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>3.Balance(1-2)</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="sec17NetTot" class="form-control" ng-model="data.sec17NetTot" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>4.Deductions:</b>
+                  </div>
+                  <div style="padding-left:10px">
+                    <div class="styled-input">
+                      Entertainment Allowances
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Tax on Employment
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" step="0.01" name="entAllowance" class="form-control" ng-model="data.entAllowance" >
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" step="0.01" name="employmentTax" class="form-control" ng-model="data.employmentTax">
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>5.Aggregate of 4</b>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" step="0.01" name="stdDeductTot" class="form-control" ng-model="data.stdDeductTot" disabled>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>6.Income chargeable under the head</b>
+                    <br>
+                    <div style="padding-left:10"><b> 'Salaries'(3 - 5)</b></div>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="text" name="chargeTotIncome" class="form-control" ng-model="data.chargeTotIncome" disabled >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-12">
+                  <div class="styled-input">
+                    <b>7.Add:Any income reported by the employee </b>
+                    <br>
+                  </div>
+                  <div>
+                    <table class="table table-responsive table-striped table-bordered">
+                      <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th></th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" name="name" class="form-control" ng-model="otherIncomeData.name">
+                        </td>
+                        <td>
+                          <input type="number"  step="0.01" name="amount" class="form-control" ng-model="otherIncomeData.amount">
+                        </td>
+                        <td>
+                          <a href="/"  class="btn btn-md btn-link" ng-click="addOtherIncome(otherIncomeData);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-plus"></i></a>
+                        </td>
+                      </tr>
+                      <tr ng-repeat="otherIncome in otherIncomes">
+                        <td>
+                          <span>{{otherIncome.name}}</span>
+                        </td>
+                        <td>
+                          <span>{{otherIncome.amount | number:2}}</span>
+                        </td>
+                        <td>
+                          <a href="/"  class="btn btn-md btn-link" ng-click="removeOtherIncome($index);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>8.Gross Total Income(6+7)</b>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="grossTotIncome" class="form-control" ng-model="data.grossTotIncome" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+              <div class="row">
+                <div class="col-xs-6 col-md-12">
+                  <div class="styled-input">
+                    <b>9.Deduction under chapter VI-A </b>
+                    <br>
+                    <div style="padding-left:10px">Section 8OC, 8OCCC and 8OCCD </div>
+                  </div>
+                  <div>
+                    <table class="table table-responsive table-striped table-bordered">
+                      <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th></th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" name="name" class="form-control" ng-model="IT80CData.name">
+                        </td>
+                        <td>
+                          <input type="number" step="0.01" name="amount" class="form-control" ng-model="IT80CData.amount">
+                        </td>
+                        <td>
+                          <a href="/" class="btn btn-md btn-link" ng-click="addIT80C(IT80CData);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-plus"></i></a>
+                        </td>
+                      </tr>
+                      <tr ng-repeat="IT80C in IT80Cs">
+                        <td>
+                            <span>{{IT80C.name}}</span>
+                        </td>
+                        <td>
+                            <span>{{IT80C.amount  | number:2}}</span>
+                        </td>
+                        <td>
+                          <a href="/" class="btn btn-md btn-link" ng-click="removeIT80C($index);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-12">
+                  <div class="col-xs-6 col-md-8">
+                    <div class="styled-input">
+                      Section 8OCCC
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Section 8OCCD
+                    </div>
+                    <br>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="styled-input">
+                      <input type="number" name="80CCC" class="form-control" ng-model="data.it80CCC">
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      <input type="number" name="80CCD" class="form-control" ng-model="data.it80CCD">
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-12">
+                  <div class="styled-input">
+                    <div style="padding-left:10px">other sections(80E, 80G, etc.) </div>
+                  </div>
+                  <div>
+                    <table class="table table-responsive table-striped table-bordered">
+                      <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>QualifyAmount</th>
+                        <th></th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" name="name" class="form-control" ng-model="IT80EData.name">
+                        </td>
+                        <td>
+                          <input type="number"  step="0.01" name="amount" class="form-control" ng-model="IT80EData.amount">
+                        </td>
+                        <td>
+                          <input type="number" step="0.01" name="qualifyAmount" class="form-control" ng-model="IT80EData.qualifyAmount">
+                        </td>
+                        <td>
+                          <a href="/"  class="btn btn-md btn-link" ng-click="addIT80E(IT80EData);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-plus"></i></a>
+                        </td>
+                      </tr>
+                      <tr ng-repeat="IT80E in IT80Es">
+                        <td>
+                          <span>{{IT80E.name}}</span>
+                        </td>
+                        <td>
+                          <span>{{IT80E.amount | number:2}}</span>
+                        </td>
+                        <td>
+                          <span>{{IT80E.qualifyAmount  | number:2}}</span>
+                        </td>
+                        <td>
+                          <a href="/"  class="btn btn-md btn-link" ng-click="removeIT80E($index);" style="padding-left: 2px; padding-right: 2px" ><i class="fa fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>10.Aggregate of deductable amounts under
+                      <div style="padding-left:10px">chapter VI-A </div></b>
+                      <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="chapter6ATot"  class="form-control" ng-model="data.chapter6ATot" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>11.Total Income(8-10)</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="totIncome" class="form-control" ng-model="data.totIncome" disabled>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>12.Tax on Total Income</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="totIncomeTax" class="form-control" ng-model="data.totIncomeTax" disabled>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>13.Surcharge 0%
+                      <br>
+                      <div style="padding-left:10px">(on tax computed at S.NO. 12)</div></b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="surcharge"  class="form-control" ng-model="data.surcharge" >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>14.Education Cess @3%</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="eduCess" class="form-control" ng-model="data.eduCess">
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>15.Tax Payable(12+13+14)</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="grossTaxPayable"  class="form-control" ng-model="data.grossTaxPayable" disabled>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>16.Relife under Section 89</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="releif89"  class="form-control" ng-model="data.releif89" >
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>17.Tax Payable(15-16)</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="netTaxPayable"  class="form-control" ng-model="data.netTaxPayable" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>18.Less</b>
+                  </div>
+                  <div style="padding-left:10px">
+                    <div class="styled-input">
+                      Section 192(1)
+                    </div>
+                    <br>
+                    <div class="styled-input">
+                      Section 192(1A)
+                    </div>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" name="sec192_1" class="form-control" ng-model="data.sec192_1" >
+                  </div>
+                  <br>
+                  <div class="styled-input">
+                    <input type="number" name="sec192_1A" class="form-control" ng-model="data.sec192_1A" >
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-md-8">
+                  <div class="styled-input">
+                    <b>19.Tax Payable/refundable(17-18)</b>
+                    <br>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="styled-input">
+                    <input type="number" name="totalTax" class="form-control" ng-model="data.totalTax" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row" ng-show="viewForm">
+            <div class="col-sm-6 col-md-4">
+              <div class="row">
+                <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="Add">
+                <br>
+                <div ng-show="result.success" class="alert alert-info"><b>Form16 of {{empName}}</b> added successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+                <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+              </div>
+            </div>
+          </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

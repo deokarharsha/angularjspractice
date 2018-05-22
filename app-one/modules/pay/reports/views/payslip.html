@@ -1,0 +1,80 @@
+<style>
+    @page {
+        size: A4
+    }
+</style>
+<div ng-controller="PaySlipCtrl">
+    <legend>Pay Slip</legend>
+    <form name="rptPaySlip" ng-submit="view()">
+        <div class="container">
+            <div class="row">
+                <div class="tabbable tabs-below fontcolor" ng-init="selectedTab = 1">
+                    <ul class="nav nav-pills">
+                        <li ng-class="{active: selectedTab == 1}">
+                            <a href="#" ng-click="selectedTab = 1;">Department Wise</a>
+                        </li>
+                        <li ng-class="{active: selectedTab == 2}">
+                            <a href="#" ng-click="selectedTab = 2;">Employee Wise</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="row" id="tab-one">
+                <div class="tab-content" ng-show="selectedTab == 1">
+                    <div class="row hidden-print" style="margin-top:15px">
+                        <div class="col-md-4">
+                            <div class="styled-input">
+                                <label class="floatLabel">Select Department</label>
+                                <select class="form-control" ng-model="selectedDepartment" ng-options="department.name for department in departments" ng-change="selectDepartment(selectedDepartment)"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="styled-input">
+                                <label class="floatLabel">Month</label>
+                                <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="styled-input">
+                                <label class="floatLabel">Year</label>
+                                <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" ng-value="{{btnName}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" ng-show="selectedTab == 2">
+                    <div class="row hidden-print" style="margin-top:15px">
+                        <div class="col-md-4">
+                            <div class="styled-input">
+                                <label class="floatLabel">Employee</label>
+                                <div angucomplete-alt id="Employees" placeholder="Employee Name" maxlength="50" pause="100" selected-object="selectedEmp"
+                                    local-data="employees" search-fields="name" title-field="name" minlength="2" input-class="form-control auto-complete"
+                                    match-class="highlight" field-required="true" input-name="Employees" tabindex="1" disable-input="disableEmp">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="styled-input">
+                                <label class="floatLabel">Month</label>
+                                <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="styled-input">
+                                <label class="floatLabel">Year</label>
+                                <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" ng-value="{{btnName}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

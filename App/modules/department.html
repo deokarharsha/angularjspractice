@@ -1,0 +1,29 @@
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-12 col-lg-12">
+<form>
+  Enter ID : <input type="text" name="id" ng-model="DeptID">
+  Enter Dept : <input type="text" name="Dept" value="" ng-model="DeptName" required>
+  <button type="button" name="button" value="submit" ng-click="submit()">Submit</button>
+  <table class="table table-bordered text-centered">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+    <tr ng-repeat="x in Departments track by $index">
+      <td>{{ x.id }}</td>
+      <td>
+        <div ng-hide="IsVisible[$index]">
+        {{ x.Name }}
+        </div>
+        <input type="text" ng-show="IsVisible[$index]" ng-model="x.Name"/></td>
+      </td>
+      <td><button class="w3-btn w3-rippsle" type="button"  ng-click="IsVisible[$index]=true" ng-hide="IsVisible[$index]">Edit</button>
+      <button type="button"  ng-click="IsVisible[$index]=false" ng-show="IsVisible[$index]">Save</button>
+      <button type="button" ng-click="IsVisible[$index]=false; Reset($index)"  ng-show="IsVisible[$index]">Cancel</button></td>
+    </tr>
+  </table>
+</form>
+</div>
+</div>
+</div>

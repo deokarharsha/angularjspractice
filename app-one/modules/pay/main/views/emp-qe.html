@@ -1,0 +1,43 @@
+<div ng-controller="EmpQECtrl">
+  <div class="container-fluid">
+    <form name="empQmeForm">
+      <div class="row hidden-print" style="margin-top:15px">
+        <div class="col-sm-6 col-md-4">
+          <div class="styled-input">
+            <label class="floatLabel">Select Field</label>
+            <select class="form-control" ng-model="selectedField" ng-options="field.name for field in fields" ng-change="selectField(selectedField)"></select>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-6 col-md-12">
+          <table class="table table-responsive table-striped table-bordered" ng-show="employees.length">
+            <tr>
+              <th>Emp ID</th>
+              <th>Emp Name</th>
+              <th>{{data.fieldName}}</th>
+              <th style="width:30px">Action</th>
+            </tr>
+            <tr ng-repeat="emp in employees track by $index" ng-class="{selectedRow:edit[$index] == true}">
+              <td>
+                <span>{{emp.empID}}</span>
+              </td>
+              <td>
+                <span>{{emp.name}}</span>
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{emp.value}}</span>
+                <span><input type="text" ng-show="edit[$index]" class="form-control" name="value" ng-model="emp.value"></span>
+              </td>
+              <td>
+                <button class="btn btn-md btn-link" type="button" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+                <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(emp); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

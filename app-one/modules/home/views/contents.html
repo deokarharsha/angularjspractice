@@ -1,0 +1,232 @@
+<section class="content-wrap">
+  <section ng-repeat="content in contents" id="{{content.id}}" ng-class="{active: isSelected(content)}">
+    <div ng-hide="hideShowHelpScreen">
+      <a class="hidden-print" href="javascript:;" ng-click="setHelpScreen(true)" style="float:right"><i class="fa fa-question-circle fa-2x"></i></a>
+      <div ng-include="content.action"></div>
+    </div>
+    <div ng-show="hideShowHelpScreen">
+      <a href="javascript:;" ng-click="setHelpScreen(false)" class="right"><i class="fa fa-times-circle fa-2x"></i></a>
+      <div ng-include="'user-manuals/pay/company-manual.html'"></div>
+    </div>
+  </section>
+  <section ng-hide="contents.length">
+    <div ng-controller="dashboardCtrl">
+      <legend class="hidden-print">
+        <i class="fa fa-user"></i> Welcome {{globals.currentUser.displayName}}!
+        <em class="pull-right">
+          <button class="btn btn-success btn-xs" style="border-radius: 3px !important;" ng-click="toggleContainer(true)">
+            <i class="fa fa-ticket"></i> Support
+          </button>
+          <button class="btn btn-warning btn-xs" style="border-radius: 3px !important;" ng-click="modalChangePwd = true">
+            <i class="fa fa-key"></i> Change Pwd
+          </button>
+          <button class="btn btn-info btn-xs" style="border-radius: 3px !important;" ng-click="signOut()">
+            <i class="fa fa-power-off"></i> Sign out
+          </button>
+        </em>
+      </legend>
+
+      <!-- new ticket container -->
+      <div ng-controller="ticketSupportCtrl" ng-show="showNewTicketContainer == true">
+        <div class="container-fluid">
+          <form name="ticketsForm" ng-submit="selectedIssueType.id != 0 && selectedCompany.id != 0  && selectedProduct.id != 0 ? submit() : result.error='Please select all options.'">
+            <fieldset>
+              <legend>New Ticket Support</legend>
+              <div class="row">
+                <div class="col-sm-6 col-md-4">
+                  <div class="styled-input">
+                    <label class="floatLabel" ng-show="data.ticketID.length">Ticket #</label>
+                    <input type="text" name="ticketID" class="form-control" ng-model="data.ticketID" disabled>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="styled-input">
+                    <label class="floatLabel" ng-show="data.ticketDt.length">Date</label>
+                    <input type="text" name="ticketDt" class="form-control" ng-model="data.ticketDt" title="Ticket Dt is required." disabled>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="styled-input">
+                    <label class="floatLabel" ng-show="data.name.length">Name</label>
+                    <input type="text" name="name" class="form-control" ng-model="data.name" disabled>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-4">
+                  <div class="styled-input">
+                    <label class="floatLabel">Support Type</label>
+                    <select class="form-control" ng-model="selectedIssueType" ng-options="issueType.name for issueType in issueTypes" ng-change="selectIssueType(selectedIssueType)"></select>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="styled-input">
+                    <label class="floatLabel">Company</label>
+                    <select class="form-control" ng-model="selectedCompany" ng-options="company.name for company in companies" ng-change="selectCompany(selectedCompany)"></select>
+                  </div>
+                  <br>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="styled-input">
+                    <label class="floatLabel">Application</label>
+                    <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products" ng-change="selectProduct(selectedProduct)"></select>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                  <div class="styled-input">
+                    <label class="floatLabel" ng-show="data.issue.length">Issue</label>
+                    <textarea type="text" name="issue" class="form-control" ng-model="data.issue" title="Issue is required" rows="8" required></textarea>
+                    <label ng-hide="data.issue.length">Issue</label>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-4">
+                  <input type="submit" ng-show="!result.success" ng-hide="checkClosedTickets() ? result.error = 'Close the tickets first.' : false" class="btn btn-success btn-md {{loading}}" value="Submit">
+                  <input type="button" class="btn btn-danger" value="Close" ng-click="reset(); toggleContainer(false)">
+                  <br>
+                  <div ng-show="result.success" class="alert alert-info">Ticket <b>{{data.ticketID}}</b> added successfully!</div>
+                  <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+      <div ng-hide="showNewTicketContainer">
+        <!-- show tickets -->
+        <div class="row hidden-print">
+          <div class="col-sm-12 col-md-12">
+            <div class="col-md-3">
+              <div class="checkbox" ng-show="globals.currentUser.type == 'Developer' ? true : false">
+                <label><input type="checkbox" ng-model="options.developer" ng-init="options.developer=true">MyTickets</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="styled-input">
+                <label class="floatLabel" ng-show="reportData.fromDate.length">From Date (dd/mm/yyyy)</label>
+                <input type="text" class="form-control" ng-model="reportData.fromDate" ng-disabled="reportData.pending">
+                <label ng-hide="reportData.fromDate.length">From Date (dd/mm/yyyy)</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="styled-input">
+                <label class="floatLabel" ng-show="reportData.toDate.length">To Date (dd/mm/yyyy)</label>
+                <input type="text" class="form-control" ng-model="reportData.toDate" ng-disabled="reportData.pending">
+                <label ng-hide="reportData.toDate.length">To Date (dd/mm/yyyy)</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="checkbox">
+                <label><input type="checkbox" ng-model="reportData.pending" ng-disabled="reportData.fromDate.length && reportData.toDate.length">Pending</label>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <input type="button" class="btn btn-md btn-default-green btn-block" value="View" ng-click="view();">
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+          <div class="container-fluid">
+            <div class="pageFooter"></div>
+            <div class="visible-print pageHeader">
+              <div class="companyName">
+                Ticket Support
+              </div>
+              <div class="reportTitle">
+              </div>
+              <div class="date">
+                Dt: {{currentDt}}
+              </div>
+            </div>
+            <table class="table table-responsive tickets">
+              <thead>
+                <tr>
+                  <th>Ticket#</th>
+                  <th>Date</th>
+                  <th>Location</th>
+                  <th ng-hide="tickets[0].hide">User</th>
+                  <th ng-hide="tickets[0].hide">Application</th>
+                  <th>Issue Type</th>
+                  <th>Issue</th>
+                  <th ng-hide="tickets[0].hide">Resolution</th>
+                  <th>Date</th>
+                  <th class="hidden-print">Action</th>
+                </tr>
+              </thead>
+              <tr style="background-color:{{ticket.bgColor}}" ng-repeat="ticket in tickets | filter:(globals.currentUser.type == 'Developer' && options.developer || '') && {'developer':globals.currentUser.displayName.split(' ')[0]} track by $index" ng-class="ticket.isClosed ? 'checkedRow':'uncheckedRow'">
+                <td>{{ticket.ticketID}}</td>
+                <td>{{ticket.ticketDate | limitTo:5}}</td>
+                <td>{{ticket.location}}</td>
+                <td ng-hide="tickets[0].hide">{{ticket.name}}</td>
+                <td ng-hide="tickets[0].hide">{{ticket.prodName}}</td>
+                <td>{{ticket.issueType}}</td>
+                <td class="ttwrapper hidden-print">{{ticket.issue.length > ticket.issueLength ? (ticket.issue | limitTo:ticket.issueLength) + ' ...' : ticket.issue}}
+                  <div ng-hide="ticket.issue.length <= ticket.issueLength" class="tooltip">{{ticket.issue}}</div>
+                </td>
+                <td class="visible-print">{{ticket.issue}}</td>
+                <td ng-hide="tickets[0].hide" class="ttwrapper">
+                  {{ticket.resolution.length > 25 ? (ticket.resolution | limitTo:25) + ' ...' : ticket.resolution}}
+                  <div ng-hide="!ticket.resolution || ticket.resolution.length <= 25" class="tooltip">{{ticket.resolution}}</div>
+                </td>
+                <td>{{ticket.date}}</td>
+                <td class="hidden-print">
+                  <a href="#" ng-click="callAction(ticket.ID, ticket.action)">{{ticket.action}}</a>
+                  <br>{{ticket.developer}}
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <!-- Change password modal popup -->
+      <div ng-show="modalChangePwd" class="modal">
+        <div class="modal-content">
+          <form name="chngePwdForm" ng-submit="password == confirmPassword ? chngePwd() : modalResult.error = 'Password not matched!'">
+            <span class="closeModal" ng-click="resetPwdForm(); modalChangePwd = false">X</span>
+            <legend>Change Password</legend>
+              <div class="row">
+                <div class="col-sm-6 col-md-12">
+                  <div class="styled-input">
+                    <label class="floatLabel" ng-show="password.length">New Password</label>
+                    <input type="password" ng-model="password" class="form-control" required>
+                    <label ng-hide="password.length">New Password</label>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-12">
+                  <div class="styled-input">
+                    <label class="floatLabel" ng-show="confirmPassword.length">Confirm Password</label>
+                    <input type="password" ng-model="confirmPassword" class="form-control">
+                    <label ng-hide="confirmPassword.length">Confirm Password</label>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-12">
+                  <input type="submit" value="Update" class="btn" style="background-color:#5cb85c">
+                  <br><br>
+                  <div ng-show="modalResult.success" class="alert alert-info input-sm" style="padding-top:3.5px">Password changed successfully!</div>
+                  <div ng-show="modalResult.error" class="alert alert-danger input-sm" style="padding-top:3.5px">Oops error! <b>{{modalResult.error}}</b></div>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+      <!-- /Change password modal popup -->
+    </div>
+  </section>
+</section>

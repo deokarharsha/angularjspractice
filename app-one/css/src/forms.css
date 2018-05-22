@@ -1,0 +1,154 @@
+/*!
+ * Forms reletaed css
+ * For required, valid, invalid, focus
+ * #eeffcc - yellow for select list
+ * #eeeeff - grey for disable
+ * #ccffff - light blue for active
+ * #f2fede - light red for error background, #ebccd1 - border, #a94442 color
+*/
+
+textarea {
+	resize: none;
+}
+
+input:focus ~ label, textarea:focus ~ label  {
+	font-size: 12px;
+	font-weight: bold;
+	color: #666;
+	top: -2.50rem;
+	-webkit-transition: all 0.125s ease;
+	transition: all 0.125s ease;
+}
+
+.floatLabel {
+	color: #666 !important;
+	font-size: 12px !important;
+	font-weight: bold !important;
+	top: -2.50rem !important;
+}
+
+.styled-input {
+	position: relative;
+}
+
+.styled-input label {
+	  color: #999;
+	  padding: 7px 15px;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  -webkit-transition: all 0.25s ease;
+	  transition: all 0.25s ease;
+	  pointer-events: none;
+		font-weight: normal;
+}
+
+input:focus, input:active, textarea:focus, textarea:active {
+  background-color: #ccffff;
+}
+
+/*---------->>> Auto Complete <<<-----------*/
+input.ng-invalid-autocomplete-required {
+	border-color: #A94442;
+}
+
+/* autocomplete */
+.auto-complete {
+    background-color: #F3F093;
+}
+
+.angucomplete-holder {
+    position: relative;
+}
+
+.angucomplete-dropdown {
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
+		max-height: 200px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    background-color: #ffffff;
+		overflow-y: auto;
+}
+
+.angucomplete-searching {
+    color: #acacac;
+    font-size: 14px;
+}
+
+.angucomplete-description {
+    font-size: 14px;
+}
+
+.angucomplete-row {
+    padding: 5px;
+    color: #000000;
+    margin-bottom: 4px;
+    clear: both;
+}
+
+.angucomplete-selected-row {
+    background-color: lightblue;
+}
+
+.angucomplete-image-holder {
+    padding-top: 2px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.angucomplete-image {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    border-color: #ececec;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.angucomplete-image-default {
+    /* Add your own default image here
+     background-image: url('/assets/default.png');
+    */
+    background-position: center;
+    background-size: contain;
+    height: 34px;
+    width: 34px;
+}
+/*---------->>> Auto Complete <<<-----------*/
+
+.form-control-numeric {
+	float: right;
+	text-align: right;
+	width: 60px;
+}
+
+.notify {
+  background-color: #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.error-row {
+	background-color: red;
+}
+
+/* input tags */
+tags-input .tags {
+  height: 90px !important;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  padding: 6px 12px;
+  overflow: auto;
+}
+tags-input .host {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

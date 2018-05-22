@@ -1,0 +1,114 @@
+<style>@page{size:A4 landscape}</style>
+<div ng-controller="SalSummaryCtrl">
+  <form name="rptSalSummary" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Month</label>
+          <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)"></select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Year</label>
+          <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)"></select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="styled-input">
+          <label class="floatLabel">Type</label>
+          <select class="form-control" ng-model="selectedType" ng-options="type.name for type in types" ng-change="selectType(selectedType)"></select>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <input type="submit" class="btn btn-md btn-default-green btn-block" value="View">
+      </div>
+      <div class="col-md-1" ng-show="content.viewMode">
+        <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row visible-print">
+    <div class="col-md-9">
+      <center>
+        <span class="heading"><b>{{report.companyName}}</b></span><br>
+        <span><b>Div : Lower Parel (Head Office)</b></span><br>
+        <span>{{report.companyAddress}}</span><br>
+        <span><b>Salary Summary</b></span><br>
+        <span><b>Month:{{selectedMonth.name}} {{selectedYear.name}}</b></span>
+      </center>
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-show="viewSalary">
+    <div class="col-md-12">
+      <table class="table table-responsive table-striped table-bordered">
+        <thead>
+          <tr class="visible-print pageHeader">
+            <th colspan="16">
+                <div class="companyName">
+                  {{globals.currentCompany.name}}
+                </div>
+                <div class="date">
+                  Dt: {{reportData.date}}
+                </div>
+            </th>
+          </tr>
+          <tr>
+            <th>Department<br><br><br><br><br></th>
+            <th>Tot<br>Emp<br><br><br><br></th>
+            <th>Esic<br>Wages<br><br><br><br></th>
+            <th>PF<br>Wages<br>PEN<br>Wages<br><br></th>
+            <th>Earned<br>Salary<br>DA<br><br><br></th>
+            <th>Earned<br>HRA<br>MA<br><br><br></th>
+            <th>CA<br>LE<br><br><br><br></th>
+            <th>EA<br>INS<br><br><br><br></th>
+            <th>Gross<br>Payable<br><br><br><br></th>
+            <th>LA<br>PF<br><br><br><br></th>
+            <th>PT<br>IT<br>UC<br><br><br></th>
+            <th>ESIC<br>MLWF<br>OD<br><br><br></th>
+            <th>Total<br>Deductions<br><br><br><br></th>
+            <th>Net<br>Payable<br><br><br><br></th>
+            <th>Employer's<br>Contribution<br><br><br><br></th>
+          </tr>
+        </thead>
+        <tr ng-repeat="grid in collection">
+          <td>{{grid.Dept}}</td>
+          <td class="digits">{{grid.TotalEmp}}</td>
+          <td class="digits">{{grid.ESICWages}}</td>
+          <td class="digits">{{grid.PFWages}}<br>{{grid.PenWages}}</td>
+          <td class="digits">{{grid.Basic}}<br>{{grid.DA}}</td>
+          <td class="digits">{{grid.HRA}}<br>{{grid.MA}}</td>
+          <td class="digits">{{grid.CA}}<br>{{grid.LE}}</td>
+          <td class="digits">{{}}</td>
+          <td class="digits">{{grid.Gross}}</td>
+          <td class="digits">{{grid.LA}}<br>{{grid.PF}}</td>
+          <td class="digits">{{grid.PT}}<br>{{grid.IT}}<br>{{grid.UC}}</td>
+          <td class="digits">{{grid.ESIC}}<br>{{grid.MLWF}}<br>{{grid.OD}}</td>
+          <td class="digits">{{grid.TotDeduct}}</td>
+          <td class="digits">{{grid.Net}}</td>
+          <td class="digits">{{grid.EmployerContro}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- Salary Summary Contents-->
+  <div class="row" ng-show="viewSalaryContent">
+    <div class="col-md-12">
+      <table class="table table-responsive table-striped table-bordered">
+        <thead>
+          <tr>
+            <th ng-repeat="header in colHeaders">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="content in content.viewData">
+            <td ng-repeat="key in colHeaders">{{ content[key] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- End of Salary Summary Contents -->
+</div>

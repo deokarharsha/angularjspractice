@@ -1,0 +1,122 @@
+<div ng-controller="ViewDocsCtrl" class="odms-font-style">
+  <div class="container-fluid">
+    <form name="viewDocsForm">
+      <fieldset>
+        <legend class="hidden-print">{{currentModule}}</legend>
+        <div class="row visible-print">
+          <div class="col-md-12">
+            <span class="companyName">{{reportTitle}}</span>
+          </div>
+          <div class="col-md-3">
+            <div class="date">{{reportDate}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-3 hidden-print">
+            <div class="scrollbox">
+              <ul class="odms-nav">
+                <li ng-repeat="folder in folders track by $index">
+                  <a href="javascript:;" ng-click="viewSubFoldersList(folder.ID)"><i ng-class="!showSubFolders ? 'fa fa-caret-right':'fa fa-caret-down'" ng-click="showSubFolders = !showSubFolders;"></i> <i class="fa fa-folder"></i> {{folder.name}}</a>
+                  <ul class="odms-sub-nav" ng-show="showSubFolders">
+                    <div class="scrollbox">
+                      <li ng-repeat="subFolder in subFolders | filter:{'parentID': folder.ID} as subFoldersList">
+                        <a href="javascript:;" ng-click="view(subFolder)"><i class="fa fa-folder"></i> <div class="nav-tooltip">{{subFolder.name.length > 10 ? (subFolder.name | limitTo:10) : subFolder.name}}<span ng-show="subFolder.name.length > 10" class="nav-tooltiptext">{{subFolder.name}}</span></div></a>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-9">
+            <div class="row hidden-print">
+              <div class="col-md-12">
+                <div class="styled-input">
+                  <input type="text" name="searchStr" placeholder="Search" class="form-control" ng-model="searchStr">
+                </div>
+              </div>
+              <!-- <div class="col-md-3">
+                 <div class="circle" ng-hide="data.length || noFiles === true">{{subFolderData.length}}</div>
+                 <div class="circle" ng-show="data.length || noFiles === true">{{data.length}}</div>
+              </div> -->
+            </div>
+            <div ng-hide="noFiles">
+              <div class="row" ng-hide="data.length">
+                  <div class="col-sm-12 col-md-12">
+                    <div class="scrollbox">
+                      <table class="table docTable" ng-show="subFoldersList.length">
+                        <thead>
+                          <tr>
+                            <th style="width:5%" class="visible-print">SNo</th>
+                            <th>Name</th>
+                            <th class="hidden-print">Desc</th>
+                            <th ng-repeat="fieldListHeader in fieldListHeader track by $index">{{ fieldListHeader.name }}</th>
+                          </tr>
+                        </thead>
+                        <tbody id="subFolders-container">
+                          <tr ng-repeat="subFolderData in subFolderData | filter:searchStr" ng-click="view(subFolderData)" style="cursor:pointer;">
+                            <td style="width:5%" class="visible-print">{{$index + 1}}</td>
+                            <td ng-bind-html="highlight(subFolderData.name, searchStr)">{{subFolderData.name}}</td>
+                            <td ng-bind-html="highlight(subFolderData.desc, searchStr)" class="hidden-print">{{subFolderData.desc}}</td>
+                            <td ng-bind-html="highlight(fieldList, searchStr)" ng-repeat="fieldList in subFolderData.fieldList track by $index">{{fieldList.fieldList}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" ng-show="data.length">
+                  <div class="col-sm-12 col-md-12">
+                    <div class="scrollbox">
+                      <table class="table docTable">
+                        <thead>
+                          <tr class="text-center">
+                            <th style="width:50px" class="hidden-print"><input type="checkbox" ng-model="selectAll" ng-click="checkAll()"></th>
+                            <th class="visible-print">Sr.No.</th>
+                            <th>File Name</th>
+                            <th class="hidden-print">Description</th>
+                            <th>Tags</th>
+                            <th>Date</th>
+                          </tr>
+                        </thead>
+                        <tbody id="docs-container">
+                          <tr ng-repeat="file in data | filter:searchStr">
+                            <td style="width:50px" class="hidden-print"><input type="checkbox" ng-model="file.checked"></td>
+                            <td class="visible-print text-right">{{$index + 1}}</td>
+                            <td class="visible-print">{{file.name}}</td>
+                            <td class="hidden-print" ng-bind-html="highlight(file.name, searchStr)"><a ng-href="https://drive.google.com/open?id={{file.fileID}}" target="_blank">{{file.name}}</a></td>
+                            <td class="ttwrapper hidden-print" ng-bind-html="highlight(file.desc, searchStr)">{{file.desc.length > 15 ? (file.desc | limitTo:15) + ' ...' : file.desc}}
+                              <div class="tooltip" ng-show="file.desc.length">{{file.desc}}</div>
+                            </td>
+                            <td ng-bind-html="highlight(file.tags, searchStr)">{{file.tags}}</td>
+                            <td class="hidden-print">{{file.uploadDt}}</td>
+                            <td class="visible-print text-right">{{file.uploadDt}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-3" ng-show="data.length">
+                    <input type="button" class="btn btn-md btn-default-green btn-block hidden-print" value="Download" ng-click="download()">
+                  </div>
+                  <div class="col-sm-6 col-md-3" ng-show="subFoldersList.length || data.length">
+                    <input type="button" class="btn btn-md btn-default-green btn-block hidden-print" value="Print" ng-click="print()">
+                  </div>
+                  <div class="col-sm-6 col-md-3" ng-show="data.length">
+                    <input type="button" class="btn btn-md btn-default-green btn-block hidden-print" value="Trash" ng-click="trash()">
+                  </div>
+                </div>
+            </div>
+            <div ng-show="noFiles">
+              <div class="col-sm-6 col-md-9">
+                <div class="div-no-files"><center><img src="images\no-files-found.png"><br>No Files Found </center></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

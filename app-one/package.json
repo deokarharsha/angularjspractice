@@ -1,0 +1,21 @@
+{
+  "name": "Juliet ONE",
+  "version": "1.0.0",
+  "description": "All applications under one roof",
+  "main": "Gruntfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-ngdocs": "^0.2.10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JULIET INFOTECH PRIVATE LIMITED",
+  "license": "ISC"
+}

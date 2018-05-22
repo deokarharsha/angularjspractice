@@ -1,0 +1,128 @@
+<div ng-controller="DivisionCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="divisionForm" ng-submit="selectedCompany.id != 0 ? submit() : result.error = 'Please select company.'">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} Divisions</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Select Company</label>
+              <select class="form-control" ng-model="selectedCompany" ng-options="company.name for company in companies" ng-change="selectCompany(selectedCompany)" ></select>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">Name</label>
+              <input type="text" name="name" class="form-control" ng-model="data.name" title="name is required." required>
+              <label ng-hide="data.name.length">Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.prefixCode.length">Prefix Code</label>
+              <input type="text" name="prefixCode" class="form-control" ng-model="data.prefixCode" title="prefix Code is required." maxlength="2" required>
+              <label ng-hide="data.prefixCode.length">Prefix Code</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.address.length">Address</label>
+              <textarea rows="3" name="address" class="form-control" ng-model="data.address" title="address is required."  required></textarea>
+              <label ng-hide="data.address.length">Address</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">City</label>
+              <div angucomplete-alt id="Cities"
+                  placeholder="city"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedCity"
+                  local-data="cities"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  field-required="true"
+                  match-class="highlight"
+                  input-name="Cities">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">State</label>
+              <div angucomplete-alt id="States"
+                  placeholder="state"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedState"
+                  local-data="states"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  field-required="true"
+                  match-class="highlight"
+                  input-name="States">
+              </div>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.pinCode.length">Pin Code</label>
+              <input type="text" name="pinCode" class="form-control" ng-model="data.pinCode" title="pinCode is required." maxlength="6" required>
+              <label ng-hide="data.pinCode.length">Pin Code</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.PfNo.length">Pf No</label>
+              <input type="text" name="pfNo" class="form-control" ng-model="data.pfNo" title="pfNo is required." required>
+              <label ng-hide="data.pfNo.length">Pf No</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.esicNo.length">Esic No</label>
+              <input type="text" name="esicNo" class="form-control" ng-model="data.esicNo" title="esicNo is required." required>
+              <label ng-hide="data.esicNo.length">Esic No</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.ptaxNo.length">Ptax No</label>
+              <input type="text" name="ptaxNo" class="form-control" ng-model="data.ptaxNo" title="ptaxNo is required." required>
+              <label ng-hide="data.ptaxNo.length">Ptax No</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.licNo.length">Lic No</label>
+              <input type="text" name="licNo" class="form-control" ng-model="data.licNo">
+              <label ng-hide="data.licNo.length">Lic No</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.licFreq.length">Lic Freq</label>
+              <input type="text" name="licFreq" class="form-control" ng-model="data.licFreq">
+              <label ng-hide="data.licFreq.length">Lic Freq</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.licCategory.length">Lic Category</label>
+              <input type="text" name="licCategory" class="form-control" ng-model="data.licCategory">
+              <label ng-hide="data.licCategory.length">Lic Category</label>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.name}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset()" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br> {{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Divisions</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

@@ -1,0 +1,423 @@
+<style>@page{size:A4}</style>
+<div ng-controller="Form16Ctrl">
+  <div class="row hidden-print" style="margin-top:15px;">
+    <div class="col-md-3">
+      <div class="styled-input">
+        <label class="floatLabel">Employee</label>
+        <div angucomplete-alt id="Employees"
+            placeholder="Employee Name"
+            maxlength="50"
+            pause="100"
+            selected-object="selectedEmp"
+            local-data="empName"
+            search-fields="name"
+            title-field="name"
+            minlength="2"
+            input-class="form-control auto-complete"
+            match-class="highlight"
+            field-required="requireEmp"
+            input-name="Employees"
+            tabindex="1">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="styled-input">
+        <label class="floatLabel">From Year</label>
+        <select class="form-control" ng-model="selectedFromYear" ng-options="year.name for year in years" ng-change="selectFromYear(selectedFromYear)"></select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="styled-input">
+        <label class="floatLabel">To Year</label>
+        <select class="form-control" ng-model="selectedToYear" ng-options="year.name for year in years" ng-change="selectToYear(selectedToYear)"></select>
+      </div>
+    </div>
+    <div class="col-md-1">
+        <input type="button" class="btn btn-md btn-default-green btn-block" value="View" ng-click="view(); content.viewMode = true">
+    </div>
+    <div class="col-md-1" ng-show="content.viewMode">
+        <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-show="content.viewMode">
+    <div class="col-md-12">
+      <center>
+        <span class="heading"><b>FORM NO : 16</b></span><br>
+        <span class="heading">[ See rule 31(1) (a) ]</span><br>
+        <span>Certificate under section 203 of the Income-tax Act, 1961 for tax deducted at source</span><br>
+        <span>from income chargeable under the head "Salaries"</span><br>
+      </center>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-bordered" style="text-align:center">
+        <colgroup>
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:12%">
+          <col style="width:12%">
+          <col style="width:25%">
+        </colgroup>
+        <tr>
+          <td colspan="2">Name and address of the Employer</td>
+          <td colspan="3">Name and designation of the Employee</td>
+        </tr>
+        <tr>
+          <td colspan="2"><b>{{report.companyName}}</b><br>{{report.title}}</td>
+          <td colspan="3"><b>Anita Om Baghel<br>Web Developer</b></td>
+        </tr>
+        <tr>
+          <td>PAN No. of the Deductor</td>
+          <td>TAN No. of the Deductor</td>
+          <td colspan="3">PAN No. of the Employee</td>
+        </tr>
+        <tr>
+          <td><b>AAACJ 8702 F</b></td>
+          <td><b>MUM J06114 D</b></td>
+          <td colspan="3"><b>AAACJ 8702 F</b></td>
+        </tr>
+        <tr>
+          <td colspan="2">Acknowledgement Nos. of all quarterly statements of TDS under sub-section (3) of section 200 as provided by TIN Facilitation Centre or NSDL web-site</td>
+          <td colspan="2">6</td>
+          <td>Assessment Year</td>
+        </tr>
+        <tr>
+          <td>Quarter</td>
+          <td>Acknowledgement No.</td>
+          <td>From</td>
+          <td>TO</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><b>{{selectedFromYear.name}}</b></td>
+          <td><b>{{selectedToYear.name}}</b></td>
+          <td><b>{{selectedFromYear.name}}-{{selectedToYear.name}}</b></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <b><center>DETAILS OF SALARY PAID AND ANY OTHER INCOME AND TAX DEDUCTED</center></b>
+        <table class="table table-bordered">
+          <colgroup>
+            <col style="width:1%">
+            <col style="width:39%">
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+          </colgroup>
+          <tr>
+            <th colspan="3">1. Gross Salary</th>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(a)</td>
+            <td>Salary as per provisions contained in section 17(1)</td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(b)</td>
+            <td>Value of perquisites under section 17(2) (as per Form No. 12BA, wherever applicable)</td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(c)</td>
+            <td><p>Profits in lieu of salary under section 17(3) (as per Form No. 12BA, wherever applicable)</p></td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(d)</td>
+            <td>Total</td>
+            <td></td>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">2.Less:Allowance to the extent exempt under section 10</th>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <table class="table table-bordered">
+                <colgroup>
+                  <col style="width:60%">
+                  <col style="width:40%">
+                </colgroup>
+                <tr>
+                  <th>Allowance</th>
+                  <th>Rs</th>
+                </tr>
+                <tr>
+                  <td>D1</td>
+                  <td>1000</td>
+                </tr>
+              </table>
+            </td>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">3.Balance(1-2)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">4.Deduction</th>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(a)</td>
+            <td>Entertainment allowance</th>
+            <td>Rs.100</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(b)</td>
+            <td>Tax on Employment</th>
+            <td>Rs.100</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">5.Aggregate of 4(a&amp;b)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">6.Income chargeable under the head 'Salaries' (3 - 5)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">7.Add : Any other income reported by the employee</th>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <table class="table table-bordered">
+                <colgroup>
+                  <col style="width:60%">
+                  <col style="width:40%">
+                </colgroup>
+                <tr>
+                  <th>Allowance</th>
+                  <th>Rs</th>
+                </tr>
+                <tr>
+                  <td>D1</td>
+                  <td>1000</td>
+                </tr>
+              </table>
+            </td>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">8.Gross total income (6 - 7)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">9.Deductions under Chapter VI - A</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <th colspan="2">sections 80C, 80CCCand 80CCD</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <table class="table table-bordered">
+                <colgroup>
+                  <col style="width:60%">
+                  <col style="width:40%">
+                </colgroup>
+                <tr>
+                  <th>Name</th>
+                  <th>Amount</th>
+                </tr>
+                <tr>
+                  <td>D1</td>
+                  <td>1000</td>
+                </tr>
+              </table>
+            </td>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(a)</td>
+            <td>section 80CCC</td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(b)</td>
+            <td>section 80CCD</td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <th colspan="2">other sections (e.g., 80E, 80G etc.)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <table class="table table-bordered">
+                <colgroup>
+                  <col style="width:60%">
+                  <col style="width:40%">
+                </colgroup>
+                <tr>
+                  <th>Name</th>
+                  <th>Amount</th>
+                </tr>
+                <tr>
+                  <td>D1</td>
+                  <td>1000</td>
+                </tr>
+              </table>
+            </td>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="2" >Note</td>
+            <td colspan="3" style="font-size:12px">1. aggregate amount deductible under section 80C shall not exceed one lakh rupees
+                                                  <br>2. aggregate amount deductible under the three sections, i.e., 80C, 80CCC, 80CCD, shall not exceed one lakh rupees</td>
+          </tr>
+          <tr>
+            <th colspan="3">10.Aggregate of deductible amounts under Chapter VI - A</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">11.Total income (8 - 10)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">12.Tax on total income</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">13.Surcharge 10%(on tax computed at S.No 12) Rs.</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">14.Education Cess @ 3%on (tax at S.No. 12 plus surcharge at S.No. 13)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">15.Tax Payable (12+13+14)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">16.Relief under section 89 (attach details)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">17.Tax paybale (15-16)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">18.Less</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(a)</td>
+            <td>Tax deducted at source u/s 192(1)</td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>(b)</td>
+            <td>Tax paid by the employer on behalf of the employee u/s 192(1A) on perquisites u/s 17(2)</td>
+            <td>Rs.1000</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th colspan="3">19.Tax payable/refundable (17-18)</th>
+            <td>Rs.1000</td>
+            <td></td>
+          </tr>
+        </table>
+    </div>
+    <div class="col-md-12">
+      <b><center>DETAILS OF TAX DEDUCTED AND DEPOSITED INTO CENTRAL GOVERNMENT ACCOUNT</center></b><br>
+        <center>(The Employer is to provide transaction-wise details of tax deducted and deposited)</center>
+        <table class="table table-bordered">
+          <tr style="text-align:center">
+            <th>S.No</th>
+            <th>TDS(Rs.)</th>
+            <th>Surcharge</th>
+            <th>Education Cess</th>
+            <th>Total Tax Deposited</th>
+            <th>Cheque/DD No.(If any)</th>
+            <th>BSR Code of Bank Branch</th>
+            <th> Date on which Tax Deposited</th>
+            <th>Transfer Voucher/Challan Indentification No.</th>
+            <th></th>
+          </tr>
+        </table>
+    </div>
+    <div class="col-md-12">
+      I _____________________ son/daughter of ____________________ working in the capacity of __________________(designation) do hereby certify that a sum
+      of Rs. __________[Rupees ____________(in words)] has been deducted at source and paid to the credit of the Central Government. I further
+      certify that the information given is true and correct based on the books of accounts, documents and other available records.
+    </div>
+    <br>
+    <div class="col-md-8">
+      <br>
+      Place:
+      <br>
+    </div>
+    <div class="col-md-4">
+      <div class="t">
+      <b><span style="float:right">Juliet Apparels ltd.</span></b>
+    </div>
+    <br>
+    </div>
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-4">
+      <div class="t">
+      <span style="float:right">_____________________________________</span>
+    </div>
+    <br>
+    <div class="t">
+      <b><div style="text-align:right">Signature of the person responsible for deduction of tax</div></b>
+    </div>
+      <br>
+      Full Name:
+      <br>
+      Designation:
+    </div>
+  </div>
+</div>

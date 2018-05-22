@@ -1,0 +1,147 @@
+<style>@page{size:A4}</style>
+<div ng-controller="EmpLoanInfoCtrl">
+  <form name="rptEmpLoanInfo" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Employee Name</label>
+          <div angucomplete-alt id="Emps"
+          placeholder="Employee Name"
+          maxlength="50"
+          pause="100"
+          selected-object="selectedEmp"
+          local-data="empName"
+          search-fields="name"
+          title-field="name"
+          minlength="2"
+          input-class="form-control auto-complete"
+          match-class="highlight"
+          field-required="requireEmp"
+          input-name="Emps"
+          disable-input = "disableEmp">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <input type="submit" class="btn btn-md btn-default-green btn-block" value="{{btnName}}">
+    </div>
+    <div class="col-md-3" ng-disabled="disableEmp" ng-show="content.viewMode">
+      <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="Print" onclick="window.print();">
+    </div>
+  </div>
+</form>
+<br>
+<div class="row" ng-show="content.viewMode">
+
+  <div class="col-md-12">
+    <div class="visible-print">
+      <table class="table pageHeader NoBorder">
+          <tr colspan="5" >
+            <div class="companyName">
+              {{globals.currentCompany.name}}
+            </div>
+            <div class="reportTitle">
+              <span><b>Employee Loan Information</b></span>
+            </div>
+            <div class="date">
+              Dt: {{reportData.date}}
+            </div>
+          </tr>
+        </table>
+    </div>
+    <table style="border: 1px solid lightgrey; max-width: 100%;width: 100%;">
+      <colgroup>
+        <col style="width:33%">
+        <col style="width:33%">
+        <col style="width:33%">
+      </colgroup>
+      <tr>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>LoanId:</b>{{data.LoanId}}
+          </div>
+        </td>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>LoanInt:</b>{{data.LoanInt}}
+          </div>
+        </td>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>Dept:</b>{{data.Dept}}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>Name:</b>{{data.Name}}
+          </div>
+        </td>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>TotAmtDue:</b>{{data.TotAmt}}
+          </div>
+        </td>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>Dsgn:</b>{{data.Dsgn}}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>LoanDt:</b>{{data.LoanDt}}
+          </div>
+        </td>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>TotalDeductionMonth:</b>{{data.TotMonth}}
+          </div>
+        </td>
+        <td rowspan="2" style="font-size:18px">
+          <div class="styled-input"  >
+            <b>Balance:{{Balance}}</b>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>LoanAmt:</b>{{data.LoanAmt}}
+          </div>
+        </td>
+        <td style="padding:8px">
+          <div class="styled-input">
+            <b>Method:</b>{{data.Method}}
+          </div>
+        </td>
+      </tr>
+    </table>
+    <br>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-responsive table-striped table-bordered tableHeader">
+      <tr>
+        <th>Deduct Date</th>
+        <th>Adv Amt</th>
+        <th>Less Amt</th>
+        <th>Outside Paid</th>
+      </tr>
+      <tr ng-repeat="grid in collection">
+        <td>{{grid.Deductdt}}</td>
+        <td>{{grid.AddAmt}}</td>
+        <td>{{grid.LessAmt}}</td>
+        <td>{{grid.OutSidePaid}}</td>
+      </tr>
+      <tr>
+        <td><b>Total:</b></td>
+        <td><b>{{total.AddAmt}}</b></th>
+          <td><b>{{total.LessAmt}}</b></td>
+          <td><b>{{total.OutSidePaid}}</b></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+
+<div class="col-auto text-center" >
+      <legend >Employees Details</legend>
+</div>
+<div class="container" ng-init="total= {}">
+<hr>
+<div class="active-cyan-3 active-cyan-4 mb-4">
+        <input class="form-control" type="text" ng-model="search" placeholder="Search" aria-label="Search">
+</div>
+  <form class="form-inline" role="form">
+    <div class="form-group">
+      <label for="name">Name</label>
+	  <input type="name" class="form-control" ng-model="Name" id="name" placeholder="Enter name" required>
+    </div>&emsp;
+
+    <div class="form-group">
+      <label for="Dept">Dept</label>&nbsp;
+      <select ng-model="selectedDept" required>
+          <option value="">Select</option>
+          <option value="IT">IT</option>
+          <option value="HR">HR</option>
+          <option value="Admin">Admin</option>
+          <option value="Production">Production</option>
+      </select>
+    </div>&emsp;
+
+    <div class="form-group">
+       <label for="ba">BasicSalary</label>&nbsp;
+	     <input type="text" class="form-control" id="ba" ng-model="GrossSalary" placeholder="Enter Salary" required>
+    </div>&emsp;
+
+     <button type="submit" class="btn btn-default" ng-click="addRow()">Add Row</button>&emsp;
+     <button type="submit" class="btn btn-default" ng-click="submit()">Submit Data</button>&emsp;
+     <button type="submit" class="btn btn-default" ng-click="removeRow()">Remove Row</button>
+     </form><br>
+     <div class="alert alert-danger" ng-show="showError">
+       <strong> Please enter correct data.</strong>
+     </div>
+     <div class="row">
+     <div class="col-12">
+        <table class="table table-bordered table-responsive text-centered mx-auto" style="text-align:center">
+        <tr>
+            <th rowspan="2">ID</th>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Dept</th>
+            <th colspan="3">GrossSalary</th>
+        </tr>
+        <tr>
+          <th>BasicSalary</th>
+          <th>Deduction</th>
+          <th>NetSalary</th>
+        </tr>
+        <tbody>
+        <tr ng-repeat="x in employees | filter : search track by $index  ">
+            <td>{{$index + 101}}</td>
+            <td>{{x.Name}}</td>
+            <td>{{x.Dept}}</td>
+
+            <td>{{x.GrossSalary}}</td>
+            <td ng-init="$parent.total.Deduct = $parent.total.Deduct + Deduction(x.GrossSalary)">{{ Deduction(x.GrossSalary)}}</td>
+            <td ng-init="$parent.total.NetSal = $parent.total.NetSal + (x.GrossSalary -  Deduction(x.GrossSalary))">{{x.GrossSalary -  Deduction(x.GrossSalary) }}</td>
+            <td><input type="checkbox" ng-model="x.Remove"/></td>
+        </tr>
+        <tr>
+            <td colspan="3">Total</td>
+            <td>{{ GrossTotal() }}</td>
+            <td>{{ total.Deduct }}</td>
+            <td>{{ total.NetSal }}</td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+  </fieldset>

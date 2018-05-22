@@ -1,0 +1,85 @@
+<style>@page{size:A4 landscape}</style>
+<div ng-controller="SalRegisterCtrl">
+  <form name="rptSalRegister" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Month</label>
+          <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled="content.viewMode == true"></select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Year</label>
+          <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)" ng-disabled="content.viewMode == true"></select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-2" ng-show="content.viewMode">
+        <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row" ng-show="content.viewMode">
+    <div class="col-md-12">
+      <table class="table table-responsive table-striped table-bordered tableHeader">
+        <thead>
+          <tr class="visible-print pageHeader">
+            <th colspan="16">
+              <div class="companyName">
+                {{globals.currentCompany.name}}<br>
+                Department:{{gridData.Dept}}
+              </div>
+              <div class="reportTitle">
+                <span><b>Salary Register "Form 2A"</b></span><br>
+                <span><b>Month:{{selectedMonth.name}} {{selectedYear.name}}</b></span>
+              </div>
+              <div class="date">
+                Dt: {{reportData.date}}
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>Name of Employee<br>Date of Join<br>Designation<br>PF No.<br>ESIC No.</th>
+            <th>Sex<br><br><br><br><br></th>
+            <th>No. of<br>days<br>worked<br><br><br></th>
+            <th>Rate Per<br>Month<br>incl.<br>DA+HRA+<br>MA</th>
+            <th>Earned<br>Basic<br>DA<br><br><br></th>
+            <th>HRA<br>CA<br>MA<br><br><br></th>
+            <th>OT<br>LE<br><br><br><br></th>
+            <th>Add1<br>Add2<br><br><br><br></th>
+            <th>Gross<br>Payable<br>Salary<br><br><br></th>
+            <th>Loan<br>And<br>Advance<br><br><br></th>
+            <th>PT<br>PF<br><br><br><br></th>
+            <th>UC<br>Income<br>Tax<br><br><br></th>
+            <th>ESIC<br>MLWF<br>OD<br><br><br></th>
+            <th>Total<br>Deductions<br><br><br><br></th>
+            <th>Net<br>Salary<br><br><br><br></th>
+            <th>Salary<br><br><br><br><br></th>
+          </tr>
+        </thead>
+        <tr ng-repeat="grid in collection">
+          <td>{{grid.Name}}<br>{{grid.DOJ}}<br>{{grid.Dsgn}}<br>{{grid.PFNo}}<br>{{grid.ESICNo}}</td>
+          <td>{{grid.Sex}}</td>
+          <td class="digits">{{grid.workDays}}</td>
+          <td class="digits">{{grid.da + grid.hra + grid.ma}}</td>
+          <td class="digits">{{grid.basic}}<br>{{grid.da}}</td>
+          <td class="digits">{{grid.hra}}<br>{{grid.ca}}<br>{{grid.ma}}</td>
+          <td class="digits">{{grid.ot}}<br>{{grid.le}}</td>
+          <td class="digits">{{grid.add1}}<br>{{grid.add2}}</td>
+          <td class="digits">{{grid.gross}}</td>
+          <td class="digits">{{}}</td>
+          <td class="digits">{{grid.pt}}<br>{{grid.pf}}</td>
+          <td class="digits">{{grid.uc}}<br>{{grid.it}}</td>
+          <td class="digits">{{grid.esic}}<br>{{grid.mlwf}}<br>{{grid.od}}</td>
+          <td class="digits">{{grid.deduct1 + grid.deduct2}}</td>
+          <td class="digits">{{grid.net}}</td>
+          <td class="digits">{{}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

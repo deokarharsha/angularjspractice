@@ -1,0 +1,94 @@
+<style>@page{size:A4}</style>
+<div ng-controller="Form3ACtrl">
+  <form name="rptForm3A" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-3">
+        <div class="styled-input">
+        </div>
+        <input type="text" name="SDate" ng-model="data.SDate" class="form-control" placeholder="Start Date" maxlength="10" ng-disabled="content.viewMode == true" required>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="EDate" ng-model="data.EDate" class="form-control" placeholder="End Date" maxlength="10" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-3" ng-show="content.viewMode">
+        <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row" ng-show="content.viewMode">
+    <center>
+      <span style="font-size:20px"><b>FORM- 3A(REVISED)</b></span><br>
+      <span>THE EMPLOYEE'S PROVIDENT FUND SCHEME,1952 AND THE EMPLOYEE'S PENSION SCHEME,1995 <br>(PARAS 35 AND 42) AND (PARA 19) </span><br>
+      <span><b>CONTRIBUTION CARD FOR CURRENCY PERIOD {{data.SDate}}  TO {{data.EDate}}</b></span>
+    </center>
+  </div>
+  <br>
+  <div class="row" ng-show="content.viewMode">
+    <div class="col-md-12">
+      <table class="NoBorder">
+        <tr>
+          <td>1. Account No </td>
+          <td><b>ASK161616</b></td>
+        </tr>
+        <tr>
+          <td>2. Name/Surname</td>
+          <td><b>{{gridData.Name}}</b></td>
+        </tr>
+        <tr>
+          <td>3. Father's/Husbands Name</td>
+          <td><b>{{gridData.FatherName}}</b></td>
+        </tr>
+        <tr>
+          <td>4. Name &amp; Address Of company</td>
+          <td><b>{{report.companyName}}</b><br>
+            {{report.companyAddress}}</td>
+          </tr>
+        <tr>
+          <td>5. Statutory Rate Of PF Contribution</td>
+          <td>12%</td>
+        </tr>
+      </table>
+      <div class="col-md-10">
+        <div class="styled-input">
+          Voluntary Higher rate of employee's contribution if any: ____%
+        </div>
+      </div>
+      <br>
+      <div class="col-md-12">
+        <table class="table table-responsive table-striped table-bordered tableHeader">
+          <thead>
+            <tr>
+              <th rowspan="2">MONTH<br><br></th>
+              <th rowspan="2">AMOUNT OF WAGES</th>
+              <th rowspan="2">WORKERS SHARES E.P.F</th>
+              <th colspan="2">EMPLOYERS SHARE</th>
+              <th rowspan="2">REFUND OF ADVANCE</th>
+              <th rowspan="2">NO. OF DAYS OF THE NON CONTRIBUTION SERVICE</th>
+              <th rowspan="2">REMARK</th>
+            </tr>
+            <tr>
+              <th>E.P.F. DIFFERENCE BETWEEN  12%  &amp; 8.33%</th>
+              <th> PENSION FUND CONTRIBUTION 8.33%</th>
+            </tr>
+            <tr>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>(4a)</th>
+              <th>(4b)</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

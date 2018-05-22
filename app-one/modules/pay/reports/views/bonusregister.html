@@ -1,0 +1,130 @@
+<style>@page{size:A3 landscape}</style>
+<div ng-controller="BonusRegisterCtrl">
+  <form name="rptBonusRegister" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Department</label>
+          <div angucomplete-alt id="Departments"
+              placeholder="Department Name"
+              maxlength="50"
+              pause="100"
+              selected-object="selectedDept"
+              local-data="deptName"
+              search-fields="name"
+              title-field="name"
+              minlength="2"
+              input-class="form-control auto-complete"
+              match-class="highlight"
+              field-required="requireDept"
+              input-name="Departments"
+              tabindex="1">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="SDate" ng-model="data.SDate" class="form-control" placeholder="Start Date" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="EDate" ng-model="data.EDate" class="form-control" placeholder="End Date" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-1">
+          <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-1" ng-show="content.viewMode">
+          <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <!-- <div class="row" ng-show="content.viewMode">
+    <div class="col-md-12"> -->
+      <div class="row" ng-show="content.viewMode">
+        <div class="col-md-12">
+          <table class="table table-bordered tableHeader">
+            <thead>
+              <tr>
+                <th colspan="15" class="visible-print">
+                  <div>
+                    <div class="companyName">
+                      {{globals.currentCompany.name}}
+                    </div>
+                    <div class="reportTitle">
+                      <span><b>Bonus Register</b></span><br>
+                      <span><b>See Rule 4 [d]) FROM C</b></span>
+                    </div>
+                    <div class="date">
+                      Dt: {{reportData.date}}
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row reportTitle" ng-show="content.viewMode">
+                    <div class="col-md-6" style="margin-left:150px">
+                      <b style="margin-right:40px">Bonus paid to employees for the year ended</b>
+                        NO. OF WORKING DAYS IN THE YEAR{{gridData.TotWorkDays}}
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                  <th>NAME OF THE<br>EMPLOYEE<br>(1)<br><br><br><br><br><br><br><br><br><br></th>
+                  <th>WHETHER<br>COMPLETED<br>15 YEARS<br>AT<br>THE<br>ACCOUNTING<br>YAER<br>(2)<br><br><br><br><br><br></th>
+                  <th>DESIGNATION<br>(3)<br><br><br><br><br><br><br><br><br><br><br><br></th>
+                  <th>NO. OF<br>DAYS<br>WORKED<br>IN THE<br>YEAR<br>(4)<br><br><br><br><br><br><br><br></th>
+                  <th>TOTAL<br>SALARY<br>OF WAGE<br>IN THE<br>YEAR<br>(5)<br><br><br><br><br><br><br></th>
+                  <th>AMOUNT OF<br>BONUS<br>PAYABLE<br>UNDER<br>SECTION 10<br>OR<br>11 AS THE<br>CASE MAY BE<br>(6)</th>
+                  <th>INCOME<br>TAX<br>DEDUCTION<br>(7)<br><br><br><br><br><br><br><br><br><br></th>
+                  <th>PUJA<br>BONUS OR<br>OTHER<br>CUSTOMAR<br>Y<br>BONUS<br>PAID<br>DURING<br>THE<br>ACCOUNTING<br>YEAR<br>(8)<br><br></th>
+                  <th>INTERIM<br>BONUS<br>OR<br>BONUS<br>PAID IN<br>ADVANCE<br>(9)<br><br><br><br><br><br><br></th>
+                  <th>DEDUCTION<br>ON<br>ACCOUNT<br>OF FINANCIAL<br>LOSS IF<br>ANY<br>CAUSED<br>BY<br>MISCONDUCT<br>OF THE<br>EMPLOYEE<br>(10)<br></th>
+                  <th>TOTAL<br>SUM<br>DUDUCTED<br>(COL.8.9.<br>AND 10.11)<br>(11)<br><br><br><br><br><br><br><br></th>
+                  <th>NET<br>AMOUNT<br>PAYABLE<br>(COL.7 - <br>COL. 12)<br>(12)<br><br><br><br><br><br><br><br></th>
+                  <th>AMOUNT<br>ACTUALLY<br>PAID<br>(13)<br><br><br><br><br><br><br><br><br><br></th>
+                  <th>DATE<br>ON<br>WHICH<br>PAID<br>(14)<br><br><br><br><br><br><br><br><br></th>
+                  <th>SIGNATURE/<br>THUMB<br>IMPRESSION<br>OF<br>THE<br>EMPLOYEE<br>(15)<br><br><br><br><br><br><br></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="grid in collection">
+                <td>{{grid.Name}}</td>
+                <td>{{}}</td>
+                <td>{{grid.DSGN}}</td>
+                <td class="digits">{{grid.WorkDays}}</td>
+                <td class="digits">{{grid.TotWages}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+                <td class="digits">{{grid.Bonus}}</td>
+                <td class="digits">{{grid.Bonus}}</td>
+                <td>{{}}</td>
+                <td>{{}}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td class="digits">{{}}</td>
+                <td class="digits">{{}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="digits">{{}}</td>
+                <td class="digits">{{}}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  <!-- </div> -->

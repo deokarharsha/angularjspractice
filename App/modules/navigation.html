@@ -1,0 +1,19 @@
+<nav class="navbar bg-light">
+  <ul class="navbar-nav">
+    <div ng-repeat ="x in Menu">
+      <li class="nav-item" ng-if="!x.subMenu">
+        <a class="nav-link" href="#">{{ x.Name }}</a>
+      </li>
+  <li class="nav-item dropdown" ng-if="x.subMenu" >
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      {{ x.Name }}
+    </a>
+    <div class="dropdown-menu">
+      <div ng-repeat="y in x.subMenu">
+        <a class="dropdown-item" href="#">{{ y.Name }}</a>
+      </div>
+    </div>
+  </li>
+  </div>
+</ul>
+</nav>

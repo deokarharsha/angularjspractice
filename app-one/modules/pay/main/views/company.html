@@ -1,0 +1,110 @@
+<div ng-controller="CompanyCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="companyForm" ng-submit="submit()">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} Company</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">Company Name</label>
+              <input type="text" name="name" class="form-control" ng-model="data.name" title="Company Name is required." required>
+              <label ng-hide="data.name.length">Company Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.address.length">Address</label>
+              <textarea name="address" class="form-control" ng-model="data.address" title="Address is required." rows="3" required></textarea>
+              <label ng-hide="data.address.length">Address</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">City</label>
+              <div angucomplete-alt id="Cities"
+                  placeholder="City"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedCity"
+                  local-data="cities"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  field-required="true"
+                  match-class="highlight"
+                  input-name="Cities">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">State</label>
+              <div angucomplete-alt id="States"
+                  placeholder="State"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedState"
+                  local-data="states"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  field-required="true"
+                  match-class="highlight"
+                  input-name="State">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.pinCode.length">Pin Code</label>
+              <input type="text" name="pinCode" class="form-control" ng-model="data.pinCode" title="Pin Code is required" maxlength="6" required>
+              <label ng-hide="data.pinCode.length">Pin Code</label>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.panNo.length">PAN No.</label>
+              <input type="text" name="panNo" class="form-control" ng-model="data.panNo">
+              <label ng-hide="data.panNo.length">PAN No.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.tanNo.length">TAN No.</label>
+              <input type="text" name="tanNo" class="form-control" ng-model="data.tanNo">
+              <label ng-hide="data.tanNo.length">TAN No.</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.directorName.length">Director Name</label>
+              <input type="text" name="directorName" class="form-control" ng-model="data.directorName">
+              <label ng-hide="data.directorName.length">Director Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.directorFName.length">Director First Name</label>
+              <input type="text" name="directorFName" class="form-control" ng-model="data.directorFName">
+              <label ng-hide="data.directorFName.length">Director First Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.directorDsgn.length">Director Designation</label>
+              <input type="text" name="directorDsgn" class="form-control" ng-model="data.directorDsgn">
+              <label ng-hide="data.directorDsgn.length">Director Designation</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.name}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Companies</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

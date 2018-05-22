@@ -1,0 +1,100 @@
+{
+   "Menu":[
+      {
+         "id":1,
+         "Name":"Master",
+         "subMenu" :
+          [
+            {
+               "id": 1,
+               "Name":"Employee Details",
+               "url" : "employee details"
+            },
+            {
+               "id": 2,
+               "Name":"Departments" ,
+               "url" : "departments"
+            }
+          ]
+      },
+      {
+         "id":2,
+         "Name":"Transaction"
+      }
+   ],
+   "Departments":[
+      {
+         "id":1,
+         "Name":"IT"
+      },
+      {
+         "id":2,
+         "Name":"HR"
+      },
+      {
+         "id":3,
+         "Name":"Admin"
+      },
+      {
+         "id":4,
+         "Name":"Production"
+      }
+   ],
+   "employees":[
+      {
+         "ID":"101",
+         "Name":"Mohan Roy",
+         "Dept":"IT",
+         "GrossSalary":"20000"
+      },
+      {
+         "ID":"102",
+         "Name":"Asha Kale",
+         "Dept":"HR",
+         "GrossSalary":"15000"
+      },
+      {
+         "ID":"103",
+         "Name":"Meera Bachhan",
+         "Dept":"Admin",
+         "GrossSalary":"25000"
+      },
+      {
+         "ID":"104",
+         "Name":"Rutvik Pise",
+         "Dept":"Production",
+         "GrossSalary":"30000"
+      }
+   ],
+   "Users" : [
+     {
+       "Email" : "abc@gmail.com",
+       "pwd"   : "12345678"
+     },
+     {
+       "Email" : "xyz@ymail.com",
+       "pwd"   : "00000000"
+     },
+     {
+       "Email" : "sonu@rediffmail.com",
+       "pwd"   : "05432110"
+     }
+   ],
+   "BirthData" : [
+     {
+       "ID":"1",
+       "Name":"Vidhi Solanki",
+       "DOB" : "05-31-1992"
+     },
+     {
+       "ID":"2",
+       "Name":"Shubham Kale",
+       "DOB" : "08-30-1999"
+     },
+     {
+       "ID":"3",
+       "Name":"Puja Raut",
+       "DOB" : "12-02-2001"
+     }
+   ]
+}

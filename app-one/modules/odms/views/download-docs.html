@@ -1,0 +1,43 @@
+<div ng-controller="downloadDocsCtrl">
+  <form name="downloadDocsForm" ng-submit="view()">
+    <div class="row" style="margin-top:15px">
+      <div class="col-sm-6 col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel" ng-show="data.tagName.length">Search</label>
+          <input type="text" name="name" class="form-control" ng-model="data.tagName" title="Tag Name is required." ng-disabled="btnName == 'Reset'" required>
+          <label ng-hide="data.tagName.length">Search</label>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2">
+        <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+    </div>
+    <br>
+    <div class="row" ng-show="files.length">
+      <div class="col-md-12 col-sm-6">
+        <table class="table table-responsive table-striped table-bordered">
+          <tr>
+            <th>File Name</th>
+            <th>Tags</th>
+            <th>Location</th>
+            <th>View</th>
+            <th>Select</th>
+          </tr>
+          <tr ng-repeat="file in files">
+            <td>{{file.name}}</td>
+            <td ng-bind-html="highlight(file.tags, data.tagName)">{{file.tags}}</td>
+            <td>{{file.location}}</td>
+            <td class="text-center"><a ng-href="https://drive.google.com/uc?id={{file.fileID + '&' + 'export=view'}}" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
+            <td><input type="checkbox" ng-model="file.checked"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-show="files.length">
+      <div class="col-sm-4 col-md-4">
+        <input type="button" class="btn btn-md btn-default-green btn-block" value="Download" ng-click="download()"><br>
+        <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+      </div>
+    </div>
+  </form>
+</div>

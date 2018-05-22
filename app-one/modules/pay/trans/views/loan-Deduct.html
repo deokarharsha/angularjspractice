@@ -1,0 +1,79 @@
+<div ng-controller="LoanDeductCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="loanDeductForm" ng-submit="bindGrid();">
+      <fieldset>
+        <!-- <legend>Loan Deduction</legend> -->
+        <legend>{{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-3">
+            <div class="styled-input">
+              <label class="floatLabel">Division</label>
+              <div angucomplete-alt id="Divisions"
+                placeholder="Division"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedDivision"
+                local-data="divisionName"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                field-required="true"
+                match-class="highlight"
+                input-name="Divisions"
+                disable-input="loans.length">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="styled-input">
+              <label class="floatLabel">Month</label>
+              <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled="loans.length" ></select>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="styled-input">
+              <label class="floatLabel">Year</label>
+              <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)" ng-disabled="loans.length"></select>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+          </div>
+        </div>
+        <div class="row" ng-show="loans.length" style="margin-top: 15px">
+          <legend>Loan Deduction For {{selectedMonth.name}}, {{selectedYear.name}} </legend>
+          <table class="table table-responsive table-striped table-bordered">
+            <tr>
+              <th>EmpID</th>
+              <th>Name</th>
+              <th>less Amt</th>
+              <th>Outside Paid</th>
+              <th style="width:30px"></th>
+            </tr>
+            <tr ng-repeat="loan in loans track by $index">
+              <td>
+                <span>{{loan.empID}}</span>
+              </td>
+              <td>
+                <span>{{loan.name}}</span>
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{loan.lessAmt}}</span>
+                <input type="text" name="lessAmt" ng-show="edit[$index]" class="form-control" ng-model="loan.lessAmt">
+              </td>
+              <td>
+                <span ng-hide="edit[$index]">{{loan.outSidePaid}}</span>
+                <input type="text" name="outSidePaid" ng-show="edit[$index]" class="form-control" ng-model="loan.outSidePaid">
+              </td>
+              <td>
+                <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+                <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(loan); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

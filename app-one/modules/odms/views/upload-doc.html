@@ -1,0 +1,80 @@
+<div ng-controller="UploadDocCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="jDocsForm" ng-submit="selectedSubFolder.id != 0 ? submit() : result.error = 'Please select Sub-Folder'">
+      <fieldset>
+        <legend>New {{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.docID.length">TransID</label>
+              <input type="text" name="docID" class="form-control" ng-model="data.docID" disabled>
+              <label ng-hide="data.docID.length">TransID</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.desc.length">Desc</label>
+              <textarea name="desc" class="form-control" ng-model="data.desc" rows="3" tabindex="2"></textarea>
+              <label ng-hide="data.desc.length">Desc</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">File Name</label>
+              <input type="text" name="name" id="Name" class="form-control" ng-model="data.name" disabled>
+              <label ng-hide="data.name.length">File Name</label>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Sub-Folder</label>
+              <div angucomplete-alt id="SubFolder"
+                  placeholder="SubFolder"
+                  maxlength="50"
+                  pause="100"
+                  selected-object="selectedSubFolder"
+                  local-data="subFolders"
+                  search-fields="name"
+                  title-field="name"
+                  minlength="2"
+                  input-class="form-control auto-complete"
+                  field-required="true"
+                  match-class="highlight"
+                  input-name="SubFolder">
+              </div>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel">Tags</label>
+              <tags-input ng-model="tagsModel" add-from-autocomplete-only="true" display-property="name" tabindex="3">
+                <auto-complete min-length="1" source="loadTags($query)"></auto-complete>
+              </tags-input>
+            </div>
+            <br>
+            <div class="styled-input">
+              <div class="row">
+                <div class="col-sm-3 col-md-3">
+                  <input type="button" class="btn btn-md btn-default-green btn-block" value="..." ng-click="browse()" tabindex="4">
+                  <input type="file" id="uploadFile" accept="application/pdf" style="display:none;" onchange="angular.element(this).scope().getFile()">
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="Upload" tabindex="5">
+            <br>
+            <div ng-show="result.notify" class="notify"><i class="fa fa-circle-o-notch fa-pulse fa-fw"></i> {{result.notify}}</div>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.name}}</b> uploaded successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View {{currentModule}}</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

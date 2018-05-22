@@ -1,0 +1,277 @@
+<style>@page{size:A4}</style>
+<div ng-controller="EmpInfoCtrl">
+  <form name="rptEmpInfo" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Employee</label>
+          <div angucomplete-alt id="Employees"
+              placeholder="Employee Name"
+              maxlength="50"
+              pause="100"
+              selected-object="selectedEmp"
+              local-data="employees"
+              search-fields="name"
+              title-field="name"
+              minlength="2"
+              input-class="form-control auto-complete"
+              match-class="highlight"
+              field-required="true"
+              input-name="Employees"
+              tabindex="1"
+              disable-input="disableEmp">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-2" ng-show="disableEmp">
+          <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row" ng-show="disableEmp">
+    <div class="col-md-12 visible-print">
+      <div class="companyName">
+        {{globals.currentCompany.name}}
+      </div>
+      <div class="reportTitle">
+        <span><b>Employee Information</b></span>
+      </div>
+      <div class="date">
+        Dt: {{reportData.date}}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-show="disableEmp">
+    <div class="col-md-12">
+    <table class="table-responsive" style="border:0px;">
+      <tbody>
+      <tr>
+        <td>
+          <label><b><u>Personal Information</u></b></label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="styled-input">
+            <b>EmpID:</b>{{data.EmpID}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Name:</b>{{data.Name}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Fathers Name:</b>{{data.FatherName}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Address:</b>{{data.Address}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>City:</b>{{data.cityID}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Res Tel:</b>{{data.resTel}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Email:</b>{{data.email}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>NAddress:</b>{{data.NAddress}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>NCity:</b>{{data.nCityID}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Emg Tel No.:</b>{{data.NPhone}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>Pin:</b>{{data.Pin}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Mobile No.:</b>{{data.Mob1}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>NPin:</b>{{data.NPin}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>DOB:</b>{{data.dob}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Sex:</b>{{data.Sex}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Marital Status:</b>{{data.Married}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Handicapped:</b>{{data.Handicapped}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Blood Group:</b>{{data.BGrp}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+              <img src="Add-User.png" ng-model="data.Photo" alt="JulietONE-AddUser">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <label><b><u>Nominee Information</u></b></label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="styled-input">
+            <b>Nominee:</b>{{data.Nominee}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>NAge:</b>{{data.nDob}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>NRelation:</b>{{data.NRelation}}
+          </div>
+          <br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <label><b><u>Office Information</u></b></label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="styled-input">
+            <b>Div:</b>{{data.Div}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>Dept:</b>{{data.Dept}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>Dsgn:</b>{{data.Dsgn}}
+          </div>
+          <br>
+        </td>
+        <td>
+      </tr>
+      <tr>
+        <td>
+          <div class="styled-input">
+            <b>PF:</b>{{data.PF}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>PF No:</b>{{data.PFNo}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>DOJ:</b>{{data.doj}}
+          </div>
+          <br>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="styled-input">
+            <b>ESIC:</b>{{data.ESIC}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>ESIC No:</b>{{data.ESICNo}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>MLWF:</b>{{data.MLWF}}
+          </div>
+          <br>
+        </td>
+      </tr>
+    <tr>
+      <td>
+      <div class="styled-input">
+        <b>Status:</b>{{data.Status}}
+      </div>
+    </td>
+    <td>
+      <div class="styled-input">
+        <b>DOL:</b>{{data.dol}}
+      </div>
+    </td>
+    <td>
+      <div class="styled-input">
+        <b>Grade:</b>{{data.Grade}}
+      </div>
+    </td>
+  </tr>
+  <br>
+      <tr>
+        <td>
+          <label><b><u>Bank Information</u></b></label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="styled-input">
+            <b>Bank Name:</b>{{data.Bank}}
+          </div>
+          <br>
+          <div class="styled-input">
+            <b>Address:</b>{{data.Branch}}
+          </div>
+          <br>
+        </td>
+        <td>
+          <div class="styled-input">
+            <b>Ac No.:</b>{{data.BAcNo}}
+          </div>
+          <br>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  </div>
+</div>

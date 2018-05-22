@@ -1,0 +1,445 @@
+<!--<style>@page{size:A4 landscape}</style>-->
+<div ng-controller="PtChallanCtrl">
+  <form name="rptPtChallan" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Month</label>
+          <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled="content.viewMode == true"></select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="styled-input">
+          <label class="floatLabel">Year</label>
+          <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)" ng-disabled="content.viewMode == true"></select>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-2" ng-show="content.viewMode">
+          <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row" ng-show="content.viewMode">
+    <!-- First Column -->
+    <div class="div1">
+    <div class="col-md-4">
+      <div class="row">
+        <span style="float:right">For Depositor/Treasury</span><br>
+        <center>
+            <div style="margin-left:12px;"><span class="heading"><b>FORM-III-RETURN-CUM-CHALLAN</b></span><br></div>
+            <span><b>The Maharashtra State Tax on Professions</b></span><br>
+            <span><b>Tradings Callings &amp; Employment Act.1975 and Rule</b></span><br>
+            <span><b>11 Made Thereunder 028, Other Taxes on Income And</b></span><br>
+            <span><b>Expenditure - Taxes on Profession, Trades</b></span><br>
+            <span><b>Calling and Employments - Taxes on employments</b></span>
+        </center>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px; margin-left:15px;">
+          <table class="table table-bordered">
+            <tr>
+              <th>Employees whose monthly<br>Salaries, Wages are</th>
+              <th>Rate of Tax<br>Per Month</th>
+              <th>No.Of<br>Employees</th>
+              <th>Amount of<br>Tax Deducted</th>
+            </tr>
+            <tr ng-repeat="grid in collection">
+              <td class="digits">{{grid.mWages}}</td>
+              <td class="digits">{{grid.PT}}</td>
+              <td class="digits">{{grid.NoofEmployees}}</td>
+              <td class="digits">{{grid.AmountOfTaxDeducted}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px; margin-left:15px">
+          <table class="table table-bordered">
+            <tr>
+              <td>Tax Amount</td>
+              <td></td>
+              <td>{{}}</td>
+            </tr>
+            <tr>
+              <td>Interest Amount</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Penalty Amount</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Composition Money</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="2">Total Amount Rs.</td>
+              <td>{{}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px; margin-left:15px">
+          <table class="table table-bordered">
+            <tr>
+              <td>Profession Tax Registration Certificate No.</td>
+              <td>Period From</td>
+              <td>Period To</td>
+            </tr>
+            <tr>
+              <td><b>PT / R / 1 / 1 / 1 / 1 /1</b></td>
+              <td colspan="2"><b>{{selectedMonth.name}} {{selectedYear.name}}</b></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px; margin-left:15px">
+          <table class="table table-bordered">
+            <tr><td>Name &amp; Address</td></tr>
+            <tr><td><b>{{globals.currentCompany.name}}<br>{{report.companyAddress}}</b></td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px; margin-left:15px">
+          <table class="table table-bordered">
+            <tr>
+              <td colspan="2">The above Statements are true to the best of my Knowledge and belief</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><b><span style="float:right">For Juliet Products Ltd.</span></b></td>
+            </tr>
+            <tr>
+              <td><b>Date:</b></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><b>Place:</b></td>
+              <td><b><span style="float:right">Authorised Signatory</span></b></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <center><span>For Treasury Use Only</span></center>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;margin-left:15px">
+          <table class="table table-bordered">
+            <tr>
+              <th>Received Rs (in words)</th>
+              <th>Rs(In Figure)</th>
+            </tr>
+            <tr>
+              <td>Rs. Five Hundred Only</td>
+              <td>{{}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <b>
+          <div style="float:left">
+            Name of the Bank<br>
+            Cheque No.<br>
+            &amp; Cheque Date
+          </div>
+        </b>
+      </div>
+    </div>
+  </div>
+    <!-- End of First Column -->
+    <!-- Second Column -->
+    <div class="div2">
+    <div class="col-md-4">
+      <div class="row">
+        <span style="float:right">For Depositor/Treasury</span><br>
+        <center>
+            <span class="heading"><b>FORM-III-RETURN-CUM-CHALLAN</b></span><br>
+            <span><b>The Maharashtra State Tax on Professions</b></span><br>
+            <span><b>Tradings Callings &amp; Employment Act.1975 and Rule</b></span><br>
+            <span><b>11 Made Thereunder 028, Other Taxes on Income And</b></span><br>
+            <span><b>Expenditure - Taxes on Profession, Trades</b></span><br>
+            <span><b>Calling and Employments - Taxes on employments</b></span>
+        </center>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <th>Employees whose monthly<br>Salaries, Wages are</th>
+              <th>Rate of Tax<br>Per Month</th>
+              <th>No.Of<br>Employees</th>
+              <th>Amount of<br>Tax Deducted</th>
+            </tr>
+            <tr ng-repeat="grid in collection">
+              <td class="digits">{{grid.mWages}}</td>
+              <td class="digits">{{grid.PT}}</td>
+              <td class="digits">{{grid.NooEmployees}}</td>
+              <td class="digits">{{grid.AmountOfTaxDeducted}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <td>Tax Amount</td>
+              <td></td>
+              <td>{{}}</td>
+            </tr>
+            <tr>
+              <td>Interest Amount</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Penalty Amount</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Composition Money</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="2">Total Amount Rs.</td>
+              <td>{{}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <td>Profession Tax Registration Certificate No.</td>
+              <td>Period From</td>
+              <td>Period To</td>
+            </tr>
+            <tr>
+              <td><b>PT / R / 1 / 1 / 1 / 1 /1</b></td>
+              <td colspan="2"><b>{{selectedMonth.name}} {{selectedYear.name}}</b></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr><td>Name &amp; Address</td></tr>
+            <tr><td><b>{{report.companyName}}<br>{{report.companyAddress}}</b></td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <td colspan="2">The above Statements are true to the best of my Knowledge and belief</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><b><span style="float:right">For Juliet Products Ltd.</span></b></td>
+            </tr>
+            <tr>
+              <td><b>Date:</b></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><b>Place:</b></td>
+              <td><b><span style="float:right">Authorised Signatory</span></b></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <center><span>For Treasury Use Only</span></center>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <th>Received Rs (in words)</th>
+              <th>Rs(In Figure)</th>
+            </tr>
+            <tr>
+              <td>Rs. Five Hundred Only</td>
+              <td>{{}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <b>
+          <div style="float:left">
+            Name of the Bank<br>
+            Cheque No.<br>
+            &amp; Cheque Date
+          </div>
+        </b>
+      </div>
+    </div>
+  </div>
+    <!-- End of Second Column -->
+    <!-- Third Column -->
+    <div class="div3">
+    <div class="col-md-4">
+      <div class="row">
+        <span style="float:right">For Depositor/Treasury</span><br>
+        <center>
+            <span class="heading"><b>FORM-III-RETURN-CUM-CHALLAN</b></span><br>
+            <span><b>The Maharashtra State Tax on Professions</b></span><br>
+            <span><b>Tradings Callings &amp; Employment Act.1975 and Rule</b></span><br>
+            <span><b>11 Made Thereunder 028, Other Taxes on Income And</b></span><br>
+            <span><b>Expenditure - Taxes on Profession, Trades</b></span><br>
+            <span><b>Calling and Employments - Taxes on employments</b></span>
+        </center>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <th>Employees whose monthly<br>Salaries, Wages are</th>
+              <th>Rate of Tax<br>Per Month</th>
+              <th>No.Of<br>Employees</th>
+              <th>Amount of<br>Tax Deducted</th>
+            </tr>
+            <tr ng-repeat="grid in collection">
+              <td class="digits">{{grid.mWages}}</td>
+              <td class="digits">{{grid.PT}}</td>
+              <td class="digits">{{grid.NooEmployees}}</td>
+              <td class="digits">{{grid.AmountOfTaxDeducted}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <td>Tax Amount</td>
+              <td></td>
+              <td>{{}}</td>
+            </tr>
+            <tr>
+              <td>Interest Amount</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Penalty Amount</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Composition Money</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="2">Total Amount Rs.</td>
+              <td>{{}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <td>Profession Tax Registration Certificate No.</td>
+              <td>Period From</td>
+              <td>Period To</td>
+            </tr>
+            <tr>
+              <td><b>PT / R / 1 / 1 / 1 / 1 /1</b></td>
+              <td colspan="2"><b>{{selectedMonth.name}} {{selectedYear.name}}</b></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr><td>Name &amp; Address</td></tr>
+            <tr><td><b>{{report.companyName}}<br>{{report.companyAddress}}</b></td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <td colspan="2">The above Statements are true to the best of my Knowledge and belief</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><b><span style="float:right">For Juliet Products Ltd.</span></b></td>
+            </tr>
+            <tr>
+              <td><b>Date:</b></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><b>Place:</b></td>
+              <td><b><span style="float:right">Authorised Signatory</span></b></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <center><span>For Treasury Use Only</span></center>
+      </div>
+      <div class="row">
+        <div style="margin-right:4px;">
+          <table class="table table-bordered">
+            <tr>
+              <th>Received Rs (in words)</th>
+              <th>Rs(In Figure)</th>
+            </tr>
+            <tr>
+              <td>Rs. Five Hundred Only</td>
+              <td>{{}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <b>
+          <div style="float:left">
+            Name of the Bank<br>
+            Cheque No.<br>
+            &amp; Cheque Date
+          </div>
+        </b>
+      </div>
+    </div>
+  </div>
+    <!-- End of Third Column -->
+  </div>
+</div>

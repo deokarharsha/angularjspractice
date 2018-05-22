@@ -1,0 +1,76 @@
+<!-- home/views/ticket-support.html -->
+<div ng-controller="ticketSupportCtrl">
+  <div class="container-fluid">
+    <form name="ticketsForm" ng-submit="selectedIssueType.id != 0 && selectedCompany.id != 0  && selectedProduct.id != 0 ? submit() : result.error='Please select all options.'">
+      <fieldset>
+        <legend>New Ticket Support</legend>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.ticketID.length">Ticket #</label>
+              <input type="text" name="ticketID" class="form-control" ng-model="data.ticketID" disabled>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.ticketDt.length">Date</label>
+              <input type="text" name="ticketDt" class="form-control" ng-model="data.ticketDt" title="Ticket Dt is required." disabled>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">Name</label>
+              <input type="text" name="name" class="form-control" ng-model="data.name" disabled>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Support Type</label>
+              <select class="form-control" ng-model="selectedIssueType" ng-options="issueType.name for issueType in issueTypes" ng-change="selectIssueType(selectedIssueType)"></select>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Company</label>
+              <select class="form-control" ng-model="selectedCompany" ng-options="company.name for company in companies" ng-change="selectCompany(selectedCompany)"></select>
+            </div>
+            <br>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel">Application</label>
+              <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products" ng-change="selectProduct(selectedProduct)"></select>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.issue.length">Issue</label>
+              <textarea type="text" name="issue" class="form-control" ng-model="data.issue" title="Issue is required" rows="8" required></textarea>
+              <label ng-hide="data.issue.length">Issue</label>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+              <input type="submit" ng-show="!result.success" class="btn {{loading}}" style="background-color: #449d44; color:#fff;" value="Submit">
+              <br>
+              <div ng-show="result.success" class="alert alert-info">Ticket <b>{{data.ticketID}}</b> added successfully! What next?
+                <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New Ticket">
+              </div>
+              <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

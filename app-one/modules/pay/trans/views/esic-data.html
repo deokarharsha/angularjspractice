@@ -1,0 +1,106 @@
+<div ng-controller="EsicDataCtrl">
+  <div class="container-fluid">
+    <form name="esicDataForm" ng-submit="save(data);">
+      <legend>ESIC Trans Information</legend>
+      <div class="row"  style="margin-top: 15px">
+        <div class="col-xs-6 col-sm-2">
+          <div class="styled-input">
+            <label class="floatLabel">Month</label>
+            <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled="esicTrans.length"></select>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-2">
+          <div class="styled-input">
+            <label class="floatLabel">Year</label>
+            <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)"ng-disabled="esicTrans.length"></select>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-2">
+          <div class="styled-input">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}" ng-click="view();">
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row" ng-show="btnName == 'Reset'">
+        <legend>{{currentModule}} Information for {{selectedMonth.name}}, {{selectedYear.name}}</legend>
+        <table class="table table-responsive table-striped table-bordered">
+          <tr>
+            <td>
+              <div angucomplete-alt id="Employee"
+                placeholder="Employee Name"
+                maxlength="50"
+                pause="100"
+                selected-object="selectedEmployee"
+                local-data="employees"
+                search-fields="name"
+                title-field="name"
+                minlength="2"
+                input-class="form-control auto-complete"
+                match-class="highlight"
+                field-required="true"
+                disable-input="editMode"
+                input-name="Employee">
+              </div>
+            </td>
+            <td>
+              <input type="text" name="date" class="form-control" ng-model="data.date" placeholder="Date" disabled>
+            </td>
+            <td>
+              <input type="number" step="0.01" name="gross" class="form-control" ng-model="data.gross" placeholder="Gross" title="gross is required"  ng-disabled="editMode" required>
+            </td>
+            <td>
+              <input type="number" step="0.01" name="esicAmt" class="form-control" ng-model="data.esicAmt" placeholder="ESIC Amt" title="esicAmt is required" ng-disabled="editMode" required>
+            </td>
+            <td>
+              <input type="number" step="0.01" name="employeesContribution" class="form-control" ng-model="data.employeesContribution" placeholder="Employee Contribution" title="employeesContribution is required" ng-disabled="editMode" required>
+            </td>
+            <td>
+              <input type="number" step="0.01" name="employerContribution" class="form-control" ng-model="data.employerContribution" placeholder="Employer Contribution" title="employerContribution is required" ng-disabled="editMode" required>
+            </td>
+            <td>
+              <span><button href="/" class="btn btn-md btn-link" type="submit" ng-disabled="editMode"><i class="fa fa-plus"></i></button></span>
+            </td>
+          </tr>
+          <tr ng-show="esicTrans.length">
+            <th>Employee</th>
+            <th>Date</th>
+            <th>Gross</th>
+            <th>ESIC Amt</th>
+            <th>Emp Contribution</th>
+            <th>Employer Contribution</th>
+          </tr>
+          <tr ng-repeat="esic in esicTrans track by $index" ng-show="esicTrans.length">
+            <td>
+              <span>{{esic.empName}}</span>
+            </td>
+            <td>
+              <span>{{esic.date}}</span>
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{esic.gross | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="gross" ng-model="esic.gross" step="0.01">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{esic.esicAmt | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="esicAmt" ng-model="esic.esicAmt" step="0.01">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{esic.employeesContribution | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="employeesContribution" ng-model="esic.employeesContribution" step="0.01">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{esic.employerContribution | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="employerContribution" ng-model="esic.employerContribution" step="0.01">
+            </td>
+            <td>
+              <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+              <a href="/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(esic); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

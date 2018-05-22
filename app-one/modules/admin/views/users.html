@@ -1,0 +1,54 @@
+<div ng-controller="UserCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="userForm" ng-submit="data.password == confirmPassword ? submit() : result.error = 'Password not matched'">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} User</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.userName.length">User Name</label>
+              <input type="email" id="Username" name="userName" class="form-control" ng-model="data.userName" title="User Name is required." required autofocus>
+              <label ng-hide="data.userName.length">User Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.displayName.length">Display Name</label>
+              <input type="text" name="displayName" class="form-control" ng-model="data.displayName" title="Display Name is required" required>
+              <label ng-hide="data.displayName.length">Display Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.password.length">Password</label>
+              <input type="password" name="password" class="form-control" ng-model="data.password" title="Password is required" required>
+              <label ng-hide="data.password.length">Password</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="confirmPassword.length">Confirm Password</label>
+              <input type="password" name="confirmPassword" class="form-control" ng-model="confirmPassword" title="Confirm Password is required" />
+              <label ng-hide="confirmPassword.length">Confirm Password</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.userType.length">User Type</label>
+              <input type="text" name="userType" class="form-control" ng-model="data.userType" title="User Type is required" required>
+              <label ng-hide="data.userType.length">User Type</label>
+            </div>
+            <div class="checkbox" ng-show="data.ID != 0">
+              <label><input type="checkbox" name="isActive" ng-model="data.isActive">IsActive</label>
+            </div>
+            <br>
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.userName}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Users</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

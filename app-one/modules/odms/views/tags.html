@@ -1,0 +1,33 @@
+<div ng-controller="TagsCtrl">
+  <div class="container-fluid" ng-hide="content.viewMode">
+    <form name="tagsForm" ng-submit="submit()">
+      <fieldset>
+        <legend>{{data.ID === 0 ? 'New' : 'Update'}} {{currentModule}}</legend>
+        <div class="row" style="margin-top: 15px">
+          <div class="col-sm-6 col-md-4">
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.name.length">Name</label>
+              <input type="text" name="name" id="Name" class="form-control" ng-model="data.name" title="Name is required." required>
+              <label ng-hide="data.name.length">Name</label>
+            </div>
+            <br>
+            <div class="styled-input">
+              <label class="floatLabel" ng-show="data.desc.length">Desc</label>
+              <textarea rows="3" name="desc" class="form-control" ng-model="data.desc"></textarea>
+              <label ng-hide="data.desc.length">Desc</label>
+            </div>
+            <br>
+            <input type="submit" ng-show="!result.success" class="btn btn-lg btn-default-green btn-block {{loading}}" value="{{data.ID === 0 ? 'Add' : 'Update'}}">
+            <br>
+            <div ng-show="result.success" class="alert alert-info"><b>{{data.name}}</b> {{data.ID === 0 ? 'added' : 'updated'}} successfully! What next? <input ng-click="result.success = !result.success; reset();" type="button" class="btn btn-primary" value="Add New"></div>
+            <div ng-show="result.error" class="alert alert-danger"><b>Oops error!</b><br>{{result.error}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="container-fluid" ng-show="content.viewMode">
+    <legend>View Tags</legend>
+    <edit-table></edit-table>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div ng-controller="LoanRequestCtrl">
+  <div class="row hidden-print" style="margin-top:15px;">
+    <div class="col-md-3">
+      <div class="styled-input">
+        <label class="floatLabel">Month</label>
+        <select class="form-control" ng-model="selectedMonth" ng-options="month.name for month in months" ng-change="selectMonth(selectedMonth)" ng-disabled= "content.viewMode == true" ></select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="styled-input">
+        <label class="floatLabel">Year</label>
+        <select class="form-control" ng-model="selectedYear" ng-options="year.name for year in years" ng-change="selectYear(selectedYear)" ng-disabled= "content.viewMode == true"></select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}" ng-click="view()">
+    </div>
+    <div class="col-md-3" ng-show="content.viewMode">
+      <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="Print" onclick="window.print()">
+    </div>
+  </div>
+  <br>
+  <div class="row" ng-show="content.viewMode">
+    <div class="col-md-12">
+      <table class="table table-responsive table-striped table-bordered">
+        <thead>
+          <tr class="visible-print pageHeader">
+            <th colspan="9">
+              <div class="companyName">
+                {{report.companyName}}<br>
+                <b>Department:</b>{{data.Dept}}
+              </div>
+              <div class="reportTitle">
+                <span><b>{{rptTitle}}</b></span>
+              </div>
+              <div>
+                <span>Month:{{selectedMonth.name;}} {{selectedYear.name}}</span>
+              </div>
+              <div class="date">
+                Dt: {{reportData.date}}
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Opening Balance</th>
+            <th>Advance</th>
+            <th>Total Amount</th>
+            <th>Deduction</th>
+            <th>OutSide loanPaid</th>
+            <th>Closing Balance</th>
+            <th>Signature</th>
+          </tr>
+        </thead>
+        <tr ng-repeat="grid in collection">
+          <td>{{grid.Name}}</td>
+          <td>{{grid.Opg}}</td>
+          <td>{{grid.Advance}}</td>
+          <td></td>
+          <td>{{grid.Deduction}}</td>
+          <td>{{grid.OutSideLoanPaid}}</td>
+          <td>{{grid.Closing}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Total:</th>
+          <th>{{total.Opg}}</th>
+          <th>{{total.Advance}}</th>
+          <th></th>
+          <th>{{total.Deduction}}</th>
+          <th>{{total.OutSideLoanPaid}}</th>
+          <th>{{total.Closing}}</th>
+          <th></th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div ng-controller="SlabCtrl">
+  <div class="container-fluid">
+    <form name="slabForm" ng-submit="save(data);">
+      <legend>{{currentModule}} Slab</legend>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6 col-md-3">
+            <div angucomplete-alt id="States"
+              placeholder="State"
+              maxlength="50"
+              pause="100"
+              selected-object="selectedState"
+              local-data="states"
+              search-fields="name"
+              title-field="name"
+              minlength="2"
+              input-class="form-control auto-complete"
+              match-class="highlight"
+              field-required="true"
+              disable-input="slabs.length"
+              input-name="States">
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <input type="button" class="btn btn-md btn-default-green btn-block {{loading}}" value="Reset" ng-click="reset()" ng-show="slabs.length">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="container-fluid" ng-show="slabs.length">
+        <table class="table table-responsive table-striped table-bordered">
+          <tr style="background-color:#ECECEC">
+            <td>
+              <input type="number" step="0.01" name="fromAmt" class="form-control" ng-disabled="editMode" ng-model="data.fromAmt" title="fromAmt is required" required>
+            </td>
+            <td>
+              <input type="number" step="0.01" name="toAmt" class="form-control" ng-disabled="editMode" ng-model="data.toAmt" title="toAmt is required" required>
+            </td>
+            <td>
+              <input type="number" step="0.01" name="deduction" class="form-control" ng-disabled="editMode" ng-model="data.deduction" title="deduction is required" required>
+            </td>
+            <td>
+              <span><button href="#/" class="btn btn-md btn-link" type="submit" ng-disabled="editMode"><i class="fa fa-plus"></i></button></span>
+            </td>
+          </tr>
+          <tr>
+            <th>From Amount</th>
+            <th>To Amount</th>
+            <th>Deduction</th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="slab in slabs | filter:{'stateID':stateID}:true track by $index">
+            <td>
+              <span ng-hide="edit[$index]">{{slab.fromAmt | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="fromAmt" ng-model="slab.fromAmt" step="0.01">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{slab.toAmt | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="toAmt" ng-model="slab.toAmt" step="0.01">
+            </td>
+            <td>
+              <span ng-hide="edit[$index]">{{slab.deduction | number:2}}</span>
+              <input type="number" ng-show="edit[$index]" class="form-control" name="deduction" ng-model="slab.deduction" step="0.01">
+            </td>
+            <td>
+              <button class="btn btn-md btn-link" type="button" ng-disabled="editMode" ng-hide="edit[$index]" ng-click="edit[$index] = true; setEditMode(true)"><i class="fa fa-pencil"></i></button>
+              <a href="#/" class="btn btn-md btn-link" ng-show="edit[$index]" ng-click="save(slab); edit[$index] = false; setEditMode(false)"><i class="fa fa-floppy-o"></i></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

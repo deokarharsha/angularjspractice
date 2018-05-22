@@ -1,0 +1,148 @@
+<style>@page{size:A4}</style>
+<div ng-controller="Form6ACtrl">
+  <form name="rptForm6A" ng-submit="view()">
+    <div class="row hidden-print" style="margin-top:15px;">
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="SDate" ng-model="data.SDate" class="form-control" placeholder="Start Date" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="styled-input">
+          <input type="text" name="EDate" ng-model="data.EDate" class="form-control" placeholder="End Date" ng-disabled="content.viewMode == true" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <input type="submit" class="btn btn-md btn-default-green btn-block {{loading}}" value="{{btnName}}">
+      </div>
+      <div class="col-md-3" ng-show="content.viewMode">
+        <input type="button" class="btn btn-md btn-default-green btn-block btnPrint" value="Print" onclick="window.print();">
+      </div>
+    </div>
+  </form>
+  <br>
+  <div ng-show="content.viewMode">
+    <div class="row">
+      <center>
+        <span class="heading"><b>FORM - 6A (REVISED)</b></span><br>
+        <span>THE EMPLOYEE'S PROVIDENT FUND SCHEME, 1952 AND THE EMPLOYEE'S PENSION SCHEME, 1995</span><br>
+        <span>[Paragraph 20 (4)]</span><br>
+        <span><b>CONTRIBUTION CARD FOR CURRENCY PERIOD {{data.SDate}} TO {{data.EDate}}</b></span>
+      </center>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="NoBorder">
+          <tr>
+            <td>Name &amp; Address Of Company</td>
+            <td>
+              <b>{{report.companyName}}</b>
+              <br>
+            <b>{{report.companyAddress}}</b>
+            </td>
+          </tr>
+          <tr>
+            <td>Name of the Contractor</td>
+            <td><b>-</b></td>
+          </tr>
+          <tr>
+            <td>Code No. of the Establishment</td>
+            <td><b>MH/VS/</b></td>
+          </tr>
+          <tr>
+            <td>Statutory Rate of Contribution</td>
+            <td><b>12%</b></td>
+          </tr>
+          <tr>
+            <td>No. of Members voluntrily contributing <br> at a higher rate</td>
+            <td>Nil</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-responsive table-striped table-bordered tableHeader">
+          <tr>
+            <th rowspan="2">ACCOUNT NO</th>
+            <th rowspan="2">NAME OF THE MEMBER </th>
+            <th rowspan="2">WAGES RETAINING ALLOWANCES(if any) &amp; D.A.INCLUDING CASH VALUE OF FOOD CONCESSION PAID DURING THE CURRENCY</th>
+            <th rowspan="2">AMOUNT OF WORKERS CONTRIBUTION DEDUCTED FROM THE WAGES E.P.F</th>
+            <th colspan="2">EMPLOYERS CONTRIBUTION </th>
+            <th rowspan="2">REFUND OF ADVANCE</th>
+            <th rowspan="2">RATE OF ADVANCE</th>
+            <th rowspan="2">REMARK</th>
+          </tr>
+          <tr>
+            <th>DIFFERENCE BETWEEN 12% &amp; 8.33%</th>
+            <th>PENSION FUND CONTRIBUTION 8.33</th>
+          </tr>
+          <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="grid in collection">
+            <td>{{grid.PFNo}}</td>
+            <td>{{grid.Name}}</td>
+            <td>{{grid.PFWages}}</td>
+            <td>{{grid.PFWages}}</td>
+            <td>{{grid.EPF}}</td>
+            <td>{{grid.EPF}}</td>
+            <td>{{grid.EPF}}</td>
+            <td>{{grid.EPF}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Total:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4" style="float:left"><b> Dated:</b></div>
+      <div class="col-md-8">
+        <span style="float:right">
+          <center>
+            <b>
+              For Juliet Apparels ltd.<br>
+              Div: Lower Parel (Head Office)
+            </b>
+          </center>
+        </span>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8">
+        <span style="float:right">
+          <center>
+            <b>
+              Authorised / Director Signature<br>
+              For Juliet Apparels ltd.<br>
+              Div: Lower Parel (Head Office)
+            </b>
+          </center>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
