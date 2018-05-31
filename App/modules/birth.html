@@ -19,8 +19,8 @@
           <div class="card text-white bg-secondary" style="max-width: 8rem;">
             <div class="card-header">{{ d.Day }}</div>
             <div class="card-body">
-              <div ng-repeat="n in d.NameInitials">
-                {{ n }}
+              <div ng-repeat="n in d.NameInitials" ng-style="{'background-color': n.C}">
+                {{ n.NI }}
               </div>
             </div>
           </div>

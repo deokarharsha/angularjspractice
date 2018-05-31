@@ -61,6 +61,10 @@ module.exports = function (grunt) {
         titleLink: "/docs",
         bestMatch: true
       },
+      admin : {
+        src : ['modules/admin/**/controllers.js'],
+        title : 'Admin'
+      },
       payroll: {
         src: ['modules/pay/**/controllers.js'],
         title: 'Payroll'

@@ -1,0 +1,25 @@
+<html ng-app="mainApp">
+<head>
+  <title>Directives</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  </head>
+  <body >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="main.js"></script>
+
+    <a href="#/!">Home</a><br>
+    <a href="#!shapedir">Shape</a><br>
+
+      <div my-customer ng-controller="Controller">
+        Enter the name : <input type="text" ng-model="customer.name" required>
+        <button type="submit" ng-click="submit()">ok</button>
+      </div>
+<div ng-view></div>
+</body>
+</html>

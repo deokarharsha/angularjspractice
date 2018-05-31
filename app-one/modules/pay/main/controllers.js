@@ -107,7 +107,7 @@ angular.module('Payroll')
   $scope.reset = function() {
     $scope.data = {ID:0, name:'', address:'', cityID:0 , stateID:0, pinCode:'', panNo:'', tanNo:'', directorName:'', directorFName:'', directorDsgn:''};
     $scope.$broadcast('angucomplete-alt:clearInput');
-  };
+    };
 }]) // company
 
 /**
@@ -238,11 +238,37 @@ angular.module('Payroll')
   };
 }]) // division
 
-// pay/main/views/holidays.html
+/**
+* @ngdoc controller
+* @name Main.controller:HolidaysCtrl
+* @description
+* <strong>Database: <span style="color: orange">Payroll</span>
+* Table: <span style="color: orange">Holidays</span>
+* Type: <span style="color: magenta">Master</span></strong>
+*
+* <strong>View: <span style="color: green">&lt;root&gt;/modules/pay/main/views/holidays.html</span></strong>
+*
+* <strong>Dependancies:</strong> <span class="label label-success">DataServices</span>&nbsp;
+* <span class="label label-info">$scope</span>&nbsp;<span class="label label-info">$filter</span>
+*/
 .controller('HolidaysCtrl', ['DataServices', '$scope', '$filter', function(DataServices, $scope, $filter) {
   $scope.data = {ID:0};
   bindGrid();
 
+
+  /**
+  * @ngdoc method
+  * @name save
+  * @methodOf Main.controller:HolidaysCtrl
+  * @description
+  * Calls <span class="label label-success">DataServices.Submit()</span> method to save/update data.
+  *
+  * <strong>Stored Procedure: <span style="color: orange">doHolidays</span>
+  *
+  * Call <span style="color : green">bindGrid()</span> method
+
+  * Response: <span style="color: darkblue">id</span></strong>
+  */
   $scope.save = function(para) {
     DataServices.Submit('doHolidays', para, function(response) {
       $scope.result = response;
@@ -250,7 +276,13 @@ angular.module('Payroll')
       $scope.data = {ID:0};
     });
   };
-
+  /**
+  * @ngdoc method
+  * @name setEditMode
+  * @methodOf Main.controller:HolidaysCtrl
+  * @description
+  * <strong>setEditMode</strong> method used to edit the single record from table..
+  */
   $scope.setEditMode = function(value) {
     $scope.editMode = value;
   };
@@ -266,34 +298,98 @@ angular.module('Payroll')
   }
 }]) // holidays
 
+/**
+* @ngdoc controller
+* @name Main.controller:MasterCtrl
+* @description
+* <strong>Database: <span style="color: orange">Payroll</span>
+* Table: <span style="color: orange">Master</span>
+* Type: <span style="color: magenta">Master</span></strong>
+*
+* <strong>View: <span style="color: green">&lt;root&gt;/modules/pay/main/views/master.html</span></strong>
+*
+* <strong>Dependancies:</strong> <span class="label label-success">DataServices</span>&nbsp;
+* <span class="label label-info">$rootscope</span>&nbsp;<span class="label label-info">$scope</span>
+*/
 // pay/main/views/master.html  dept, dsgn, grade
 .controller('MasterCtrl', ['DataServices', '$rootScope', '$scope', function(DataServices, $rootScope, $scope) {
   $scope.data = {ID:0};
 
+  /**
+  * @ngdoc method
+  * @name submit
+  * @methodOf Main.controller:MasterCtrl
+  * @description
+  * Calls <span class="label label-success">DataServices.Submit()</span> method to save/update data.
+  *
+  * <strong>Stored Procedure: <span style="color: orange">doMaster</span>
+  *
+  * Response: <span style="color: darkblue">id</span></strong>
+  */
   $scope.submit = function() {
     $scope.data = {tblName:$scope.contents[$rootScope.currentModuleId].tblName, ID:$scope.data.ID, name:$scope.data.name, desc:$scope.data.desc};
     DataServices.Submit('doMaster', $scope.data, function(response) {
       $scope.result = response;
     });
   };
-
+  /**
+  * @ngdoc method
+  * @name edit
+  * @methodOf Main.controller:MasterCtrl
+  * @description
+  * Calls <span class="label label-success">DataServices.Edit()</span> method to get single record for edit/view.
+  *
+  * @param {number} id id
+  */
   $scope.edit = function(id) {
     $scope.result = {};
     DataServices.Edit($scope.contents[$rootScope.currentModuleId].tblName, id, function(response) {
       $scope.data = response;
     });
   };
-
+  /**
+  * @ngdoc method
+  * @name reset
+  * @methodOf Main.controller:MasterCtrl
+  * @description
+  * Reset all the form elements along with <span class="label label-success">angucomplete-alt</span> input text elements.
+  */
   $scope.reset = function() {
     $scope.data = {ID:0};
   };
 }]) // master
 
+
+/**
+* @ngdoc controller
+* @name Main.controller:ShiftsCtrl
+* @description
+* <strong>Database: <span style="color: orange">Payroll</span>
+* Table: <span style="color: orange">Shifts</span>
+* Type: <span style="color: magenta">Master</span></strong>
+*
+* <strong>View: <span style="color: green">&lt;root&gt;/modules/pay/main/views/shift.html</span></strong>
+*
+* <strong>Dependancies:</strong> <span class="label label-success">DataServices</span>&nbsp;
+* <span class="label label-info">$scope</span>
+*/
 // pay/main/views/shift.html
 .controller('ShiftsCtrl', ['DataServices', '$scope', function(DataServices, $scope) {
   $scope.data = {ID:0, name:'', code:'', inTime:'', outTime:'', nextDayOut:0};
   bindGrid();
+  /**
+  * @ngdoc method
+  * @name save
+  * @methodOf Main.controller:ShiftsCtrl
+  * @description
+  * Calls <span class="label label-success">DataServices.Submit()</span> method to save/update data.
+  *
+  * <strong>Stored Procedure: <span style="color: orange">doShifts</span>
+  *
+  * Call <span style="color : green">bindGrid()</span> method
 
+  * Response: <span style="color: darkblue">id</span></strong>
+  */
   $scope.save = function(para) {
     DataServices.Submit('doShifts', para, function(response) {
       $scope.result = response;
@@ -301,7 +397,13 @@ angular.module('Payroll')
       $scope.data = {ID:0, name:'', code:'', inTime:'', outTime:'', nextDayOut:0};
     });
   };
-
+  /**
+  * @ngdoc method
+  * @name setEditMode
+  * @methodOf Main.controller:ShiftsCtrl
+  * @description
+  * <strong>setEditMode</strong> method used to edit the single record from table..
+  */
   $scope.setEditMode = function(value) {
     $scope.editMode = value;
   };
@@ -314,11 +416,36 @@ angular.module('Payroll')
   }
 }]) // shift
 
+
+/**
+* @ngdoc controller
+* @name Main.controller:SlabCtrl
+* @description
+* <strong>Database: <span style="color: orange">Payroll</span>
+* Table: <span style="color: orange">Slab</span>
+* Type: <span style="color: magenta">Master</span></strong>
+*
+* <strong>View: <span style="color: green">&lt;root&gt;/modules/pay/main/views/slab.html</span></strong>
+*
+* <strong>Dependancies:</strong> <span class="label label-success">DataServices</span>&nbsp;
+* <span class="label label-info">$rootScope</span>&nbsp;<span class="label label-info">$scope</span>
+*/
 // pay/main/views/slab.html PT, LWF
 .controller('SlabCtrl', ['DataServices', '$rootScope', '$scope', function(DataServices, $rootScope, $scope) {
   $scope.data = {ID:0};
   $scope.slabs = [];
-
+  /**
+  * @ngdoc method
+  * @name DataServices SelectData
+  * @methodOf Main.controller:SlabCtrl
+  * @description
+  * Creates <span class="label label-info">$scope.states</span> object and
+  * bind to <span class="label label-success">angucomplete-alt</span> input text element for autosuggesting.
+  *
+  * @param {string} tableName States
+  * @param {string} sortOrder name
+  * @param {function} callback returns response object
+  */
   // auto complete get states
   DataServices.SelectData('States', 'Name', function(response) {
     $scope.states = response;
@@ -329,7 +456,19 @@ angular.module('Payroll')
       }
     };
   });
+  /**
+  * @ngdoc method
+  * @name save
+  * @methodOf Main.controller:SlabCtrl
+  * @description
+  * Calls <span class="label label-success">DataServices.Submit()</span> method to save/update data.
+  *
+  * <strong>Stored Procedure: <span style="color: orange">doSlab</span>
+  *
+  * Call <span style="color : green">bindGrid()</span> method
 
+  * Response: <span style="color: darkblue">id</span></strong>
+  */
   $scope.save = function(para) {
     para = {tblName:$scope.contents[$rootScope.currentModuleId].tblName, ID:para.ID, stateID:$scope.data.stateID, fromAmt:para.fromAmt, toAmt:para.toAmt, deduction:para.deduction};
     DataServices.Submit('doSlab', para , function(response) {
@@ -338,13 +477,25 @@ angular.module('Payroll')
       $scope.data = {ID:0};
     });
   };
-
+  /**
+  * @ngdoc method
+  * @name reset
+  * @methodOf Main.controller:SlabCtrl
+  * @description
+  * Reset all the form elements along with <span class="label label-success">angucomplete-alt</span> input text elements.
+  */
   $scope.reset = function() {
     $scope.data = {ID:0};
     $scope.$broadcast('angucomplete-alt:clearInput');
     $scope.slabs = [];
   };
-
+  /**
+  * @ngdoc method
+  * @name setEditMode
+  * @methodOf Main.controller:SlabCtrl
+  * @description
+  * <strong>setEditMode</strong> method used to edit the single record from table..
+  */
   $scope.setEditMode = function(value) {
     $scope.editMode = value;
   };
@@ -363,7 +514,7 @@ angular.module('Payroll')
   }
 }]) // slab
 
-// pay/main/views/emp.html 
+// pay/main/views/emp.html
 /**
  * @ngdoc controller
  * @name Main.controller:EmployeesCtrl
@@ -585,10 +736,36 @@ angular.module('Payroll')
   });
 
 }]) // Employees
+
+
+/**
+ * @ngdoc controller
+ * @name Main.controller:EmpQECtrl
+ * @description
+ * <strong>Database: <span style="color: orange">Payroll</span>
+ * Table: <span style="color: orange">EmployeesQE</span>
+ * Type: <span style="color: magenta">Master</span></strong>
+ *
+ * <strong>View: <span style="color: green">&lt;root&gt;/modules/pay/main/views/emp.html</span></strong>
+ *
+ * <strong>Dependancies:</strong> <span class="label label-success">DataServices</span>&nbsp;
+ * <span class="label label-info">$rootScope</span>&nbsp;<span class="label label-info">$scope</span>
+ */
 // pay/main/views/emp-qe.html
 .controller('EmpQECtrl', ['DataServices', '$rootScope', '$scope', function (DataServices, $rootScope, $scope) {
   $scope.data = [];
-
+  /**
+  * @ngdoc method
+  * @name DataServices SelectData
+  * @methodOf Main.controller:EmpQECtrl
+  * @description
+  * Creates <span class="label label-info">$scope.fields</span> object and
+  * bind to <span class="label label-success">angucomplete-alt</span> input text element for autosuggesting.
+  *
+  * @param {string} tableName EmployeesQE
+  * @param {string} sortOrder name
+  * @param {function} callback returns response object
+  */
   //-------------------Select Fields-----------------------------
   DataServices.SelectData('EmployeesQE', 'name', function(response) {
     $scope.fields = response;
@@ -600,7 +777,17 @@ angular.module('Payroll')
     };
   });
   //---------------------------------------------------------------
-
+  /**
+  * @ngdoc method
+  * @name save
+  * @methodOf Main.controller:EmpQECtrl
+  * @description
+  * Calls <span class="label label-success">DataServices.Submit()</span> method to save/update data.
+  *
+  * <strong>Stored Procedure: <span style="color: orange">doEmployeesQE</span>
+  *
+  * Response: <span style="color: darkblue">id</span></strong>
+  */
   $scope.save = function(emp) {
     var para = {ID:emp.ID, field:$scope.data.fieldName, value:emp.value};
 
@@ -609,7 +796,13 @@ angular.module('Payroll')
       bindGrid();
     });
   };
-
+  /**
+  * @ngdoc method
+  * @name setEditMode
+  * @methodOf Main.controller:EmpQECtrl
+  * @description
+  * <strong>setEditMode</strong> method used to edit the single record from table..
+  */
   $scope.setEditMode = function(mode) {
     $scope.editMode = mode;
   };

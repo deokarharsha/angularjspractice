@@ -15,20 +15,25 @@ app.controller('questionsController', function($scope, $http) {
   }
 
   $scope.onSubmit = function(){
+    $scope.Issubmitted = true;
     var correct = 0;
     var incorrect = 0;
+    
     if(Object.keys($scope.result).length == $scope.questions.length)
     {
       $scope.show = true;
+
       angular.forEach($scope.result, function(value, key)
        {
         if(value == $scope.questions[key - 1].answer)
         {
           correct ++;
+
         }
         else
         {
           incorrect++;
+
         }
       });
       drawChart(correct,incorrect);

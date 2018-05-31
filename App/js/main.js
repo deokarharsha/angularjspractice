@@ -26,6 +26,39 @@ app.config(function($routeProvider)
         controller: "barController"
     })
 });
+app.controller('birthController', function($scope, $http){
+  $http.get("../data.json").then(function(response)
+  {
+      $scope.BirthData = angular.fromJson(response.data.BirthData);
+  });
+
+        $scope.year;
+        $scope.dob1;
+        $scope.BirthData = {};
+        $scope.bdate = [{"Day" :"Sunday","NameInitials" : []},
+                   {"Day" :"Monday","NameInitials" : []},
+                   {"Day" :"Tuesday","NameInitials" : []},
+                   {"Day" :"Wednesday","NameInitials" : []},
+                   {"Day" :"Thursday","NameInitials" : []},
+                   {"Day" :"Friday","NameInitials" : []},
+                   {"Day" :"Saturday","NameInitials" : []}];
+        $scope.submit = function(){
+          angular.forEach($scope.BirthData,function(value,key){
+            var newdob = new Date(value.DOB);
+            newdob.setYear($scope.year);
+            var dob = newdob.getDay();
+            var splitName = value.Name.split(" ");
+            var Initials = splitName[0].charAt(0) + splitName[1].charAt(0);
+            $scope.bdate[dob].NameInitials.push({'NI':Initials,'C' : $scope.getRandomColor()});
+
+
+          });
+          }
+          $scope.getRandomColor = function(){
+                return  '#'+ Math.floor(Math.random()*16777215).toString(16)
+
+            };
+          });
 
 
 

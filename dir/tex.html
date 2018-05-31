@@ -1,0 +1,12 @@
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-sm-12">
+<my-Customer></my-Customer><br>
+  Enter only number : <input type="text" name="phoneNumber" ng-model="phoneNumber" numbers-only="numbers-only" />
+<form name="myform">
+<input type="text" ng-model='name' required="" pattern="^[0-9]{10} " numbers-only="numbers-only"oninvalid="this.setCustomValidity('Please Enter number')"
+ oninput="try{setCustomValidity('')}catch(e){}">
+<button ng-click="myform.$valid && submit()">Submit</button>
+</form>
+</div>
+</div>

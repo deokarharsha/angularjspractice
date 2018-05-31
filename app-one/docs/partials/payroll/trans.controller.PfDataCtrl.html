@@ -1,0 +1,40 @@
+<h1><code ng:non-bindable="">PfDataCtrl</code>
+<div><span class="hint">controller in module <code ng:non-bindable="">trans</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="trans-controller-page trans-controller-pfdatactrl-page"><p><strong>Database: <span style="color: orange">Payroll</span>
+Table: <span style="color: orange">PFTrans</span>
+Type: <span style="color: magenta">Transaction</span></strong></p>
+<p><strong>View: <span style="color: green">&lt;root&gt;/modules/pay/main/views/company.html</span></strong></p>
+<p><strong>Dependancies:</strong> <span class="label label-success">DataServices</span>&nbsp;
+<span class="label label-info">$scope</span>&nbsp;<span class="label label-info">$filter</span></p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_dataservices-selectdata">DataServices SelectData(tableName, sortOrder, callback)</h3>
+<div class="dataservices-selectdata"><div class="dataservices-selectdata-page"><p>Creates <span class="label label-info">$scope.employees</span> object and
+bind to <span class="label label-success">angucomplete-alt</span> input text element for autosuggesting.</p>
+</div><h5 id="methods_dataservices-selectdata_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableName</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="dataservices-selectdata-page"><p>Employees</p>
+</div></td></tr><tr><td>sortOrder</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="dataservices-selectdata-page"><p>firstName</p>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="dataservices-selectdata-page"><p>returns response object</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_save">save()</h3>
+<div class="save"><div class="save-page"><p>Calls <span class="label label-success">DataServices.Submit()</span> method to save/update data.</p>
+<p><strong>Stored Procedure: <span style="color: orange">doPFTrans</span></p>
+<p>Response: <span style="color: darkblue">id</span></strong></p>
+</div></div>
+</li>
+<li><h3 id="methods_seteditmode">setEditMode()</h3>
+<div class="seteditmode"><div class="seteditmode-page"><p><strong>setEditMode</strong> method used to edit the single record from table..</p>
+</div></div>
+</li>
+<li><h3 id="methods_view">view()</h3>
+<div class="view"><div class="view-page"><p>Calls <span class="label label-success">DataServices.getData()</span> method to get data.</p>
+<p>Response: <span style="color: darkblue">id</span></strong></p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

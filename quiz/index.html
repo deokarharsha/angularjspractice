@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cricket Quiz</title>
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js">
     </script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body ng-controller="questionsController">
 
@@ -22,20 +22,26 @@
     <div class="form-group">
       <h1><span class="label label-primary">Cricket Trivia </span></h1>
       <div="data" ng-repeat="question in questions">
+          <div ng-hide="Issubmitted">
           <h4>{{ question.question }}</h4>
-          <select ng-model="selectedAnswer" ng-change="isSelected(selectedAnswer, question.id)" ng-options="option for option in question.options" required>
+          </div>
+          <div ng-show="Issubmitted" ng-class="selectedAnswer == question.answer ? 'correct' : 'incorrect' " >
+          <h4>{{ question.question }}</h4>
+          </div>
+          <select ng-model="selectedAnswer" ng-change="isSelected(selectedAnswer, question.id)"  ng-options="option for option in question.options" required>
             <option value="">Choose Here</option>
           </select>
+
        </div>
        <div class="form-group">
          <button type="button" class="btn btn-success" ng-click="onSubmit()" >Submit</button>
          <button type="reset" class="btn btn-success" ng-click="reset()" >Reset</button>
        </div>
    </div>
+ </div>
+ <div id = "container" style = "width: 10px; height: 0px; margin: 0 auto" ng-show="show">
+ </div>
    </form>
-   </div>
-   </div>
-   <div id = "container" style = "width: 100px; height: 200px; margin: 0 auto" ng-show="show">
    </div>
 </body>
 </html>
